@@ -345,10 +345,10 @@ document.addEventListener('DOMContentLoaded', function() {
       narrativeReportData["media_path"] = localStorage.getItem("media_path") || ""; // Defaults to empty if not found
       narrativeReportData["projectTitle"] = localStorage.getItem("projectTitle") || "";
       // Status fields with default values
-      narrativeReportData["pending"] = parseInt(localStorage.getItem("pending")) || 1;
+      narrativeReportData["pending"] = 1;
       narrativeReportData["approved"] = parseInt(localStorage.getItem("approved")) || 0;
       narrativeReportData["overdue"] = parseInt(localStorage.getItem("overdue")) || 0;
-      narrativeReportData["revise"] = parseInt(localStorage.getItem("revise")) || 0;
+      narrativeReportData["revise"] =  0;
       narrativeReportData["declined"] = parseInt(localStorage.getItem("declined")) || 0;
       narrativeReportData["report_id"] = parseInt(localStorage.getItem("report_id")) 
 
