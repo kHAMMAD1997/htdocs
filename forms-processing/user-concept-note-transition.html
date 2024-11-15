@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Keep it above all other elements */
+        }
+
+        /* Spinner styles */
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Keyframes for spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+  <div id="preloader">
+    <div class="spinner"></div>
+</div>
+<script>
+    // When the window has fully loaded, hide the preloader and show the main content
+    window.addEventListener("load", function() {
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    });
+</script>
+    
+
+
+
+
+
+
+
+
+
+    <script>
+
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get concept_note_id from the URL
+    const conceptNoteId = getUrlParameter("concept-note-id");
+    if (conceptNoteId) {
+        // Function to fetch concept note data from the API
+        async function fetchConceptNoteData(id) {
+            try {
+                const response = await fetch(`/forms-processing/api/concept-note-api.php?concept_note_id=${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.status === "success" && data.data && Array.isArray(data.data.data) && data.data.data.length > 0) {
+                    const conceptNoteData = data.data.data[0];
+
+                    // Clear existing local storage
+                    localStorage.clear();
+
+                    // Insert each field from the conceptNoteData into local storage
+                    for (const [key, value] of Object.entries(conceptNoteData)) {
+                        // Convert table_<number> keys to table-<number>
+                        const modifiedKey = key.replace(/table_(\d+)/, 'table-$1');
+                        localStorage.setItem(modifiedKey, value);
+                    }
+
+                    console.log("Concept note data saved to local storage:", conceptNoteData);
+                } else {
+                    console.error("No data found for the specified concept_note_id.");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        // Function to fetch the latest comment and save to local storage
+        async function fetchLatestComment(id) {
+            try {
+
+                // Retrieve values from local storage
+                const revise = localStorage.getItem('revise');
+                const declined = localStorage.getItem('declined');
+                const revise_url = `/forms-processing/api/concept-note-revise-comment-api.php?concept_note_id=${id}`;
+                const decline_url = `/forms-processing/api/concept-note-decline-comment-api.php?concept_note_id=${id}`;
+
+                // Check conditions and log the appropriate message
+                if (revise === '1') {
+                    comment_url = revise_url;
+                    console.log('Revise is set to 1');
+                } else if (declined === '1') {
+                    comment_url = decline_url;
+                    console.log('Declined is set to 1');
+                } else {
+                    console.log('Neither revise nor declined is set to 1');
+                }
+
+
+
+                const response = await fetch(comment_url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+                    // Find the latest comment based on the submission_date
+                    const latestComment = data.data.reduce((latest, current) => {
+                        return new Date(current.submission_date) > new Date(latest.submission_date) ? current : latest;
+                    });
+
+                    // Add the latest comment to local storage
+                    localStorage.setItem("comment", latestComment.comment);
+                    console.log("Latest comment saved to local storage:", latestComment.comment);
+                } else {
+                    console.error("No comments found for the specified concept-note-id or invalid response format");
+                }
+            } catch (error) {
+                console.error("Error fetching comment data:", error);
+            }
+        }
+
+        // Fetch concept note data and comments immediately
+        (async function() {
+            await fetchConceptNoteData(conceptNoteId);
+            await fetchLatestComment(conceptNoteId);
+            window.location.href = "user-read-only-concept-note.html";
+        })();
+    } else {
+        console.error("concept-note-id not found in URL");
+    }
+</script>
+
+  
+
+<script>
+
+
+</script>
+</body>
+</html>
