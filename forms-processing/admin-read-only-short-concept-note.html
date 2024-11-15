@@ -66,17 +66,8 @@
 
 <div class="container">
     <h2 class="text-center">Short Concept Note</h2>
-    <div class="col-md-2"></div>
-
+    <a href="admin-view-short-concept-note-comments.html" class="btn btn-info btn-sm float-right" id="view-comments-btn">View Comments</a>
   <form  id="userForm" novalidate>
-    <div style="text-align: right;">
-      <span style="text-align: left;">
-        <a href="user-writable-short-concept-note.html" id="edit-btn" style="display: none;" class="btn btn-sm btn-primary">Edit Report</a>
-      </span>
-      <span style="text-align: right;">
-        <a href="user-view-short-concept-note-comments.html" class="btn btn-sm btn-primary">View Comments</a>
-      </span>
-     </div>
     <h4>1. Organizational Information</h4>
     <div class="form-group">
       <label for="organization" class="starlabel">Name of Organization</label>
@@ -207,10 +198,8 @@
       <label for="totalBudget">Total Budget</label>
     
       <input type="number" class="form-control" id="totalBudget" placeholder="10000" required>
-       
-   </div>
 
-    
+    </div>
 
     
   </form>
@@ -283,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===========================================================
   document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("userForm");
-      const inputs = form.querySelectorAll("input, select,textarea");
+      const inputs = form.querySelectorAll("input, select");
   
       // Load saved data from localStorage on page load
       inputs.forEach(input => {
@@ -336,73 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-      // Check if the key "revise" exists in local storage
-      const reviseValue = localStorage.getItem("revise");
-      const declinedValue = localStorage.getItem("declined")
-
-      // If the value of "revise" is 1, remove the display:none !important style
-      if (reviseValue === "1") {
-          const commentArea = document.getElementById("comment-area");
-          if (commentArea) {
-              commentArea.style.display = ""; // Removes the inline style to make the div visible
-          }
-      }else if(declinedValue === "1") {
-        const commentArea = document.getElementById("comment-area");
-          if (commentArea) {
-              commentArea.style.display = ""; // Removes the inline style to make the div visible
-          }
-      }
-
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const textarea = document.getElementById("comment");
-
-    // Temporarily remove "disabled" to allow height adjustment
-    textarea.disabled = false;
-    textarea.style.height = 'auto'; // Reset height
-    textarea.style.height = textarea.scrollHeight + 'px'; // Set height to fit content
-
-    // Re-disable the textarea
-    textarea.disabled = true;
-  });
-</script>
-<script>
-  // Retrieve the value of declined from local storage
-const declined = localStorage.getItem('declined');
-
-// Check if declined is equal to '1'
-if (declined === '1') {
-    // Get the element by ID and set display to none with !important
-    const editBtn = document.getElementById('edit-btn');
-    if (editBtn) {
-        editBtn.style.setProperty('display', 'none', 'important');
-    }
-}
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-      const editBtn = document.getElementById("edit-btn");
-      
-      // Check if the button exists before modifying its style
-      if (editBtn) {
-          const status = localStorage.getItem("revise");
-  console.log("Revise------------"+ status);
-          // If status is "1", display the edit button
-          if (status === "1") {
-              editBtn.style.display = "inline-block"; // Make the button visible
-          } else {
-              editBtn.style.display = "none"; // Hide the button otherwise
-          }
-      } else {
-          console.warn("Edit button not found in the DOM.");
-      }
-  });
-</script>
-
+  
 </body>
 </html>

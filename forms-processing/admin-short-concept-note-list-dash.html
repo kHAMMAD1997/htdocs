@@ -429,7 +429,7 @@
                     ["concept_note_id", "organization", "projectTitle", "projectLocation", "totalBudget", "submissionDate"].forEach(field => {
                         const cell = document.createElement("td");
                         const link = document.createElement("a");
-                        link.href = `admin-single-concept-note-dash.html?concept-note-id=${entry.concept_note_id}`;
+                        link.href = `admin-single-short-concept-note-dash.html?concept-note-id=${entry.concept_note_id}`;
                         link.textContent = entry[field] || "No Data";
                         cell.appendChild(link);
                         row.appendChild(cell);

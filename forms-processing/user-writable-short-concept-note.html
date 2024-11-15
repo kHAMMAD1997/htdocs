@@ -66,17 +66,7 @@
 
 <div class="container">
     <h2 class="text-center">Short Concept Note</h2>
-    <div class="col-md-2"></div>
-
   <form  id="userForm" novalidate>
-    <div style="text-align: right;">
-      <span style="text-align: left;">
-        <a href="user-writable-short-concept-note.html" id="edit-btn" style="display: none;" class="btn btn-sm btn-primary">Edit Report</a>
-      </span>
-      <span style="text-align: right;">
-        <a href="user-view-short-concept-note-comments.html" class="btn btn-sm btn-primary">View Comments</a>
-      </span>
-     </div>
     <h4>1. Organizational Information</h4>
     <div class="form-group">
       <label for="organization" class="starlabel">Name of Organization</label>
@@ -157,7 +147,7 @@
 
     <h4> 3. Project Timeline and Activities</h4>
     <div class="form-group">
-        <iframe src="read-only/activity-list.html" frameborder="0" id="dynamicIframe" onload="setIframeHeight()"></iframe>
+        <iframe src="dynamic.html" frameborder="0" id="dynamicIframe" onload="setIframeHeight()"></iframe>
 
     </div>
     <h4> 4. Beneficiaries and Budget</h4>
@@ -205,14 +195,10 @@
     <h4> 5. Beneficiaries and Budget</h4>
     <div class="form-group">
       <label for="totalBudget">Total Budget</label>
-    
       <input type="number" class="form-control" id="totalBudget" placeholder="10000" required>
-       
-   </div>
+    </div>
 
-    
-
-    
+    <button type="button" class="btn btn-primary">Next</button>
   </form>
 </div>
 
@@ -283,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===========================================================
   document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("userForm");
-      const inputs = form.querySelectorAll("input, select,textarea");
+      const inputs = form.querySelectorAll("input, select");
   
       // Load saved data from localStorage on page load
       inputs.forEach(input => {
@@ -308,101 +294,205 @@ document.addEventListener('DOMContentLoaded', function() {
       // });
   });
   </script>
-
-
-  
-
-  
-
-    
-<script>
-  function disableAllInputs() {
-      // Disable all inputs on the main document
-      document.querySelectorAll("input, select, textarea, button").forEach(el => el.disabled = true);
-
-      // Loop through each iframe and disable inputs within them
-      document.querySelectorAll("iframe").forEach(iframe => {
-          try {
-              const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-              iframeDoc.querySelectorAll("input, select, textarea, button").forEach(el => el.disabled = true);
-          } catch (e) {
-              console.warn("Could not access iframe due to cross-origin policy:", iframe.src);
-          }
-      });
-  }
-
-  // Run the function once the DOM is fully loaded
-  document.addEventListener("DOMContentLoaded", disableAllInputs);
-</script>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-      // Check if the key "revise" exists in local storage
-      const reviseValue = localStorage.getItem("revise");
-      const declinedValue = localStorage.getItem("declined")
-
-      // If the value of "revise" is 1, remove the display:none !important style
-      if (reviseValue === "1") {
-          const commentArea = document.getElementById("comment-area");
-          if (commentArea) {
-              commentArea.style.display = ""; // Removes the inline style to make the div visible
-          }
-      }else if(declinedValue === "1") {
-        const commentArea = document.getElementById("comment-area");
-          if (commentArea) {
-              commentArea.style.display = ""; // Removes the inline style to make the div visible
-          }
-      }
-
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const textarea = document.getElementById("comment");
-
-    // Temporarily remove "disabled" to allow height adjustment
-    textarea.disabled = false;
-    textarea.style.height = 'auto'; // Reset height
-    textarea.style.height = textarea.scrollHeight + 'px'; // Set height to fit content
-
-    // Re-disable the textarea
-    textarea.disabled = true;
-  });
-</script>
-<script>
-  // Retrieve the value of declined from local storage
-const declined = localStorage.getItem('declined');
-
-// Check if declined is equal to '1'
-if (declined === '1') {
-    // Get the element by ID and set display to none with !important
-    const editBtn = document.getElementById('edit-btn');
-    if (editBtn) {
-        editBtn.style.setProperty('display', 'none', 'important');
+  <!-- <script>
+    // Function to send the height to the parent window
+    function sendHeightToParent() {
+      const height = document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: 'resize', height: height }, '*');
     }
-}
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-      const editBtn = document.getElementById("edit-btn");
-      
-      // Check if the button exists before modifying its style
-      if (editBtn) {
-          const status = localStorage.getItem("revise");
-  console.log("Revise------------"+ status);
-          // If status is "1", display the edit button
-          if (status === "1") {
-              editBtn.style.display = "inline-block"; // Make the button visible
-          } else {
-              editBtn.style.display = "none"; // Hide the button otherwise
-          }
-      } else {
-          console.warn("Edit button not found in the DOM.");
-      }
-  });
+
+    // Send height on load
+    window.addEventListener('load', sendHeightToParent);
+
+    // Optional: Resend height if the content changes (e.g., dynamically loaded content)
+    new ResizeObserver(sendHeightToParent).observe(document.body);
+  </script> -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const nextButton = document.querySelector("button.btn-primary");
+        const form = document.getElementById("userForm");
+
+        // Save form data to localStorage when user types in the inputs
+        form.addEventListener("input", function(event) {
+            const target = event.target;
+            if (target.id) {
+                localStorage.setItem(target.id, target.value);
+            }
+        });
+
+        // Helper function to check if any field is empty or invalid
+        function validateFormFields() {
+            const requiredFields = form.querySelectorAll("input[required], select[required]");
+            let isValid = true;
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add("is-invalid"); // Mark invalid fields for user
+                } else {
+                    field.classList.remove("is-invalid"); // Remove invalid style if fixed
+                }
+            });
+            return isValid;
+        }
+
+        // Helper function to disable all fields and go to preview mode
+        function enablePreviewMode() {
+            // Change header
+            const header = document.querySelector("h2.text-center");
+            header.textContent = "Preview Concept Note";
+
+            // Disable all input fields
+            const inputs = form.querySelectorAll("input, select, textarea");
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+
+            // Change "Next" button to "Submit"
+            nextButton.textContent = "Submit";
+            nextButton.setAttribute("type", "submit");
+            nextButton.removeEventListener("click", goToPreviewMode);
+            nextButton.addEventListener("click", submitData);
+        }
+
+        // Transition to preview mode if all fields are valid
+        function goToPreviewMode() {
+            if (validateFormFields()) {
+                enablePreviewMode();
+            } else {
+                alert("Please fill out all required fields.");
+            }
+        }
+
+        // Submit data by gathering values from localStorage and sending to API
+        async function submitData(event) {
+            event.preventDefault(); // Prevent actual form submission
+
+            // Gather data from localStorage
+            let conceptNoteData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key !== "comment") { // Ignore the `comment` key
+                    const value = localStorage.getItem(key);
+                    conceptNoteData[key] = value;
+                }
+            }
+
+            // Ensure concept_note_id is included for PUT request
+            const conceptNoteId = conceptNoteData["concept_note_id"];
+            console.log(conceptNoteId);
+            if (!conceptNoteId) {
+                alert("Concept Note ID is missing. Please ensure you have the correct data.");
+                return;
+            }
+
+            // Set additional required fields
+            conceptNoteData["pending"] = 1;
+            conceptNoteData["approved"] = 0;
+            conceptNoteData["overdue"] = 0;
+            conceptNoteData["declined"] = 0;
+            conceptNoteData["revise"] = 0;
+            conceptNoteData["submissionDate"] = new Date().toISOString().split("T")[0];
+
+            // Retrieve user ID from cookie
+            const userCookie = document.cookie.split("; ").find(row => row.startsWith("user="));
+            if (userCookie) {
+                const userData = JSON.parse(decodeURIComponent(userCookie.split("=")[1]));
+                conceptNoteData["user_id"] = userData.user_id;
+            } else {
+                alert("User not logged in! Please Login and try again");
+                setTimeout(() => window.location.href = "login.html", 5000); // Redirect after 5 seconds
+                return;
+            }
+
+            // Send data to API via PUT request with concept_note_id in the query string
+            try {
+                const response = await fetch(`/forms-processing/api/short-concept-note-api.php?concept_note_id=${conceptNoteId}`, { 
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(conceptNoteData)
+                });
+
+                // Check if the response is OK (status 200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                // Try parsing the response as JSON
+                let result;
+                try {
+                    result = await response.json();
+                } catch (jsonError) {
+                    // If JSON parsing fails, log the raw response text
+                    const rawResponse = await response.text();
+                    console.log("Raw response text:", rawResponse);
+                    throw new Error("Response is not valid JSON");
+                }
+
+                // Log the parsed JSON response to check its content
+                console.log("Parsed JSON response:", result);
+
+                // Check if the response contains a success status
+                if (result.status === "success") {
+                    alert("Concept Note submitted successfully!");
+                    window.parent.history.go(-2);
+                  //  window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
+                } else {
+                    alert("Failed to submit Concept Note. Please try again.");
+                    console.error("API Error Message:", result.message);
+                }
+            } catch (error) {
+                console.error("Error submitting data:", error);
+                alert("An error occurred. Please try again later.");
+            }
+        }
+
+        // Add event listener to the "Next" button
+        nextButton.addEventListener("click", goToPreviewMode);
+    });
 </script>
 
+
+
+<script>
+  function sendHeight() {
+      const newHeight = document.body.scrollHeight + 50; // Add padding if needed
+      console.log('Sending new height:', newHeight); // Debugging log
+      window.parent.postMessage({ height: newHeight }, '*');
+  }
+  
+  // Send initial height after content is fully loaded
+  window.addEventListener('load', () => {
+      console.log('Initial height send on load');
+      sendHeight();
+  });
+  
+  // Use MutationObserver for dynamic changes
+  const observer = new MutationObserver((mutations) => {
+      console.log('Mutation observed:', mutations); // Debugging log
+      sendHeight();
+  });
+  
+  // Observe all relevant changes in the document
+  observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true, // Include attribute changes
+      characterData: true // Include text changes
+  });
+  
+  // Adjust on window resize
+  window.addEventListener('resize', () => {
+      console.log('Resize event detected');
+      sendHeight();
+  });
+  
+  
+  
+    </script>
+
+  
 </body>
 </html>
