@@ -32,12 +32,21 @@ if ($requestMethod === "GET") {
         $concept_note = $data['concept_note'] ?? 0;
         $narrative_report = $data['narrative_report'] ?? 0;
         $grant_application = $data['grant_application'] ?? 0;
+        $short_concept_note = $data['short_concept_note'] ?? 0;
 
-        $stmt = $conn->prepare("UPDATE permissions SET concept_note = :concept_note, narrative_report = :narrative_report, grant_application = :grant_application WHERE user_id = :user_id");
+        $stmt = $conn->prepare(
+            "UPDATE permissions 
+             SET concept_note = :concept_note, 
+                 narrative_report = :narrative_report, 
+                 grant_application = :grant_application, 
+                 short_concept_note = :short_concept_note 
+             WHERE user_id = :user_id"
+        );
         $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $stmt->bindParam(":concept_note", $concept_note, PDO::PARAM_INT);
         $stmt->bindParam(":narrative_report", $narrative_report, PDO::PARAM_INT);
         $stmt->bindParam(":grant_application", $grant_application, PDO::PARAM_INT);
+        $stmt->bindParam(":short_concept_note", $short_concept_note, PDO::PARAM_INT);
         
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Permissions updated successfully"]);

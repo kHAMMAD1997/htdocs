@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Permissions (0 = no permission, 1 = permission granted)
     // Casting the values to integers to ensure correct data type
     $concept_note = isset($_POST['concept_note']) ? (int)$_POST['concept_note'] : 0;
+    $short_concept_note = isset($_POST['short_concept_note']) ? (int)$_POST['short_concept_note'] : 0;
     $narrative_report = isset($_POST['narrative_report']) ? (int)$_POST['narrative_report'] : 0;
     $grant_application = isset($_POST['grant_application']) ? (int)$_POST['grant_application'] : 0;
 
@@ -53,10 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Insert permissions into the permissions table
         $stmt = $conn->prepare("
-            INSERT INTO permissions (user_id, concept_note, narrative_report, grant_application)
-            VALUES (:user_id, :concept_note, :narrative_report, :grant_application)
+            INSERT INTO permissions (user_id, short_concept_note, concept_note, narrative_report, grant_application)
+            VALUES (:user_id, :short_concept_note,:concept_note, :narrative_report, :grant_application)
         ");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':short_concept_note', $concept_note, PDO::PARAM_INT);
         $stmt->bindParam(':concept_note', $concept_note, PDO::PARAM_INT);
         $stmt->bindParam(':narrative_report', $narrative_report, PDO::PARAM_INT);
         $stmt->bindParam(':grant_application', $grant_application, PDO::PARAM_INT);

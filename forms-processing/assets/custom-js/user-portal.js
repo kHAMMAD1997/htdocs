@@ -1,4 +1,3 @@
-
 // Function to retrieve user data from cookie
 function getUserFromCookie() {
     const cookies = document.cookie.split("; ");
@@ -37,6 +36,7 @@ if (user) {
                 setDisplayByClass("concept-note", permissions.concept_note === "1" ? "" : "none");
                 setDisplayByClass("narrative-report", permissions.narrative_report === "1" ? "" : "none");
                 setDisplayByClass("grant-application", permissions.grant_application === "1" ? "" : "none");
+                setDisplayByClass("short-concept-note", permissions.short_concept_note === "1" ? "" : "none");
             } else {
                 console.error("Error fetching permissions:", data.message);
             }

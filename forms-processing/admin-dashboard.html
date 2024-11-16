@@ -15,6 +15,7 @@
     <link href="assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
     <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -250,7 +251,7 @@
                                                 <td>0</td>
                                                 <td>0</td>
                                             </tr>
-                                            <tr>
+                                            <tr id="grant-application">
                                                 <td><a href="admin-grant-application-list-dash.html"  class="btn btn-info" style="width:  150px;">Grant Application </a></td>
                                                 <td>0</td>
                                                 <td>0</td>
@@ -389,6 +390,7 @@
     <script src="assets/libs/moment/min/moment.min.js"></script>
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
+    <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
 
     <script>
         // Function to delete a cookie by name
@@ -458,8 +460,103 @@
 
     </script>
     
-    
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+          try {
+              // Fetch data from the concept note analytics API
+              const response = await fetch("/forms-processing/api/short-concept-note-analytics-api.php");
+              
+              // Check if the response is successful
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+      
+              // Parse the JSON response
+              const data = await response.json();
+      
+              // Check if the status is success and data exists
+              if (data.status === "success" && data.data) {
+                  // Access counts from the data object
+                  const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
+      
+                  // Get the table row with ID concept-note
+                  const conceptNoteRow = document.getElementById("short-concept-note");
+      
+                  // Create a function to create an <a> tag and wrap it in a <td>
+                  function createLinkCell(count, href) {
+                      const cell = document.createElement("td");
+                      const link = document.createElement("a");
+                      link.href = href;
+                      link.textContent = count;
+                      link.classList.add("btn", "btn-link"); // Add any desired classes for styling
+                      cell.appendChild(link);
+                      return cell;
+                  }
+      
+                  // Replace the cells in the conceptNoteRow with clickable links
+                  conceptNoteRow.replaceChild(createLinkCell(approved_count, "/forms-processing/admin-short-concept-note-list-dash.html?approved=1"), conceptNoteRow.cells[1]);
+                  conceptNoteRow.replaceChild(createLinkCell(pending_count, "/forms-processing/admin-short-concept-note-list-dash.html?pending=1"), conceptNoteRow.cells[2]);
+                  conceptNoteRow.replaceChild(createLinkCell(declined_count, "/forms-processing/admin-short-concept-note-list-dash.html?declined=1"), conceptNoteRow.cells[3]);
+                  conceptNoteRow.replaceChild(createLinkCell(revise_count, "/forms-processing/admin-short-concept-note-list-dash.html?revise=1"), conceptNoteRow.cells[4]);
+                  conceptNoteRow.replaceChild(createLinkCell(overdue_count, "/forms-processing/admin-short-concept-note-list-dash.html?overdue=1"), conceptNoteRow.cells[5]);
+              } else {
+                  console.error("Failed to retrieve analytics data:", data.message);
+              }
+          } catch (error) {
+              console.error("Error fetching analytics data:", error);
+          }
+      });
+      
+          </script>
+          
+          <script>
+            document.addEventListener("DOMContentLoaded", async function() {
+              try {
+                  // Fetch data from the concept note analytics API
+                  const response = await fetch("/forms-processing/api/grant-application-analytics-api.php");
+                  
+                  // Check if the response is successful
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+          
+                  // Parse the JSON response
+                  const data = await response.json();
+          
+                  // Check if the status is success and data exists
+                  if (data.status === "success" && data.data) {
+                      // Access counts from the data object
+                      const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
+          
+                      // Get the table row with ID concept-note
+                      const conceptNoteRow = document.getElementById("grant-application");
+          
+                      // Create a function to create an <a> tag and wrap it in a <td>
+                      function createLinkCell(count, href) {
+                          const cell = document.createElement("td");
+                          const link = document.createElement("a");
+                          link.href = href;
+                          link.textContent = count;
+                          link.classList.add("btn", "btn-link"); // Add any desired classes for styling
+                          cell.appendChild(link);
+                          return cell;
+                      }
+          
+                      		      // Replace the cells in the conceptNoteRow with clickable links
+                                    conceptNoteRow.replaceChild(createLinkCell(approved_count, "/forms-processing/admin-grant-application-list-dash.html?approved=1"), conceptNoteRow.cells[1]);
+                      conceptNoteRow.replaceChild(createLinkCell(pending_count, "/forms-processing/admin-grant-application-list-dash.html?pending=1"), conceptNoteRow.cells[2]);
+                      conceptNoteRow.replaceChild(createLinkCell(declined_count, "/forms-processing/admin-grant-application-list-dash.html?declined=1"), conceptNoteRow.cells[3]);
+                      conceptNoteRow.replaceChild(createLinkCell(revise_count, "/forms-processing/admin-grant-application-list-dash.html?revise=1"), conceptNoteRow.cells[4]);
+                      conceptNoteRow.replaceChild(createLinkCell(overdue_count, "/forms-processing/admin-grant-application-list-dash.html?overdue=1"), conceptNoteRow.cells[5]);
+                  } else {
+                      console.error("Failed to retrieve analytics data:", data.message);
+                  }
+              } catch (error) {
+                  console.error("Error fetching analytics data:", error);
+              }
+          });
+          
+              </script>
 
 </body>
 
