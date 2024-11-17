@@ -15,6 +15,7 @@
     <link href="assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
     <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,7 +49,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="user-dashboard.html">
+                    <a class="navbar-brand" href="admin-dashboard.html">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -130,11 +131,11 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-short-concept-note-list-dash.html" aria-expanded="false"><i class="mdi mdi-chart-pie short-concept-note"></i><span class="hide-menu short-concept-note">Short Concept Notes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-concept-note-list-dash.html" aria-expanded="false"><i class="mdi mdi-chart-bar concept-note"></i><span class="hide-menu concept-note" >Concept Notes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="user-grant-application-list-dash.html" aria-expanded="false"><i class="mdi mdi-border-inside grant-application"></i><span class="hide-menu grant-application">Grant Applications</span></a></li>
-
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-form-list.html?form_name=Concept Note&page=1" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Concept Notes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-form-list.html?form_name=Narrative Report&page=1" aria-expanded="false"><i class="mdi mdi-chart-pie"></i><span class="hide-menu">Narrative Reports</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-form-list.html?form_name=Grant Application&page=1" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Grant Applications</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-create-user.html" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Users</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -154,7 +155,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Hello User!</h4>
+                        <a href="admin-service-agreement-list-dash.html" class="btn btn-sm btn-info">View Service Agreement List</a>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -177,145 +178,59 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 short-concept-note">
-                    <a href="user-short-concept-note-list-dash.html">
-                    <div class="card card-hover">
-                        <div class="box bg-success text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                            <h6 class="text-white">Short Concept Note</h6>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 concept-note">
-                        <a href="user-concept-note-list-dash.html">
-                        <div class="card card-hover">
-                            <div class="box bg-primary text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                                <h6 class="text-white">Concept Notes</h6>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 grant-application">
-                        <a href="user-grant-application-list-dash.html">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                                <h6 class="text-white">Grant Applications</h6>
-                            </div>
-                        </div>
-                      </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">All Forms Data</h5>
-                                <div class="table-responsive">
-                                    <table id="zero_config" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>All forms</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr  class="short-concept-note">
-                                                <td >
-                                                    <a href="user-create-short-concept-note-dash.html"  class="btn btn-info" style="width: 190px;" >Create Short Concept Note</a>
-                                                    <span>
-                                                        <a href="user-short-concept-note-list-dash.html"  class="btn btn-info" style="width: 190px;" >View Short Concept Note</a>
-                                                    </span>
-                                                
-                                                </td>
-                                            </tr>
-                                            <tr  class="concept-note">
-                                                <td >
-                                                    <a href="user-create-concept-note-dash.html"  class="btn btn-info" style="width: 190px;" >Create Concept Note</a>
-                                                    <span>
-                                                        <a href="user-concept-note-list-dash.html"  class="btn btn-info" style="width: 190px;" >View Concept Note</a>
-                                                    </span>
-                                                
-                                                </td>
-                                            </tr>
-                                            <tr class="grant-application">
-                                                <td><a href="user-create-grant-application-dash.html"  class="btn btn-info" style="width: 190px;" >Create Grant Application </a>
-                                                    <span>
-                                                        <a  href="user-grant-application-list-dash.html" class="btn btn-info" style="width: 190px;">View Grant Application </a>
-                                                    </span>
-                                                </td>  
-
-                                            </tr>
-                                            <tr class="narrative-report">
-                                                <td ><a data-toggle="modal" data-target="#add-new-event" class="btn btn-info" style="width: 190px; color: white;">Create Narrative Report</a>
-                                                    <span>
-                                                        <a data-toggle="modal"  class="btn btn btn-info"  data-target="#view-event" style="width: 190px;color: white;">View Narrative Report</a>
-                                                    </span>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>All forms</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                            <form class="form-horizontal" id="serviceAgreementForm">
+                                <div class="card-body">
+                                    <h4 class="card-title text-center text-primary">View Service Agreement</h4>
+                            
+                                    <!-- Organization Name -->
+                                    <div class="form-group row">
+                                        <label for="organizationName" class="col-sm-3 text-right control-label col-form-label">Organization Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="organizationName" placeholder="Organization Name Here" required>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Project Title -->
+                                    <div class="form-group row">
+                                        <label for="projectTitle" class="col-sm-3 text-right control-label col-form-label">Project Title</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="projectTitle" placeholder="Project Title Here" required>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Project Location -->
+                                    <div class="form-group row">
+                                        <label for="projectLocation" class="col-sm-3 text-right control-label col-form-label">Project Location</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="projectLocation" placeholder="Project Location Here" required>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Amount -->
+                                    <div class="form-group row">
+                                        <label for="amount" class="col-sm-3 text-right control-label col-form-label">Amount</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="amount" placeholder="Amount Here" required>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="border-top">
+                                        <div class="card-body">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
-
-                            </div>
+                            </form>
+                                                       
+                            
                         </div>
-                    </div>
+                        
                 </div>
+                <div class="col-md-3"></div>
 
-                
-                <!-- BEGIN MODAL -->
-                <div class="modal none-border" id="my-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Add Category -->
-                <div class="modal fade none-border" id="add-new-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                                <a type="button" onclick="window.location.href='user-concept-note-narrative-list-dash.html'" class="btn btn-info waves-effect waves-light save-category text-white concept-note" data-dismiss="modal">Concept Note</a>
-
-                                <a  type="button"onclick="window.location.href='user-grant-application-narrative-list-dash.html'" class="btn btn-success waves-effect text-white grant-application" data-dismiss="modal">Grant Application</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END MODAL -->
-                <!-- Modal Add Category -->
-                <div class="modal fade none-border" id="view-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                                <a type="button" onclick="window.location.href='user-concept-note-narrative-list-dash.html'" class="btn btn-info waves-effect waves-light save-category text-white concept-note" data-dismiss="modal">Concept Note</a>
-
-                                <a  type="button"onclick="window.location.href='user-grant-application-narrative-list-dash.html'" class="btn btn-success waves-effect text-white grant-application" data-dismiss="modal">Grant Application</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END MODAL -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -369,9 +284,8 @@
     <script src="assets/libs/moment/min/moment.min.js"></script>
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
-    <script src="assets/custom-js/user-portal.js"></script>
-    <script src="assets/custom-js/user-side-nav.js"></script>
-
+    <script src="assets/libs/toastr/build/toastr.min.js"></script>
+    <script src="assets/custom-js/admin-side-nav.js"></script>
     <script>
         // Function to delete a cookie by name
         function deleteCookie(name) {
@@ -390,12 +304,142 @@
             window.location.href = '/forms-processing/login.html';
         });
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const attachmentInput = document.getElementById("attachment");
+
+        // Function to convert file to Base64
+        function convertFileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Event listener for file upload
+        attachmentInput.addEventListener("change", async function () {
+            const file = attachmentInput.files[0];
+            if (file) {
+                try {
+                    // Convert file to Base64 and store in localStorage
+                    const base64String = await convertFileToBase64(file);
+                    localStorage.setItem("attachment", base64String);
+                    console.log("Attachment successfully stored in localStorage.");
+                } catch (error) {
+                    console.error("Error converting file to Base64:", error);
+                    alert("Failed to process the file. Please try again.");
+                }
+            } else {
+                console.log("No file selected.");
+            }
+        });
+    });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Retrieve the service_agreement_id from the URL
+    const serviceAgreementId = getUrlParameter("service_agreement_id");
+    if (!serviceAgreementId) {
+        console.error("service_agreement_id parameter is missing in the URL.");
+        alert("Service Agreement ID is missing in the URL.");
+        return;
+    }
+
+    // Populate form with data from the server
+    async function populateForm() {
+        try {
+            const response = await fetch(`/forms-processing/api/service-agreement-api.php?service_agreement_id=${serviceAgreementId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (data.status === "success" && data.data && data.data.length > 0) {
+                const serviceAgreement = data.data[0];
+                document.getElementById("organizationName").value = serviceAgreement.organization_name || "";
+                document.getElementById("projectTitle").value = serviceAgreement.project_title || "";
+                document.getElementById("projectLocation").value = serviceAgreement.project_location || "";
+                document.getElementById("amount").value = serviceAgreement.amount || "";
+            } else {
+                console.error("No data found for the specified service_agreement_id.");
+                alert("No data found for the specified Service Agreement ID.");
+            }
+        } catch (error) {
+            console.error("Error fetching service agreement data:", error);
+            alert("Failed to load Service Agreement data. Please try again.");
+        }
+    }
+
+    // Call populateForm to fill in the form data
+    populateForm();
+
+    // Handle form submission for PATCH request
+    document.getElementById("serviceAgreementForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent form from submitting normally
+
+        // Gather form data
+        const organizationName = document.getElementById("organizationName").value;
+        const projectTitle = document.getElementById("projectTitle").value;
+        const projectLocation = document.getElementById("projectLocation").value;
+        const amount = document.getElementById("amount").value;
+
+        // Validation
+        if (!organizationName || !projectTitle || !projectLocation || !amount) {
+            alert("All fields are required.");
+            return;
+        }
+
+        // Prepare the data for the PATCH request
+        const patchData = {
+            service_agreement_id: serviceAgreementId,
+            organization_name: organizationName,
+            project_title: projectTitle,
+            project_location: projectLocation,
+            amount: amount,
+        };
+
+        try {
+            const response = await fetch("/forms-processing/api/service-agreement-api.php", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(patchData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            if (result.status === "success") {
+                toastr.success("Success!", "Service Agreement Edited Successfully");
+                setTimeout(() => {
+                    window.location.href = "admin-service-agreement-list-dash.html"; // Redirect after 2 seconds
+                }, 2000);
+            } else {
+                console.error("Failed to update Service Agreement:", result.message);
+                alert("Failed to edit Service Agreement. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error submitting PATCH request:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    });
+});
+
+
+</script>
 
     
-    
-
-        
-
 </body>
 
 </html>
