@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $grant_application = isset($_POST['grant_application']) ? (int)$_POST['grant_application'] : 0;
 
     // Debugging: Log permission values to PHP error log
+    error_log("Short Concept Note: " . $short_concept_note);
     error_log("Concept Note: " . $concept_note);
     error_log("Narrative Report: " . $narrative_report);
     error_log("Grant Application: " . $grant_application);
@@ -55,10 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Insert permissions into the permissions table
         $stmt = $conn->prepare("
             INSERT INTO permissions (user_id, short_concept_note, concept_note, narrative_report, grant_application)
-            VALUES (:user_id, :short_concept_note,:concept_note, :narrative_report, :grant_application)
+            VALUES (:user_id, :short_concept_note, :concept_note, :narrative_report, :grant_application)
         ");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':short_concept_note', $concept_note, PDO::PARAM_INT);
+        $stmt->bindParam(':short_concept_note', $short_concept_note, PDO::PARAM_INT);
         $stmt->bindParam(':concept_note', $concept_note, PDO::PARAM_INT);
         $stmt->bindParam(':narrative_report', $narrative_report, PDO::PARAM_INT);
         $stmt->bindParam(':grant_application', $grant_application, PDO::PARAM_INT);
@@ -70,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Return error message
         echo json_encode(['status' => 'error', 'message' => 'Registration failed: ' . $e->getMessage()]);
     }
-} else {
+}
+ else {
     // If the request is not POST, return an error
     echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 }

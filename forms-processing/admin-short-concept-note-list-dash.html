@@ -21,6 +21,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<style>
+    .btn{
+        width: 120px !important;
+    }
+</style>
 </head>
 
 <body>
@@ -238,7 +243,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                    <span><a  class="btn btn-secondary btn-sm text-white">Previous Page</a></span> <span><a  class="btn btn-info btn-sm text-white">Next Page</a></span>
+                                    
                                 </div>
 
                             </div>
@@ -355,6 +360,10 @@
     <script src="assets/libs/moment/min/moment.min.js"></script>
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         // Function to delete a cookie by name
@@ -378,134 +387,117 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", async function() {
-    // Function to get URL parameters as an object
-    function getUrlParameters() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let params = {};
-        for (const [key, value] of urlParams.entries()) {
-            params[key] = value;
-        }
-        return params;
-    }
-
-    // Construct the API URL based on URL parameters or use the default
-    let baseApiUrl = "/forms-processing/api/short-concept-note-api.php";
-    let urlParams = getUrlParameters();
-    let apiUrl = `${baseApiUrl}?${new URLSearchParams(urlParams).toString()}&page=1&limit=10`;
-    if (Object.keys(urlParams).length === 0) {
-        // If no parameters are given, set the default URL
-        apiUrl = `${baseApiUrl}?page=1&limit=10`;
-    }
-
-    // Track the current page
-    let currentPage = 1;
-
-    // Function to fetch data and populate the table
-    async function fetchAndPopulateTable(page) {
-        try {
-            // Construct URL with the current page
-            const paginatedUrl = `${baseApiUrl}?${new URLSearchParams(urlParams).toString()}&page=${page}&limit=10`;
-
-            // Fetch data from the API
-            const response = await fetch(paginatedUrl);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+    document.addEventListener("DOMContentLoaded", async function () {
+        // Function to get URL parameters as an object
+        function getUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let params = {};
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
             }
-
-            // Parse JSON response
-            const data = await response.json();
-
-            if (data.status === "success" && data.data && Array.isArray(data.data)) {
-                const tableBody = document.querySelector("#zero_config tbody");
-                tableBody.innerHTML = ""; // Clear existing table rows
-
-                // Populate table rows with fetched data
-                    data.data.forEach(entry => {
-                    const row = document.createElement("tr");
-
-                    // Columns for each attribute with links to user-single-concept-note.html
-                    ["concept_note_id", "organization", "projectTitle", "projectLocation", "totalBudget", "submissionDate"].forEach(field => {
-                        const cell = document.createElement("td");
-                        const link = document.createElement("a");
-                        link.href = `admin-single-short-concept-note-dash.html?concept-note-id=${entry.concept_note_id}`;
-                        link.textContent = entry[field] || "No Data";
-                        cell.appendChild(link);
-                        row.appendChild(cell);
-                    });
-
-                    // Status column with dynamic button style
-                    const statusCell = document.createElement("td");
-                    const statusButton = document.createElement("a");
-                    statusButton.classList.add("btn", "btn-sm", "text-white");
-
-                    if (entry.pending === "1") {
-                        statusButton.classList.add("btn-primary");
-                        statusButton.textContent = "Pending";
-                    } else if (entry.overdue === "1") {
-                        statusButton.classList.add("btn-warning");
-                        statusButton.textContent = "Overdue";
-                    } else if (entry.declined === "1") {
-                        statusButton.classList.add("btn-danger");
-                        statusButton.textContent = "Declined";
-                    } else if (entry.approved === "1") {
-                        statusButton.classList.add("btn-success");
-                        statusButton.textContent = "Approved";
-                    } else if (entry.revise === "1") {
-                        statusButton.classList.add("btn-secondary");
-                        statusButton.textContent = "Revise";
+            return params;
+        }
+    
+        // Construct the API URL based on URL parameters or use the default
+        let baseApiUrl = "/forms-processing/api/short-concept-note-datatables-api.php";
+        let urlParams = getUrlParameters();
+    
+        // Initialize DataTable
+        $('#zero_config').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: baseApiUrl,
+                type: 'GET',
+                data: function (d) {
+                    // Append additional URL parameters to the DataTables request
+                    Object.assign(d, urlParams);
+    
+                    // Log the complete request payload for debugging
+                    console.log("Request Data:", d);
+                },
+                dataSrc: function (json) {
+                    // Return data for DataTables
+                    console.log("Response Data:", json.data);
+                    if (Array.isArray(json.data)) {
+                        return json.data;
+                    } else {
+                        console.error("Error fetching data or invalid response:", json);
+                        return [];
                     }
-                    statusCell.appendChild(statusButton);
-                    row.appendChild(statusCell);
-
-                    // Append the row to the table body
-                    tableBody.appendChild(row);
-                });
-
-                // Update the current page number
-                currentPage = page;
-
-                // Update pagination links
-                const previousBtn = document.querySelector(".btn-secondary");
-                const nextBtn = document.querySelector(".btn-info");
-
-                // Set href attributes for the buttons with updated page numbers
-                previousBtn.href = `#`;
-                nextBtn.href = `#`;
-
-                // Disable Previous button if on the first page
-                previousBtn.classList.toggle("disabled", currentPage === 1);
-
-                // Disable Next button if there are less than 10 results (assuming pagination limit of 10)
-                nextBtn.classList.toggle("disabled", data.data.data.length < 10);
-            } else {
-                console.error("Failed to fetch data or data is not in expected format:", data);
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-
-    // Initial fetch for page 1
-    fetchAndPopulateTable(currentPage);
-
-    // Add event listeners to pagination buttons
-    document.querySelector(".btn-secondary").addEventListener("click", function(event) {
-        event.preventDefault();
-        if (currentPage > 1) {
-            fetchAndPopulateTable(currentPage - 1);
-        }
+                }
+            },
+            columns: [
+                {
+                    data: 'concept_note_id',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${data}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'organization',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'projectTitle',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'projectLocation',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'totalBudget',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'submissionDate',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-short-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        let statusClass = 'btn-secondary';
+                        let statusText = 'No Status';
+    
+                        if (row.pending === "1") {
+                            statusClass = 'btn-primary';
+                            statusText = 'Pending';
+                        } else if (row.overdue === "1") {
+                            statusClass = 'btn-warning';
+                            statusText = 'Overdue';
+                        } else if (row.declined === "1") {
+                            statusClass = 'btn-danger';
+                            statusText = 'Declined';
+                        } else if (row.approved === "1") {
+                            statusClass = 'btn-success';
+                            statusText = 'Approved';
+                        } else if (row.revise === "1") {
+                            statusClass = 'btn-secondary';
+                            statusText = 'Revise';
+                        }
+    
+                        return `<a class="btn btn-sm ${statusClass} text-white">${statusText}</a>`;
+                    }
+                }
+            ],
+            pageLength: 10, // Default number of rows per page
+            lengthMenu: [10, 25, 50, 100], // Options for rows per page
+            order: [[0, 'asc']] // Default sorting (by concept_note_id ascending)
+        });
     });
-
-    document.querySelector(".btn-info").addEventListener("click", function(event) {
-        event.preventDefault();
-        fetchAndPopulateTable(currentPage + 1);
-    });
-});
-
-
-</script>
+    </script>
+    
     
     
     

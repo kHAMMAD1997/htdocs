@@ -330,7 +330,12 @@
     <script src="assets/libs/moment/min/moment.min.js"></script>
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
-    <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
+    <!-- <script src="assets/extra-libs/DataTables/datatables.min.js"></script> -->
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         // Function to delete a cookie by name
@@ -352,95 +357,68 @@
     </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        // API endpoint
-        const apiUrl = "/forms-processing/api/user-main-api.php";
+    $(document).ready(function () {
+        $('#zero_config').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '/forms-processing/api/user-main-datatable-api.php',
+                type: 'GET',
+                data: function (d) {
+                    // Map DataTables parameters to your API query parameters
+                    d.page = Math.floor(d.start / d.length) + 1; // DataTables uses `start` and `length`
+                    d.limit = d.length; // Number of rows per page
+                },
+                dataSrc: function (json) {
+                    // Log the API response to the console
+                    console.log("API Response:", json);
 
-        // Fetch users from the API
-        async function fetchUsers() {
-            try {
-                const response = await fetch(`${apiUrl}?page=1&limit=50`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    // Return the data array directly
+                    return json.data;
                 }
-
-                const data = await response.json();
-                if (data.status === "success" && Array.isArray(data.data)) {
-                    populateTable(data.data);
-                } else {
-                    console.error("Error: No valid data received.");
-                    displayNoData();
+            },
+            columns: [
+                {
+                    data: 'user_id',
+                    render: function (data, type, row) {
+                        return `<a href="admin-edit-user-dash.html?user_id=${row.user_id}">${data}</a>`;
+                    }
+                },
+                {
+                    data: 'username',
+                    render: function (data, type, row) {
+                        return `<a href="admin-edit-user-dash.html?user_id=${row.user_id}">${data}</a>`;
+                    }
+                },
+                {
+                    data: 'email',
+                    render: function (data, type, row) {
+                        return `<a href="admin-edit-user-dash.html?user_id=${row.user_id}">${data}</a>`;
+                    }
+                },
+                {
+                    data: 'is_admin',
+                    render: function (data, type, row) {
+                        const adminStatus = data === "1" ? "Yes" : "No";
+                        return `<a href="admin-edit-user-dash.html?user_id=${row.user_id}">${adminStatus}</a>`;
+                    }
+                },
+                {
+                    data: 'created_at',
+                    render: function (data, type, row) {
+                        return `<a href="admin-edit-user-dash.html?user_id=${row.user_id}">${data}</a>`;
+                    }
                 }
-            } catch (error) {
-                console.error("Error fetching users:", error);
-                displayNoData();
-            }
-        }
-
-        // Populate the table with user data
-        function populateTable(users) {
-            const tableBody = document.querySelector("#zero_config tbody");
-            tableBody.innerHTML = ""; // Clear existing rows
-
-            users.forEach(user => {
-                const row = document.createElement("tr");
-
-                // Create each cell with appropriate data
-                const userIdCell = createTableCellWithLink(user.user_id, `admin-edit-user-dash.html?user_id=${user.user_id}`);
-                const usernameCell = createTableCellWithLink(user.username, `admin-edit-user-dash.html?user_id=${user.user_id}`);
-                const emailCell = createTableCellWithLink(user.email, `admin-edit-user-dash.html?user_id=${user.user_id}`);
-                const adminCell = createTableCell(user.is_admin === "1" ? "Yes" : "No");
-                const createdCell = createTableCell(user.created_at || "N/A");
-                
-
-                // Append cells to the row
-                row.appendChild(userIdCell);
-                row.appendChild(usernameCell);
-                row.appendChild(emailCell);
-                row.appendChild(adminCell);
-                row.appendChild(createdCell);
-               
-
-                // Append row to the table body
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Create a table cell with a clickable link
-        function createTableCellWithLink(text, href) {
-            const cell = document.createElement("td");
-            const link = document.createElement("a");
-            link.textContent = text || "No Data";
-            link.href = href || "#";
-            cell.appendChild(link);
-            return cell;
-        }
-
-        // Create a regular table cell
-        function createTableCell(text) {
-            const cell = document.createElement("td");
-            cell.textContent = text || "No Data";
-            return cell;
-        }
-
-        // Display a message when no data is available
-        function displayNoData() {
-            const tableBody = document.querySelector("#zero_config tbody");
-            tableBody.innerHTML = ""; // Clear existing rows
-
-            const row = document.createElement("tr");
-            const cell = document.createElement("td");
-            cell.colSpan = 6; // Spanning all columns
-            cell.textContent = "No data available.";
-            cell.classList.add("text-center", "text-danger");
-            row.appendChild(cell);
-            tableBody.appendChild(row);
-        }
-
-        // Fetch and populate the table on page load
-        fetchUsers();
+            ],
+            pageLength: 50, // Set initial page size
+            lengthMenu: [10, 25, 50, 100], // Options for page size
+        });
     });
 </script>
+
+
+
+
 
 
 </body>
