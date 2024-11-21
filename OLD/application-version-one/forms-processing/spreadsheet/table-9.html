@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+        content="ie=edge">
+    <link rel="stylesheet"
+        href="styles.css">
+    <title>Simple Spreadsheet</title>
+</head>
+
+<body>
+
+  
+    <section class="spreadsheet">
+        <table class="spreadsheet__table"
+            id="table-main">
+            <thead class="spreadsheet__table--headers"
+                id="table-headers">
+            </thead>
+            <tbody class="spreadsheet__table--body"
+                id="table-body">
+            </tbody>
+        </table>
+        <br>
+        <div class="sub-total"  style="background-color: lightgray; width: 820px; display: flex; justify-content: space-between; align-items: center;">
+            <span>
+                <h2 style="text-align: left; margin: 0;">Sub Total</h2>
+            </span>
+            <span>
+                <h2 style="text-align: center; margin: 0;" id="Sub-total-table-0">4000 USD</h2>
+            </span>
+        </div>
+        
+    </section>
+
+
+ 
+
+
+  
+
+
+    
+
+    <!-- <section class="spreadsheet-controls">
+        <button id="reset">Reset</button>
+
+    </section> -->
+    <script src="js/table-9.js"></script>
+    <script src="summation-table-one.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // Function to send the height of the child document to the parent
+        function sendHeightToParent() {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ type: 'resize', height: height, id: 'iframe3' }, '*');
+        }
+
+        // Trigger the function on load and resize events
+        window.addEventListener('load', sendHeightToParent);
+        window.addEventListener('resize', sendHeightToParent);
+    </script>
+    <script>
+        // Select all elements with the class "row-delete"
+        document.querySelectorAll(".row-delete").forEach(element => {
+            element.onclick = function() {
+                // Refresh the parent window
+                parent.location.reload();
+            };
+        });
+    </script>
+</body>
+
+</html>

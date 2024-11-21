@@ -122,7 +122,7 @@ window.addEventListener("load", function() {
             }
 
             const data = await response.json();
-            if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+            if (data.status== "success" && Array.isArray(data.data) && data.data.length > 0) {
                 data.data.forEach(commentObj => {
                     const formGroup = createTextarea(commentObj.comment, labelText);
                     container.appendChild(formGroup);

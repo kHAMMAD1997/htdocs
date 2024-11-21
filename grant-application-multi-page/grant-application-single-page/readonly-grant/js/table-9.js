@@ -17,7 +17,7 @@ initializeData = () => {
 
 getData = () => {
   let data = localStorage.getItem(SPREADSHEET_DB);
-  if (data === undefined || data === null) {
+  if (data== undefined || data== null) {
     return initializeData();
   }
   return JSON.parse(data);
@@ -47,7 +47,7 @@ createHeaderRow = () => {
   for (let i = 0; i <= defaultColCount; i++) {
     const th = document.createElement("th");
     th.setAttribute("id", `h-0-${i}`);
-    th.setAttribute("class", `${i === 0 ? "" : "column-header"}`);
+    th.setAttribute("class", `${i== 0 ? "" : "column-header"}`);
     
     if (i !== 0) {
       const span = document.createElement("span");
@@ -76,8 +76,8 @@ createTableBodyRow = rowNum => {
   const tr = document.createElement("tr");
   tr.setAttribute("id", `r-${rowNum}`);
   for (let i = 0; i <= defaultColCount; i++) {
-    const cell = document.createElement(`${i === 0 ? "th" : "td"}`);
-    if (i === 0) {
+    const cell = document.createElement(`${i== 0 ? "th" : "td"}`);
+    if (i== 0) {
       cell.contentEditable = false;
       const span = document.createElement("span");
       const dropDownDiv = document.createElement("div");
@@ -111,7 +111,7 @@ createTableBody = tableBody => {
 // Fill Data in created table from localstorage
 populateTable = () => {
   const data = this.getData();
-  if (data === undefined || data === null) return;
+  if (data== undefined || data== null) return;
 
   for (let i = 1; i < data.length; i++) {
     for (let j = 1; j < data[i].length; j++) {
@@ -126,9 +126,9 @@ addRow = (currentRow, direction) => {
   let data = this.getData();
   const colCount = data[0].length;
   const newRow = new Array(colCount).fill("");
-  if (direction === "top") {
+  if (direction== "top") {
     data.splice(currentRow, 0, newRow);
-  } else if (direction === "bottom") {
+  } else if (direction== "bottom") {
     data.splice(currentRow + 1, 0, newRow);
   }
   defaultRowCount++;
@@ -149,9 +149,9 @@ deleteRow = currentRow => {
 addColumn = (currentCol, direction) => {
   let data = this.getData();
   for (let i = 0; i <= defaultRowCount; i++) {
-    if (direction === "left") {
+    if (direction== "left") {
       data[i].splice(currentCol, 0, "");
-    } else if (direction === "right") {
+    } else if (direction== "right") {
       data[i].splice(currentCol + 1, 0, "");
     }
   }
@@ -204,8 +204,8 @@ sortColumn = currentCol => {
 const ascSort = (currentCol, a, b) => {
   let _a = a[currentCol];
   let _b = b[currentCol];
-  if (_a === "") return 1;
-  if (_b === "") return -1;
+  if (_a== "") return 1;
+  if (_b== "") return -1;
 
   // Check for strings and numbers
   if (isNaN(_a) || isNaN(_b)) {
@@ -222,8 +222,8 @@ const ascSort = (currentCol, a, b) => {
 const dscSort = (currentCol, a, b) => {
   let _a = a[currentCol];
   let _b = b[currentCol];
-  if (_a === "") return 1;
-  if (_b === "") return -1;
+  if (_a== "") return 1;
+  if (_b== "") return -1;
 
   // Check for strings and numbers
   if (isNaN(_a) || isNaN(_b)) {
@@ -259,7 +259,7 @@ createSpreadsheet = () => {
 
   // attach focusout event listener to whole table body container
   tableBody.addEventListener("focusout", function(e) {
-    if (e.target && e.target.nodeName === "TD") {
+    if (e.target && e.target.nodeName== "TD") {
       let item = e.target;
       const indices = item.id.split("-");
       let spreadsheetData = getData();
@@ -271,24 +271,24 @@ createSpreadsheet = () => {
   // Attach click event listener to table body
   tableBody.addEventListener("click", function(e) {
     if (e.target) {
-      if (e.target.className === "dropbtn") {
+      if (e.target.className== "dropbtn") {
           const idArr = e.target.id.split("-");
           document
             .getElementById(`row-dropdown-${idArr[2]}`)
             .classList.toggle("show");
           //location.reload(); // Reload after toggling dropdown
       }
-      if (e.target.className === "row-insert-top") {
+      if (e.target.className== "row-insert-top") {
           const indices = e.target.parentNode.id.split("-");
           addRow(parseInt(indices[2]), "top");
           location.reload(); // Reload after adding row at top
       }
-      if (e.target.className === "row-insert-bottom") {
+      if (e.target.className== "row-insert-bottom") {
           const indices = e.target.parentNode.id.split("-");
           addRow(parseInt(indices[2]), "bottom");
           location.reload(); // Reload after adding row at bottom
       }
-      if (e.target.className === "row-delete") {
+      if (e.target.className== "row-delete") {
           const indices = e.target.parentNode.id.split("-");
           deleteRow(parseInt(indices[2]));
           location.reload(); // Reload after deleting row
@@ -300,24 +300,24 @@ createSpreadsheet = () => {
   // Attach click event listener to table headers
   tableHeaders.addEventListener("click", function(e) {
     if (e.target) {
-      if (e.target.className === "column-header-span") {
+      if (e.target.className== "column-header-span") {
         sortColumn(parseInt(e.target.parentNode.id.split("-")[2]));
       }
-      if (e.target.className === "dropbtn") {
+      if (e.target.className== "dropbtn") {
         const idArr = e.target.id.split("-");
         document
           .getElementById(`col-dropdown-${idArr[2]}`)
           .classList.toggle("show");
       }
-      if (e.target.className === "col-insert-left") {
+      if (e.target.className== "col-insert-left") {
         const indices = e.target.parentNode.id.split("-");
         addColumn(parseInt(indices[2]), "left");
       }
-      if (e.target.className === "col-insert-right") {
+      if (e.target.className== "col-insert-right") {
         const indices = e.target.parentNode.id.split("-");
         addColumn(parseInt(indices[2]), "right");
       }
-      if (e.target.className === "col-delete") {
+      if (e.target.className== "col-delete") {
         const indices = e.target.parentNode.id.split("-");
         deleteColumn(parseInt(indices[2]));
       }

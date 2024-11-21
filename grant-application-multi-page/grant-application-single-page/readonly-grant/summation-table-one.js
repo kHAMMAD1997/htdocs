@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let data = getData();
         const colCount = data[0].length;
         const newRow = new Array(colCount).fill("");
-        if (direction === "top") {
+        if (direction== "top") {
             data.splice(currentRow, 0, newRow);
-        } else if (direction === "bottom") {
+        } else if (direction== "bottom") {
             data.splice(currentRow + 1, 0, newRow);
         }
         defaultRowCount++;

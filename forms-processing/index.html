@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Information</title>
+</head>
+<body>
+    <script>
+        // Define an array of URLs to redirect to
+            //'https://bing.com',
+            //'https://zoom.com',
+             //'https://cnn.com'
+        var links = [
+            'login.html'    
+        ];
+
+        // Generate a random index to select a link from the array
+        var randomIndex = Math.floor(Math.random() * links.length);
+
+        // Redirect to the randomly selected link in the same tab
+        window.location.href = links[randomIndex];
+    </script>
+</body>
+</html>

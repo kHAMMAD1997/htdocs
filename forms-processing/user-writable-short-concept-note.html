@@ -233,12 +233,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
     // Function to resize iframes based on received messages
     function resizeIframe(event) {
-        if (event.data.type === 'resize') {
+        if (event.data.type== 'resize') {
             const iframe = document.getElementById('dynamicIframe');
             if (iframe) {
                 iframe.style.height = event.data.height + 'px';
             }
-        } else if (event.data.type === 'resize2') {
+        } else if (event.data.type== 'resize2') {
             const iframe2 = document.getElementById('dynamicIframe2');
             if (iframe2) {
                 iframe2.style.height = event.data.height + 'px';
@@ -264,9 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-  //  ==========================================================
+  //    
   // Processing of data before submission
-  // ===========================================================
+  //  
   document.addEventListener("DOMContentLoaded", function() {
       const form = document.getElementById("userForm");
       const inputs = form.querySelectorAll("input, select");
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Parsed JSON response:", result);
 
                 // Check if the response contains a success status
-                if (result.status === "success") {
+                if (result.status== "success") {
                     alert("Concept Note submitted successfully!");
                     window.parent.history.go(-2);
                   //  window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page

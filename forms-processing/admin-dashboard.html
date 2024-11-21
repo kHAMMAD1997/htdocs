@@ -22,33 +22,53 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<style>
+
+#navbarSupportedContent {
+
+    background-color: #00984a !important;
+}
+
+
+#sidebarnav , .navbar-header , .scroll-sidebar ,.sidebar ,aside{ 
+    background-color: white !important;
+}
+
+
+
+
+</style>
+
+
+
 </head>
 
 <body>
-    <!-- ============================================================== -->
+    <!--  -->
     <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    <!--  -->
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
     </div>
-    <!-- ============================================================== -->
+    <!--  -->
     <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
+    <!--  -->
     <div id="main-wrapper">
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
+        <!--  -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <!-- Logo -->
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <a class="navbar-brand" href="admin-dashboard.html">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
@@ -73,31 +93,31 @@
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
+                    <!--  -->
+                    <!--  -->
                     <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
-                <!-- ============================================================== -->
+                <!--  -->
                 <!-- End Logo -->
-                <!-- ============================================================== -->
+                <!--  -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
                     </ul>
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
+                    <!--  -->
                     <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
+                        <!--  -->
                         <!-- User profile and search -->
-                        <!-- ============================================================== -->
+                        <!--  -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
@@ -112,47 +132,75 @@
                                 <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
                             </div>
                         </li>
-                        <!-- ============================================================== -->
+                        <!--  -->
                         <!-- User profile and search -->
-                        <!-- ============================================================== -->
+                        <!--  -->
                     </ul>
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+        <!--  -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-short-concept-note-list-dash.html" aria-expanded="false"><i class="mdi mdi-chart-pie"></i><span class="hide-menu">Short Concept Notes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-concept-note-list-dash.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Concept Notes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-grant-application-list-dash.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Grant Applications</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-create-user.html" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Users</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-service-agreement-list-dash.html" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Service Agreements</span></a>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-dashboard.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-view-dashboard me-2" style="color: white !important;"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-short-concept-note-list-dash.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-chart-pie me-2" style="color: white !important;"></i> Short Concept Notes
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-concept-note-list-dash.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-chart-bar me-2" style="color: white !important;"></i> Concept Notes
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-grant-application-list-dash.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-border-inside me-2" style="color: white !important;"></i> Grant Applications
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-create-user.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-face me-2" style="color: white !important;"></i> Users
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center">
+                            <a href="admin-service-agreement-list-dash.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-receipt me-2" style="color: white !important;"></i> Service Agreements
+                            </a>
+                        </li>
+                        
+                        
                     </ul>
                 </nav>
+                                
+                
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Page wrapper  -->
-        <!-- ============================================================== -->
+        <!--  -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
+            <!--  -->
             <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
+            <!--  -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
@@ -160,30 +208,30 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item"><a href="admin-dashboard.html" class="btn btn-info" style="background-color: #36a9e1 !important; color: white; font-weight: bold;"">Home</a></li>
+                                  
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
+            <!--  -->
             <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
+            <!--  -->
+            <!--  -->
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
+            <!--  -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
+                <!--  -->
                 <!-- Start Page Content -->
-                <!-- ============================================================== -->
+                <!--  -->
                 <div class="row">
                     <!-- Column -->
                     <div class="col-md-6 col-lg-3">
                         <a href="admin-service-agreement-list-dash.html">
                         <div class="card card-hover">
-                            <div class="box bg-cyan text-center">
+                            <div class="box bg-cyan text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
                                 <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
                                 <h6 class="text-white">Service Agreements</h6>
                             </div>
@@ -194,7 +242,7 @@
                     <div class="col-md-6 col-lg-3">
                         <a href="admin-concept-note-list-dash.html">
                         <div class="card card-hover">
-                            <div class="box bg-success text-center">
+                            <div class="box bg-success text-center" style="background-color: #00984a !important; color: white; font-weight: bold;">
                                 <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
                                 <h6 class="text-white">Concept Notes</h6>
                             </div>
@@ -205,7 +253,7 @@
                     <div class="col-md-6 col-lg-3">
                         <a href="admin-short-concept-note-list-dash.html">
                         <div class="card card-hover">
-                            <div class="box bg-info text-center">
+                            <div class="box bg-info text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
                                 <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
                                 <h6 class="text-white">Short Concept Notes</h6>
                             </div>
@@ -217,7 +265,7 @@
                     <div class="col-md-6 col-lg-3">
                         <a href="admin-grant-application-list-dash.html">
                         <div class="card card-hover">
-                            <div class="box bg-primary text-center">
+                            <div class="box bg-primary text-center" style="background-color: #00984a !important; color: white; font-weight: bold;"">
                                 <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
                                 <h6 class="text-white">Grant Applications</h6>
                             </div>
@@ -244,7 +292,8 @@
                                         </thead>
                                         <tbody>
                                             <tr id="short-concept-note">
-                                                <td><a href="admin-short-concept-note-list-dash.html"  class="btn btn-info" style="width:  150px;">Short Concept Note</a></td>
+                                                <td><a href="admin-short-concept-note-list-dash.html"  class="btn btn-info" style="width:  150px;background-color: #00984a !important; color: white; font-weight: bold;">Short Concept Note</a></td>
+                                               
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
@@ -252,7 +301,7 @@
                                                 <td>0</td>
                                             </tr>
                                             <tr id="concept-note">
-                                                <td><a href="admin-concept-note-list-dash.html"  class="btn btn-info" style="width:  150px;">Concept Note</a></td>
+                                                <td><a href="admin-concept-note-list-dash.html"  class="btn btn-info" style="width:  150px;background-color: #00984a !important; color: white; font-weight: bold;">Concept Note</a></td>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
@@ -260,7 +309,7 @@
                                                 <td>0</td>
                                             </tr>
                                             <tr id="grant-application">
-                                                <td><a href="admin-grant-application-list-dash.html"  class="btn btn-info" style="width:  150px;">Grant Application </a></td>
+                                                <td><a href="admin-grant-application-list-dash.html"  class="btn btn-info" style="width:  150px;background-color: #00984a !important; color: white; font-weight: bold;">Grant Application </a></td>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>0</td>
@@ -345,40 +394,40 @@
                 </div>
                 <!-- END MODAL -->
 
-                <!-- ============================================================== -->
+                <!--  -->
                 <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
+                <!--  -->
+                <!--  -->
                 <!-- Right sidebar -->
-                <!-- ============================================================== -->
+                <!--  -->
                 <!-- .right-sidebar -->
-                <!-- ============================================================== -->
+                <!--  -->
                 <!-- End Right sidebar -->
-                <!-- ============================================================== -->
+                <!--  -->
             </div>
-            <!-- ============================================================== -->
+            <!--  -->
             <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
+            <!--  -->
+            <!--  -->
             <!-- footer -->
-            <!-- ============================================================== -->
+            <!--  -->
             <footer class="footer text-center">
              mwlimits.org    
             </footer>
-            <!-- ============================================================== -->
+            <!--  -->
             <!-- End footer -->
-            <!-- ============================================================== -->
+            <!--  -->
         </div>
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+        <!--  -->
     </div>
-    <!-- ============================================================== -->
+    <!--  -->
     <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
+    <!--  -->
+    <!--  -->
     <!-- All Jquery -->
-    <!-- ============================================================== -->
+    <!--  -->
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
     <script src="dist/js/jquery-ui.min.js"></script>
@@ -399,7 +448,7 @@
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="assets/custom-js/admin-side-nav.js"></script>
+    <!-- <script src="assets/custom-js/admin-side-nav.js"></script> -->
 
     <script>
         // Function to delete a cookie by name
@@ -435,7 +484,7 @@
         const data = await response.json();
 
         // Check if the status is success and data exists
-        if (data.status === "success" && data.data) {
+        if (data.status== "success" && data.data) {
             // Access counts from the data object
             const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
 
@@ -484,7 +533,7 @@
               const data = await response.json();
       
               // Check if the status is success and data exists
-              if (data.status === "success" && data.data) {
+              if (data.status== "success" && data.data) {
                   // Access counts from the data object
                   const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
       
@@ -533,7 +582,7 @@
                   const data = await response.json();
           
                   // Check if the status is success and data exists
-                  if (data.status === "success" && data.data) {
+                  if (data.status== "success" && data.data) {
                       // Access counts from the data object
                       const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
           

@@ -118,7 +118,7 @@
     <script>
         // Listen for messages from iframes to dynamically set their height
         function resizeIframe(event) {
-            if (event.data.type === 'resize') {
+            if (event.data.type== 'resize') {
                 const iframe = document.getElementById(event.data.id);
                 if (iframe) {
                     iframe.style.height = event.data.height + 'px';

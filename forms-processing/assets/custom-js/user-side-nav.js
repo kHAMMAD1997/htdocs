@@ -1,70 +1,89 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Get the sidebar navigation element
-    const sidebarNav = document.getElementById("sidebarnav");
+    const sidebarNav = document.querySelector(".sidebar-nav");
 
-    // Check if the element exists
     if (sidebarNav) {
-        // Clear all existing <li> elements
-        sidebarNav.innerHTML = "";
+        sidebarNav.innerHTML = " ";
+        sidebarNav.innerHTML = `
+            <ul id="sidebarnav" class="p-t-30">
+    <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+        <a href="user-dashboard.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+            <i class="mdi mdi-view-dashboard me-2" style="color: white !important;"></i> Dashboard
+        </a>
+    </li>
+    <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+        <a href="user-short-concept-note-list-dash.html" class="btn btn-info btn-lg w-100 short-concept-note" style="background-color: #00984a !important; color: white; font-weight: bold;">
+            <i class="mdi mdi-chart-pie me-2" style="color: white !important;"></i> Short Concept Notes
+        </a>
+    </li>
+    <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+        <a href="user-concept-note-list-dash.html" class="btn btn-info btn-lg w-100 concept-note" style="background-color: #00984a !important; color: white; font-weight: bold;">
+            <i class="mdi mdi-chart-bar me-2" style="color: white !important;"></i> Concept Notes
+        </a>
+    </li>
+    <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+        <a href="user-grant-application-list-dash.html" class="btn btn-info btn-lg w-100 grant-application" style="background-color: #00984a !important; color: white; font-weight: bold;">
+            <i class="mdi mdi-border-inside me-2" style="color: white !important;"></i> Grant Applications
+        </a>
+    </li>
+</ul>
 
-        // Create the new sidebar items
-        const newItems = [
-            {
-                href: "user-dashboard.html",
-                icon: "mdi mdi-view-dashboard",
-                text: "Dashboard",
-            },
-            {
-                href: "user-short-concept-note-list-dash.html",
-                icon: "mdi mdi-chart-pie short-concept-note",
-                text: "Short Concept Notes",
-                additionalClasses: ["short-concept-note"], // Optional classes for this item
-            },
-            {
-                href: "user-concept-note-list-dash.html",
-                icon: "mdi mdi-chart-bar concept-note",
-                text: "Concept Notes",
-                additionalClasses: ["concept-note"], // Optional classes for this item
-            },
-            {
-                href: "user-grant-application-list-dash.html",
-                icon: "mdi mdi-border-inside grant-application",
-                text: "Grant Applications",
-                additionalClasses: ["grant-application"], // Optional classes for this item
-            },
-        ];
-
-        // Loop through the items and append them to the sidebar
-        newItems.forEach(item => {
-            const li = document.createElement("li");
-            li.classList.add("sidebar-item");
-
-            const a = document.createElement("a");
-            a.classList.add("sidebar-link", "waves-effect", "waves-dark", "sidebar-link");
-            a.href = item.href;
-            a.setAttribute("aria-expanded", "false");
-
-            const i = document.createElement("i");
-            i.className = item.icon;
-
-            const span = document.createElement("span");
-            span.classList.add("hide-menu");
-            span.textContent = item.text;
-
-            // Add any additional classes if specified
-            if (item.additionalClasses) {
-                item.additionalClasses.forEach(className => {
-                    span.classList.add(className);
-                });
-            }
-
-            a.appendChild(i);
-            a.appendChild(span);
-            li.appendChild(a);
-
-            sidebarNav.appendChild(li);
-        });
+        `;
     } else {
-        console.error("Sidebar navigation element with id 'sidebarnav' does not exist.");
+        console.error("Sidebar navigation element not found.");
     }
 });
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Create a style element
+    const style = document.createElement("style");
+    style.type = "text/css";
+    
+    // Add the CSS rules
+    style.innerHTML = `
+        #navbarSupportedContent {
+            background-color: #00984a !important;
+        }
+        #sidebarnav, .navbar-header, .scroll-sidebar, .sidebar, aside {
+            background-color: white !important;
+        }
+    `;
+    
+    // Append the style element to the document head
+    document.head.appendChild(style);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Select the breadcrumb <ol> element
+    const breadcrumb = document.querySelector(".breadcrumb");
+
+    if (breadcrumb) {
+        // Clear all existing <li> items
+        breadcrumb.innerHTML = "";
+
+        // Create the new <li> element
+        const newLi = document.createElement("li");
+        newLi.className = "breadcrumb-item";
+
+        // Create the new <a> element
+        const newLink = document.createElement("a");
+        newLink.href = "user-dashboard.html";
+        newLink.className = "btn btn-info";
+        newLink.style.backgroundColor = "#36a9e1";
+        newLink.style.color = "white";
+        newLink.style.fontWeight = "bold";
+        newLink.textContent = "Home";
+
+        // Append the <a> to the <li>
+        newLi.appendChild(newLink);
+
+        // Append the new <li> to the breadcrumb <ol>
+        breadcrumb.appendChild(newLi);
+    }
+});
+
+

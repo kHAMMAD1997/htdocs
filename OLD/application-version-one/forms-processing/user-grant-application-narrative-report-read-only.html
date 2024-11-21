@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Narrative Report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+            iframe {
+            width: 1150px;
+            border: none;
+            overflow: hidden; /* Hide scroll bars */
+            margin-bottom: 0px;
+        }
+        .starlabel::after {
+  content: " *";
+  color: red;
+}
+  </style>
+  <style>
+    /* Customize the file input appearance */
+#mediaUpload {
+  height: 40px; /* Set the height to match other input fields */
+  padding: 5px;
+}
+
+.custom-file {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#mediaUpload::-webkit-file-upload-button {
+  height: 100%;
+  padding: 0 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#mediaUpload::-moz-file-upload-button {
+  height: 100%;
+  padding: 0 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#mediaUpload:focus {
+  outline: none;
+}
+  </style>
+      <style>
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Keep it above all other elements */
+        }
+
+        /* Spinner styles */
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Keyframes for spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+  <div id="preloader">
+    <div class="spinner"></div>
+</div>
+<script>
+    // When the window has fully loaded, hide the preloader and show the main content
+    window.addEventListener("load", function() {
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    });
+</script>
+
+<div class="container">
+    <h2 class="text-center">Narrative Report </h2>
+  <div style="text-align: right;">
+    <span style="text-align: left;">
+      <a href="user-grant-application-narrative-report-writable.html" id="edit-btn" style="display: none;" class="btn btn-sm btn-primary">Edit Report</a>
+    </span>
+    <span style="text-align: right;">
+      <a href="admin-view-grant-narrative-report-comments.html" class="btn btn-sm btn-primary">View Comments</a>
+    </span>
+   </div>
+  
+  <form  id="userForm" novalidate>
+    <h4>1. Project Information</h4>
+    <div class="form-group">
+      <label for="projectTitle" class="starlabel">Project Title </label>
+      <input type="text" class="form-control" id="projectTitle" placeholder="Enter the project title" required>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="serviceAgreement">Service Agreement Number (if Applicable)</label>
+      <input type="text" class="form-control" id="serviceAgreement" placeholder="Enter the service agreement number">
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="country" class="starlabel">Country of Project </label>
+      <input type="text" class="form-control" id="country" placeholder="Enter the country of the project" required>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="projectLocation" >Project Location (City and State, Governorate, or District)</label>
+      <input type="text" class="form-control" id="projectLocation" placeholder="Enter the project location">
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    <h4>2. Project Timeline</h4>
+   <div class="form-group">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="startDate">Actual Start Date</label>
+        <input type="date" class="form-control" id="startDate" placeholder="Select start date" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please select a valid start date.</div>
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="endDate">Actual End Date</label>
+        <input type="date" class="form-control" id="endDate" placeholder="Select end date" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please select a valid end date.</div>
+      </div>
+    </div>
+   </div>
+   <h4>3. Project Details</h4>
+
+  
+  
+
+
+
+
+
+
+
+
+   <h5>Project Breakdown</h5>
+   <div id="table-display" style="margin-top: 10px; margin-bottom: 40px;"></div>
+
+   <h5>Actual Beneficiaries</h5>
+   <div class="form-group">
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="households">Households</label>
+        <input type="number" class="form-control" id="households" placeholder="Households" required>
+        <div class="invalid-feedback">Please enter the number of households.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="men">Men</label>
+        <input type="number" class="form-control" id="men" placeholder="Men" required>
+        <div class="invalid-feedback">Please enter the number of men.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="women">Women</label>
+        <input type="number" class="form-control" id="women" placeholder="Women" required>
+        <div class="invalid-feedback">Please enter the number of women.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="boys">Boys</label>
+        <input type="number" class="form-control" id="boys" placeholder="Boys" required>
+        <div class="invalid-feedback">Please enter the number of boys.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="girls">Girls</label>
+        <input type="number" class="form-control" id="girls" placeholder="Girls" required>
+        <div class="invalid-feedback">Please enter the number of girls.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="pwds">PWDs</label>
+        <input type="number" class="form-control" id="pwds" placeholder="PWDs" required>
+        <div class="invalid-feedback">Please enter the number of PWDs.</div>
+      </div>
+    </div>
+    
+    
+   </div>
+
+    <h4>4. Project Challenges</h4>
+    <div class="form-group">
+      <label for="mainChallenges" class="starlabel">Main Challenges (if Any)</label>
+      <textarea class="form-control" id="mainChallenges" placeholder="Describe the main challenges"></textarea>
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    
+    <h4>5. Media Documentation</h4>
+    <div class="form-group">
+      <div class="mb-3">
+          <button  id="download-btn" class="btn btn-primary">Download File Attachment</button>
+      </div>
+    </div>
+  
+   
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('userForm');
+
+  // For each input field, listen for the blur event
+  form.querySelectorAll('input, select').forEach(field => {
+    field.addEventListener('blur', () => {
+      // Add was-validated class to the field's parent form
+      field.classList.add('was-validated');
+      
+      // Apply Bootstrap validation styles based on field validity
+      if (field.checkValidity()) {
+        field.classList.add('is-valid');
+        field.classList.remove('is-invalid');
+      } else {
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+      }
+    });
+  });
+
+  // Prevent default form submission for testing purposes
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    form.classList.add('was-validated');
+  });
+});
+</script>
+<script>
+    // Function to resize iframes based on received messages
+    function resizeIframe(event) {
+        if (event.data.type== 'resize') {
+            const iframe = document.getElementById('dynamicIframe');
+            if (iframe) {
+                iframe.style.height = event.data.height + 'px';
+            }
+        } else if (event.data.type== 'resize2') {
+            const iframe2 = document.getElementById('dynamicIframe2');
+            if (iframe2) {
+                iframe2.style.height = event.data.height + 'px';
+            }
+        }
+        
+    }
+
+    // Set height for dynamicIframe by requesting height from the iframe
+    function setIframeHeight() {
+        const iframe = document.getElementById('dynamicIframe');
+        iframe.contentWindow.postMessage({ type: 'requestHeight' }, '*');
+    }
+
+    // Set height for dynamicIframe2 by requesting height from the iframe
+    function setIframeHeight2() {
+        const iframe2 = document.getElementById('dynamicIframe2');
+        iframe2.contentWindow.postMessage({ type: 'requestHeight2' }, '*');
+    }
+
+    // Listen for resize messages from both iframes
+    window.addEventListener('message', resizeIframe);
+</script>
+<script>
+  //    
+  // Processing of data before submission
+  //  
+  document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("userForm");
+      const inputs = form.querySelectorAll("input, select, textarea");
+  
+      // Load saved data from localStorage on page load
+      inputs.forEach(input => {
+          const savedValue = localStorage.getItem(input.id);
+          if (savedValue) {
+              input.value = savedValue;
+          }
+      });
+  
+      // Save data to localStorage on input change
+      inputs.forEach(input => {
+          input.addEventListener("input", () => {
+              localStorage.setItem(input.id, input.value);
+          });
+      });
+  
+      
+  });
+</script>
+
+<!-- <script>
+  // Function to send the height to the parent window
+  function sendHeightToParent() {
+    const height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'resize', height: height }, '*');
+  }
+
+  // Send height on load
+  window.addEventListener('load', sendHeightToParent);
+
+  // Optional: Resend height if the content changes (e.g., dynamically loaded content)
+  new ResizeObserver(sendHeightToParent).observe(document.body);
+</script> -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", async function() {
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get concept_note_id from the URL
+    const conceptNoteId = getUrlParameter("concept-note-id");
+    if (!conceptNoteId) {
+        console.error("concept-note-id not found in URL");
+        return;
+    }
+
+    try {
+        // Fetch data from the API using the concept_note_id
+        const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Check if the response status is success and data exists
+        if (data.status== "success" && data.data && Array.isArray(data.data.data) && data.data.data.length > 0) {
+            // Extract projectTitle from the response data
+            const projectTitle = data.data.data[0].projectTitle;
+
+            // Set the projectTitle in the input element and disable it
+            const projectTitleInput = document.getElementById("projectTitle");
+            if (projectTitleInput) {
+                projectTitleInput.value = projectTitle;
+                projectTitleInput.disabled = true;
+            } else {
+                console.error("Element with id 'projectTitle' not found.");
+            }
+        } else {
+            console.error("No data found for the specified concept_note_id.");
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+});
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", async function() {
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.parent.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get concept_note_id from the URL
+    const conceptNoteId = getUrlParameter("concept-note-id");
+    if (!conceptNoteId) {
+        console.error("concept-note-id not found in URL");
+        return;
+    }
+
+    try {
+        // Fetch data from the API using the concept_note_id
+        const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Check if the response status is success and data exists
+        if (data.status== "success" && data.data && Array.isArray(data.data.data) && data.data.data.length > 0) {
+            // Extract projectTitle from the response data
+            const projectTitle = data.data.data[0].projectTitle;
+
+            // Set the projectTitle in the input element and disable it
+            const projectTitleInput = document.getElementById("projectTitle");
+            if (projectTitleInput) {
+                projectTitleInput.value = projectTitle;
+                localStorage.setItem("projectTitle",projectTitle);
+                projectTitleInput.disabled = true;
+            } else {
+                console.error("Element with id 'projectTitle' not found.");
+            }
+        } else {
+            console.error("No data found for the specified concept_note_id.");
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+});
+
+</script>
+<script>
+  // Function to convert file to Base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+// Function to handle file upload and store Base64 in localStorage
+async function handleFileUpload(event) {
+    const file = event.target.files[0]; // Get the first uploaded file
+    if (file) {
+        try {
+            // Convert file to Base64
+            const base64String = await fileToBase64(file);
+
+            // Store the Base64 string in localStorage with key 'media_path'
+            localStorage.setItem("media_path", base64String);
+        } catch (error) {
+            console.error("Error converting file to Base64:", error);
+        }
+    }
+}
+
+// Add event listener to listen for file upload changes
+document.getElementById("mediaUpload").addEventListener("change", handleFileUpload);
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById("submit-btn");
+
+    // Helper function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.parent.location.search);
+        return urlParams.get(name);
+    }
+
+    // Event listener for submit button click
+    submitButton.addEventListener("click", async function () {
+        // Get concept_note_id from the parent URL
+        const conceptNoteId = getUrlParameter("concept-note-id");
+        if (!conceptNoteId) {
+            alert("Concept Note ID is missing in the URL.");
+            return;
+        }
+
+        // Initialize the data object with the concept note ID
+        let narrativeReportData = {
+            concept_note_id: conceptNoteId,
+            submission_date: new Date().toISOString().split("T")[0] // current date
+        };
+
+        // Iterate through all input fields
+        const inputs = document.querySelectorAll("input");
+        inputs.forEach(input => {
+            const key = input.id;
+            let value = localStorage.getItem(key);
+
+            // If value exists in localStorage, use it; otherwise, default to 0
+            if (value== null) {
+                value = " ";
+            }
+
+            // Populate the data object and update the input fields
+            narrativeReportData[key] = value;
+            input.value = value;
+        });
+        
+        const mainChallenges = document.getElementById("mainChallenges").value;
+     
+        if(mainChallenges == null){
+          mainChallenges = " ";
+        }
+        localStorage.setItem("mainChallenges",mainChallenges);
+        localStorage.setItem("projectTitle",document.getElementById("projectTitle").value)
+
+
+        // Add any other keys from localStorage that don’t correspond to input fields
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!document.getElementById(key) && key !== "mediaUpload") {
+                narrativeReportData[key] = localStorage.getItem(key) || "0";
+            }
+        }
+
+        // Remove the mediaUpload key if it exists
+        delete narrativeReportData.mediaUpload;
+
+        // Prepare to send data to the API
+        try {
+            const response = await fetch("https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-narrative-report-api.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(narrativeReportData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.status== "success") {
+                    alert("Narrative report submitted successfully!");
+                } else {
+                    alert("Failed to submit narrative report: " + result.message);
+                }
+            } else {
+                alert("API request failed with status: " + response.status);
+            }
+        } catch (error) {
+            console.error("Error submitting narrative report:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    });
+});
+
+</script>
+<script>
+  // Function to create Bootstrap table from JSON data in local storage
+  function displayTableFromJson() {
+      // Retrieve JSON data from local storage
+      const jsonData = JSON.parse(localStorage.getItem('activityRows'));
+  
+      // Check if JSON data exists
+      if (!jsonData) {
+          document.getElementById('table-display').innerHTML = '<p>No data available.</p>';
+          return;
+      }
+  
+      // Initialize the HTML for the table
+      let tableHTML = `
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                  <tr>
+                      <th>Sector</th>
+                      <th>Activity</th>
+                      <th>Indicator</th>
+                      <th>Amount</th>
+                  </tr>
+              </thead>
+              <tbody>
+      `;
+  
+      // Loop through JSON data and add rows to the table
+      jsonData.forEach(row => {
+          // Skip empty rows
+          if (!row.sector && !row.activity && !row.indicator && !row.amount) {
+              return;
+          }
+  
+          tableHTML += `
+              <tr>
+                  <td>${row.sector || ''}</td>
+                  <td>${row.activity || ''}</td>
+                  <td>${row.indicator || ''}</td>
+                  <td>${row.amount || ''}</td>
+              </tr>
+          `;
+      });
+  
+      // Close table tags
+      tableHTML += `
+              </tbody>
+          </table>
+      `;
+  
+      // Display the table inside the div with id 'table-display'
+      document.getElementById('table-display').innerHTML = tableHTML;
+  }
+  
+  // Run the function to display the table after a 2-second delay
+  window.onload = () => setTimeout(displayTableFromJson, 500);
+  </script>
+
+
+  <script>
+  document.getElementById('download-btn').addEventListener('click', function() {
+      // Step 1: Obtain the media_path from local storage
+      const mediaPathBase64 = localStorage.getItem('media_path');
+      
+      // Check if media_path exists in local storage
+      if (!mediaPathBase64) {
+          alert('No media file found in local storage.');
+          return;
+      }
+  
+      // Step 2: Create a downloadable link from the base64 string
+      // Assume that the base64 string includes the MIME type (e.g., "data:image/png;base64,...")
+      const link = document.createElement('a');
+      link.href = mediaPathBase64;
+  
+      // Optional: Set a filename for the download (defaulting to "downloaded_file" if not known)
+      const mimeType = mediaPathBase64.match(/^data:([^;]+);base64,/);
+      const fileExtension = mimeType ? mimeType[1].split('/')[1] : 'file';
+      link.download = `downloaded_file.${fileExtension}`;
+  
+      // Step 3: Programmatically click the link to trigger download
+      link.click();
+  });
+  </script>
+
+  <script>
+    // Select all input and textarea elements within the form
+document.querySelectorAll('form input, form textarea').forEach(element => {
+    element.disabled = true;
+});
+
+  </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const editBtn = document.getElementById("edit-btn");
+      
+      // Check if the button exists before modifying its style
+      if (editBtn) {
+          const status = localStorage.getItem("revise");
+  console.log("Revise------------"+ status);
+          // If status is "1", display the edit button
+          if (status== "1") {
+              editBtn.style.display = "inline-block"; // Make the button visible
+          } else {
+              editBtn.style.display = "none"; // Hide the button otherwise
+          }
+      } else {
+          console.warn("Edit button not found in the DOM.");
+      }
+  });
+</script>
+
+  
+  
+
+</body>
+</html>

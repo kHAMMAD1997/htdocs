@@ -11,13 +11,13 @@
  * for further information.
  */
 (function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
+	if ( typeof define== 'function' && define.amd ) {
 		// AMD
 		define( ['jquery', 'datatables.net'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
-	else if ( typeof exports === 'object' ) {
+	else if ( typeof exports== 'object' ) {
 		// CommonJS
 		module.exports = function (root, $) {
 			if ( ! root ) {
@@ -122,7 +122,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 
 					default:
 						btnDisplay = button + 1;
-						btnClass = page === button ?
+						btnClass = page== button ?
 							'active' : '';
 						break;
 				}
@@ -130,7 +130,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 				if ( btnDisplay ) {
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
-							'id': idx === 0 && typeof button === 'string' ?
+							'id': idx== 0 && typeof button== 'string' ?
 								settings.sTableId +'_'+ button :
 								null
 						} )

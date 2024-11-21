@@ -47,7 +47,7 @@ if (!String.prototype.format)
 {
     String.prototype.format = function()
     {
-        var args = (arguments.length === 1 && $.isArray(arguments[0])) ? arguments[0] : arguments;
+        var args = (arguments.length== 1 && $.isArray(arguments[0])) ? arguments[0] : arguments;
         var formattedString = this;
         for (var i = 0; i < args.length; i++)
         {
@@ -185,12 +185,12 @@ function analyzeData(wizard, options, state)
             modeData = content.data("mode"),
             mode = (modeData == null) ? contentMode.html : getValidEnumValue(contentMode,
                 (/^\s*$/.test(modeData) || isNaN(modeData)) ? modeData : parseInt(modeData, 0)),
-            contentUrl = (mode === contentMode.html || content.data("url") === undefined) ?
+            contentUrl = (mode== contentMode.html || content.data("url")== undefined) ?
                 "" : content.data("url"),
-            contentLoaded = (mode !== contentMode.html && content.data("loaded") === "1"),
+            contentLoaded = (mode !== contentMode.html && content.data("loaded")== "1"),
             step = $.extend({}, stepModel, {
                 title: item.html(),
-                content: (mode === contentMode.html) ? content.html() : "",
+                content: (mode== contentMode.html) ? content.html() : "",
                 contentUrl: contentUrl,
                 contentMode: mode,
                 contentLoaded: contentLoaded
@@ -413,10 +413,10 @@ function getValidEnumValue(enumType, keyOrValue)
     validateArgument("keyOrValue", keyOrValue);
 
     // Is key
-    if (typeof keyOrValue === "string")
+    if (typeof keyOrValue== "string")
     {
         var value = enumType[keyOrValue];
-        if (value === undefined)
+        if (value== undefined)
         {
             throwError("The enum key '{0}' does not exist.", keyOrValue);
         }
@@ -424,11 +424,11 @@ function getValidEnumValue(enumType, keyOrValue)
         return value;
     }
     // Is value
-    else if (typeof keyOrValue === "number")
+    else if (typeof keyOrValue== "number")
     {
         for (var key in enumType)
         {
-            if (enumType[key] === keyOrValue)
+            if (enumType[key]== keyOrValue)
             {
                 return keyOrValue;
             }
@@ -561,7 +561,7 @@ function initialize(options)
         registerEvents(wizard, opts);
 
         // Trigger focus
-        if (opts.autoFocus && _uniqueId === 0)
+        if (opts.autoFocus && _uniqueId== 0)
         {
             getStepAnchor(wizard, opts.startIndex).focus();
         }
@@ -613,12 +613,12 @@ function insertStep(wizard, options, state, index, step)
         header = $("<{0}>{1}</{0}>".format(options.headerTag, step.title)),
         body = $("<{0}></{0}>".format(options.bodyTag));
 
-    if (step.contentMode == null || step.contentMode === contentMode.html)
+    if (step.contentMode == null || step.contentMode== contentMode.html)
     {
         body.html(step.content);
     }
 
-    if (index === 0)
+    if (index== 0)
     {
         contentContainer.prepend(body).prepend(header);
     }
@@ -630,7 +630,7 @@ function insertStep(wizard, options, state, index, step)
     renderBody(wizard, state, body, index);
     renderTitle(wizard, options, state, header, index);
     refreshSteps(wizard, options, state, index);
-    if (index === state.currentIndex)
+    if (index== state.currentIndex)
     {
         refreshStepNavigation(wizard, options, state);
     }
@@ -675,12 +675,12 @@ function keyUpHandler(event)
     }
 
     var keyCodes = { left: 37, right: 39 };
-    if (event.keyCode === keyCodes.left)
+    if (event.keyCode== keyCodes.left)
     {
         event.preventDefault();
         goToPreviousStep(wizard, options, state);
     }
-    else if (event.keyCode === keyCodes.right)
+    else if (event.keyCode== keyCodes.right)
     {
         event.preventDefault();
         goToNextStep(wizard, options, state);
@@ -756,7 +756,7 @@ function paginationClick(wizard, options, state, index)
         anchor.click();
 
         // An error occured
-        if (oldIndex === state.currentIndex && isDisabled)
+        if (oldIndex== state.currentIndex && isDisabled)
         {
             // Disable the step again if current index has not changed; prevents click action.
             parent._enableAria(false);
@@ -837,8 +837,8 @@ function refreshPagination(wizard, options, state)
         }
         else
         {
-            finish._showAria(options.enableFinishButton && state.stepCount === (state.currentIndex + 1));
-            next._showAria(state.stepCount === 0 || state.stepCount > (state.currentIndex + 1)).
+            finish._showAria(options.enableFinishButton && state.stepCount== (state.currentIndex + 1));
+            next._showAria(state.stepCount== 0 || state.stepCount > (state.currentIndex + 1)).
                 _enableAria(state.stepCount > (state.currentIndex + 1) || !options.enableFinishButton);
         }
     }
@@ -939,7 +939,7 @@ function registerEvents(wizard, options)
 function removeStep(wizard, options, state, index)
 {
     // Index out of range and try deleting current item will return false.
-    if (index < 0 || index >= state.stepCount || state.currentIndex === index)
+    if (index < 0 || index >= state.stepCount || state.currentIndex== index)
     {
         return false;
     }
@@ -958,13 +958,13 @@ function removeStep(wizard, options, state, index)
     getStepAnchor(wizard, index).parent().remove();
 
     // Set the "first" class to the new first step button 
-    if (index === 0)
+    if (index== 0)
     {
         wizard.find(".steps li").first().addClass("first");
     }
 
     // Set the "last" class to the new last step button 
-    if (index === state.stepCount)
+    if (index== state.stepCount)
     {
         wizard.find(".steps li").eq(index).addClass("last");
     }
@@ -995,7 +995,7 @@ function render(wizard, options, state)
     // Create a content wrapper and copy HTML from the intial wizard structure
     var wrapperTemplate = "<{0} class=\"{1}\">{2}</{0}>",
         orientation = getValidEnumValue(stepsOrientation, options.stepsOrientation),
-        verticalCssClass = (orientation === stepsOrientation.vertical) ? " vertical" : "",
+        verticalCssClass = (orientation== stepsOrientation.vertical) ? " vertical" : "",
         contentWrapper = $(wrapperTemplate.format(options.contentContainerTag, "content " + options.clearFixCssClass, wizard.html())),
         stepsWrapper = $(wrapperTemplate.format(options.stepsContainerTag, "steps " + options.clearFixCssClass, "<ul role=\"tablist\"></ul>")),
         stepTitles = contentWrapper.children(options.headerTag),
@@ -1037,7 +1037,7 @@ function renderBody(wizard, state, body, index)
         uniqueHeaderId = uniqueId + _titleSuffix + index;
 
     body._id(uniqueBodyId).attr("role", "tabpanel")._aria("labelledby", uniqueHeaderId)
-        .addClass("body")._showAria(state.currentIndex === index);
+        .addClass("body")._showAria(state.currentIndex== index);
 }
 
 /**
@@ -1102,7 +1102,7 @@ function renderTemplate(template, substitutes)
         var match = matches[i], 
             key = match.substring(1, match.length - 1);
 
-        if (substitutes[key] === undefined)
+        if (substitutes[key]== undefined)
         {
             throwError("The key '{0}' does not exist in the substitute collection!", key);
         }
@@ -1148,7 +1148,7 @@ function renderTitle(wizard, options, state, header, index)
 
     header._id(uniqueHeaderId).attr("tabindex", "-1").addClass("title");
 
-    if (index === 0)
+    if (index== 0)
     {
         stepCollection.prepend(stepItem);
     }
@@ -1158,13 +1158,13 @@ function renderTitle(wizard, options, state, header, index)
     }
 
     // Set the "first" class to the new first step button
-    if (index === 0)
+    if (index== 0)
     {
         stepCollection.find("li").removeClass("first").eq(index).addClass("first");
     }
 
     // Set the "last" class to the new last step button
-    if (index === (state.stepCount - 1))
+    if (index== (state.stepCount - 1))
     {
         stepCollection.find("li").removeClass("last").eq(index).addClass("last");
     }
@@ -1203,8 +1203,8 @@ function startTransitionEffect(wizard, options, state, index, oldIndex, doneCall
     {
         case transitionEffect.fade:
         case transitionEffect.slide:
-            var hide = (effect === transitionEffect.fade) ? "fadeOut" : "slideUp",
-                show = (effect === transitionEffect.fade) ? "fadeIn" : "slideDown";
+            var hide = (effect== transitionEffect.fade) ? "fadeOut" : "slideUp",
+                show = (effect== transitionEffect.fade) ? "fadeIn" : "slideDown";
 
             state.transitionElement = newStep;
             currentStep[hide](effectSpeed, function ()
@@ -1268,7 +1268,7 @@ function stepClickHandler(event)
     }
 
     // If nothing has changed
-    if (oldIndex === state.currentIndex)
+    if (oldIndex== state.currentIndex)
     {
         getStepAnchor(wizard, oldIndex).focus();
         return false;
@@ -1317,7 +1317,7 @@ $.fn.steps = function (method)
     {
         return $.fn.steps[method].apply(this, Array.prototype.slice.call(arguments, 1));
     }
-    else if (typeof method === "object" || !method)
+    else if (typeof method== "object" || !method)
     {
         return initialize.apply(this, arguments);
     }

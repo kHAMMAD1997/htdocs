@@ -513,7 +513,7 @@ window.addEventListener("load", function() {
             var savedStep = localStorage.getItem("currentStep");
             console.log("The step is " + savedStep);
             // Ensure savedStep is compared as an integer
-            if (parseInt(savedStep, 10) === 7) {
+            if (parseInt(savedStep, 10)== 7) {
                 localStorage.setItem("currentStep", "6");
             }
         }
@@ -578,7 +578,7 @@ window.addEventListener("load", function() {
     
             // 'Next' button click handler
             $("#next").click(function() {
-                if (steps.stepsTotal === steps.getStepActive() + 1) return false;
+                if (steps.stepsTotal== steps.getStepActive() + 1) return false;
     
                 headerActive = $(".step-wizard.active");
                 contentActive = $(".step-wizard-content.active");
@@ -589,7 +589,7 @@ window.addEventListener("load", function() {
     
                 saveCurrentStep();
     
-                if (steps.stepsTotal === steps.getStepActive() + 1) {
+                if (steps.stepsTotal== steps.getStepActive() + 1) {
                     $(this).addClass("disabled");
                 }
                 $(this).siblings().removeClass("disabled");
@@ -643,7 +643,7 @@ window.addEventListener("load", function() {
     $(".progress-bar-step").width(steps.calcProgressWidth() + "%");
 
     $("#previous").click(function() {
-        if (steps.getStepActive() === 0) return false;
+        if (steps.getStepActive()== 0) return false;
         $(".step-wizard.active").removeClass("active").prev().addClass("active");
         $(".step-wizard-content.active").removeClass("active").prev().addClass("active");
         $(".progress-bar-step").width(steps.calcProgressWidth() + "%");
@@ -651,12 +651,12 @@ window.addEventListener("load", function() {
 
     $("#next").click(function() {
         let activeForm = $(".step-wizard-content.active form");
-        if (activeForm[0].checkValidity() === false) {
+        if (activeForm[0].checkValidity()== false) {
             activeForm.addClass('was-validated');
             event.preventDefault();
             event.stopPropagation();
         } else {
-            if (steps.getStepActive() + 1 === steps.stepsTotal) return false;
+            if (steps.getStepActive() + 1== steps.stepsTotal) return false;
             $(".step-wizard.active").removeClass("active").next().addClass("active");
             $(".step-wizard-content.active").removeClass("active").next().addClass("active");
             $(".progress-bar-step").width(steps.calcProgressWidth() + "%");
@@ -668,12 +668,12 @@ window.addEventListener("load", function() {
 <script>
     // Function to resize iframes based on received messages
     function resizeIframe(event) {
-        if (event.data.type === 'resize') {
+        if (event.data.type== 'resize') {
             const iframe = document.getElementById('dynamicIframe');
             if (iframe) {
                 iframe.style.height = event.data.height + 'px';
             }
-        } else if (event.data.type === 'resize2') {
+        } else if (event.data.type== 'resize2') {
             const iframe2 = document.getElementById('dynamicIframe2');
             if (iframe2) {
                 iframe2.style.height = event.data.height + 'px';
@@ -698,9 +698,9 @@ window.addEventListener("load", function() {
     window.addEventListener('message', resizeIframe);
 </script>
 <script>
-    //  ==========================================================
+    //    
     // Processing of data before submission for multiple forms
-    // ===========================================================
+    //  
     document.addEventListener("DOMContentLoaded", function() {
         // Select all forms on the page
         const forms = document.querySelectorAll("form");
@@ -838,7 +838,7 @@ window.addEventListener("load", function() {
             }
 
             // Handle successful JSON response
-            if (result.status === "success") {
+            if (result.status== "success") {
                 alert("Grant application submitted successfully!");
                 window.location.href = "success.html"; 
             } else {
@@ -959,7 +959,7 @@ inputIds.forEach(id => {
                 }
 
                 const result = await response.json();
-                if (result.status === "success") {
+                if (result.status== "success") {
                     console.log("Grant application updated successfully.");
                     alert("Grant application updated successfully.");
                 } else {

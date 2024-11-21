@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>MWLIMITS</title>
+    <!-- Custom CSS -->
+    <link href="assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+    <script src="assets/custom-js/admin-side-nav.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <!--  -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!--  -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!--  -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!--  -->
+    <div id="main-wrapper">
+        <!--  -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!--  -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <!--  -->
+                    <!-- Logo -->
+                    <!--  -->
+                    <a class="navbar-brand" href="admin-dashboard.html">
+                        <!-- Logo icon -->
+                        <b class="logo-icon p-l-10">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="https://cdn-200e7.kxcdn.com/wp-content/uploads/2023/02/logo.svg" alt="homepage" class="light-logo" />
+                           
+                        </b>
+                        <!--End Logo icon -->
+                         <!-- Logo text -->
+                        <span class="logo-text">
+                             <!-- dark Logo text -->
+                             <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                            
+                        </span>
+                        <!-- Logo icon -->
+                        <!-- <b class="logo-icon"> -->
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                            
+                        <!-- </b> -->
+                        <!--End Logo icon -->
+                    </a>
+                    <!--  -->
+                    <!-- End Logo -->
+                    <!--  -->
+                    <!--  -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!--  -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                </div>
+                <!--  -->
+                <!-- End Logo -->
+                <!--  -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <!--  -->
+                    <!-- toggle and nav items -->
+                    <!--  -->
+                    <ul class="navbar-nav float-left mr-auto">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                    </ul>
+                    <!--  -->
+                    <!-- Right side toggle and nav items -->
+                    <!--  -->
+                    <ul class="navbar-nav float-right">
+                        <!--  -->
+                        <!-- User profile and search -->
+                        <!--  -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" id="logoutLink" href="javascript:void(0)">
+                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+                                </a>
+                                
+                                <div class="dropdown-divider"></div>
+                                <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
+                            </div>
+                        </li>
+                        <!--  -->
+                        <!-- User profile and search -->
+                        <!--  -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!--  -->
+        <!-- End Topbar header -->
+        <!--  -->
+        <!--  -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!--  -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-concept-note-list-dash.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Concept Notes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-form-list.html?form_name=Narrative Report&page=1" aria-expanded="false"><i class="mdi mdi-chart-pie"></i><span class="hide-menu">Narrative Reports</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-form-list.html?form_name=Grant Application&page=1" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Grant Applications</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-create-user.html" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Users</span></a></li>
+    
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!--  -->
+        <!--  -->
+        <!-- Page wrapper  -->
+        <!--  -->
+        <div class="page-wrapper">
+            <!--  -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!--  -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                       
+                        <div class="ml-auto text-right">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!--  -->
+            <!--  -->
+            <!-- Container fluid  -->
+            <!--  -->
+            <div class="container-fluid">
+                <!--  -->
+                <!-- Start Page Content -->
+                <!--  -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-2"></div>
+                            
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <!-- Left-aligned buttons -->
+                            <div>
+                                <a href="#" class="btn btn-success btn-sm" id="approve-btn">Approve</a>
+                                <a href="#" class="btn btn-primary btn-sm" id="revise-btn">Revise</a>
+                                <a href="#" class="btn btn-danger btn-sm" id="decline-btn">Decline</a>
+                            </div>
+                        
+                            <!-- Right-aligned button -->
+                            <div>
+                                <a href="#" class="btn btn-info btn-sm" id="narrative-btn">View Narrative Report</a>
+                            </div>
+                        </div>
+
+
+
+                        <script>
+                            // Function to extract the 'concept_note_id' from the URL parameters
+                            function getConceptNoteIdFromUrl() {
+                              const urlParams = new URLSearchParams(window.location.search);
+                              return urlParams.get("concept-note-id");
+                          }
+                          const id = getConceptNoteIdFromUrl();
+                          const narrativeButton = document.getElementById("narrative-btn");
+                          narrativeButton.onclick = function() {
+                          window.location.href = `admin-concept-narrative-report-list-dash.html?concept-note-id=${id}`;
+                      };
+                      
+                      
+                      </script>
+
+
+
+                        
+
+                        
+                        <br>
+
+                        <div class="card" style="margin-left: -20px; margin-right: 0px;">
+                            <div class="card-body" >
+                                
+                              
+                                <iframe  id="read-only-concept-note" src="admin-read-only-concept-note.html" width="100%" height="2500" frameborder="0" style="overflow:hidden;"></iframe>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BEGIN MODAL -->
+                <div class="modal none-border" id="my-event">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add Event</strong></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Revise -->
+                <div class="modal fade none-border" id="revise-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width: fit-content;">
+                            <div class="modal-header">
+                                <h4 class="modal-title text-info">Select Revise Reason</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <div class="custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="inaccurateReporting" value="-Inaccurate Reporting – There are discrepancies between what was reported and the actual project activities or outcomes.">
+                                                    <label class="custom-control-label" for="inaccurateReporting"><b>Inaccurate Reporting</b> – There are discrepancies between what was reported and the actual project activities or outcomes.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="failureFeedback" value="-Failure to Address Previous Feedback – The report does not adequately address comments or feedback provided in previous submissions.">
+                                                    <label class="custom-control-label" for="failureFeedback"><b>Failure to Address Previous Feedback</b> – The report does not adequately address comments or feedback provided in previous submissions.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="unclearObjectives" value="-Unclear Objectives or Outcomes – The objectives stated in the report are not clearly aligned with the project's original goals, or the outcomes are not clearly defined.">
+                                                    <label class="custom-control-label" for="unclearObjectives"><b>Unclear Objectives or Outcomes</b> – The objectives stated in the report are not clearly aligned with the project's original goals, or the outcomes are not clearly defined.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="inconsistentData" value="-Inconsistent Data – The data or metrics presented in the report conflict with previous reports or expectations.">
+                                                    <label class="custom-control-label" for="inconsistentData"><b>Inconsistent Data</b> – The data or metrics presented in the report conflict with previous reports or expectations.</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="-Other – Reason">
+                                                    <label class="custom-control-label" for="otherReasonTwo"><b>Other</b> – Type reason</label>
+                                                </div>
+                                                <div id="text-area-div-two" style="margin-top: 10px; display: none;">
+                                                    <textarea class="form-control border-primary" id="otherReasontextboxTwo" placeholder="Type other reason here"></textarea>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>                                        
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button id ="revise-close" type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Decline -->
+                <div class="modal fade none-border" id="decline-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width: max-content;">
+                            <div class="modal-header">
+                                <h4 class="modal-title text-info">Select Decline Reason</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="budgetExceeds" value="-Requested Budget Exceeds Available Funds – The requested funding amount is higher than what we can allocate.">
+                                                <label class="custom-control-label" for="budgetExceeds"><b>Requested Budget Exceeds Available Funds</b> – The requested funding amount is higher than what we can allocate.</label>                                           
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="incompleteApplication" value="-Incomplete Application – Missing key information or required documents.">
+                                                <label class="custom-control-label" for="incompleteApplication"><b>Incomplete Application</b> – Missing key information or required documents.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="notEligible" value="-Does Not Meet Eligibility Criteria – The applicant or project does not fulfill the necessary eligibility requirements.">
+                                                <label class="custom-control-label" for="notEligible"><b>Does Not Meet Eligibility Criteria</b> – The applicant or project does not fulfill the necessary eligibility requirements.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="feasibilityConcerns" value="-Project Feasibility Concerns – Concerns about the project’s ability to be successfully implemented or executed.">
+                                                <label class="custom-control-label" for="feasibilityConcerns"><b>Project Feasibility Concerns</b> – Concerns about the project’s ability to be successfully implemented or executed.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="insufficientImpact" value="-Insufficient Impact – The projected outcomes or impact are not significant enough relative to the funding request.">
+                                                <label class="custom-control-label" for="insufficientImpact"><b>Insufficient Impact</b> – The projected outcomes or impact are not significant enough relative to the funding request.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="overlappingProjects" value="-Overlapping with Other Projects – The project is too similar to others we are already supporting.">
+                                                <label class="custom-control-label" for="overlappingProjects"><b>Overlapping with Other Projects</b> – The project is too similar to others we are already supporting.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="budgetConcerns" value="-Budget Concerns – The proposed budget is unrealistic, unbalanced, or lacks sufficient detail.">
+                                                <label class="custom-control-label" for="budgetConcerns"><b>Budget Concerns</b> – The proposed budget is unrealistic, unbalanced, or lacks sufficient detail.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="unclear-Objectives" value="-Unclear Objectives or Outcomes – The goals, objectives, or expected results are not clearly defined or measurable.">
+                                                <label class="custom-control-label" for="unclear-Objectives"><b>Unclear Objectives or Outcomes</b> – The goals, objectives, or expected results are not clearly defined or measurable.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="weakSustainability" value="-Weak Sustainability Plan – The project does not have a strong plan for sustainability beyond the grant period.">
+                                                <label class="custom-control-label" for="weakSustainability"><b>Weak Sustainability Plan</b> – The project does not have a strong plan for sustainability beyond the grant period.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="lackCapacity" value="-Lack of Organizational Capacity – Concerns about the applicant's ability to manage and deliver the project.">
+                                                <label class="custom-control-label" for="lackCapacity"><b>Lack of Organizational Capacity</b> – Concerns about the applicant's ability to manage and deliver the project.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="timingIssues" value="-Timing Issues – The project timeline does not align with our funding cycles or current priorities.">
+                                                <label class="custom-control-label" for="timingIssues"><b>Timing Issues</b> – The project timeline does not align with our funding cycles or current priorities.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="otherReason" value="-Other – Reason">
+                                                <label class="custom-control-label" for="otherReason"><b>Other</b> – Type reason</label>
+                                            </div>
+                                            <div id="text-area-div" style="margin-top: 10px; display: none;">
+                                                <textarea class="form-control border-primary" id="otherReasontextbox" placeholder="Type other reson here"></textarea>
+                                            </div>
+                                            
+                                        </div>                                        
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="decline-save" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button type="button" id="decline-close" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MODAL -->
+
+                <!--  -->
+                <!-- End PAge Content -->
+                <!--  -->
+                <!--  -->
+                <!-- Right sidebar -->
+                <!--  -->
+                <!-- .right-sidebar -->
+                <!--  -->
+                <!-- End Right sidebar -->
+                <!--  -->
+            </div>
+            <!--  -->
+            <!-- End Container fluid  -->
+            <!--  -->
+            <!--  -->
+            <!-- footer -->
+            <!--  -->
+            <footer class="footer text-center">
+             mwlimits.org    
+            </footer>
+            <!--  -->
+            <!-- End footer -->
+            <!--  -->
+        </div>
+        <!--  -->
+        <!-- End Page wrapper  -->
+        <!--  -->
+    </div>
+    <!--  -->
+    <!-- End Wrapper -->
+    <!--  -->
+    <!--  -->
+    <!-- All Jquery -->
+    <!--  -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
+    <script src="dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <script src="assets/libs/toastr/build/toastr.min.js"></script>
+    <!-- this page js -->
+    <script src="assets/libs/moment/min/moment.min.js"></script>
+    <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="dist/js/pages/calendar/cal-init.js"></script>
+    
+
+    <script>
+        // Function to delete a cookie by name
+        function deleteCookie(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+    
+        // Add event listener to the logout link
+        document.getElementById('logoutLink').addEventListener('click', function() {
+            // Remove the user cookie
+            deleteCookie('user');
+            
+            // Optionally, you can also clear localStorage if you store user info there
+            // localStorage.removeItem('user');
+    
+            // Redirect to login page or home page
+            window.location.href = 'https://hammad-khan.org/application-version-one/forms-processing/login.html';
+        });
+    </script>
+<script>
+    // Function to extract the 'entry_id' from the URL parameters
+    function getEntryIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("entry_id");
+    }
+    
+    // Function to fetch data and populate the table
+    async function fetchAndPopulateTable(entryId) {
+        try {
+            // Fetch data from the API using the dynamic entryId
+            const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/microservices/wpforms-entry-api.php?entry_id=${entryId}`);
+            
+            // Check if response is okay
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            // Parse the JSON data
+            const data = await response.json();
+    
+            // Get the fields object from the JSON response
+            const fields = data.fields;
+    
+            // Reference the table body
+            const tableBody = document.querySelector("#zero_config tbody");
+    
+            // Clear existing rows
+            tableBody.innerHTML = '';
+    
+            // Populate the table with each 'name' and 'value' pair
+            for (const key in fields) {
+                if (fields.hasOwnProperty(key)) {
+                        const field = fields[key];
+                        const nameRow = document.createElement("tr");
+                        const valueRow = document.createElement("tr");
+
+                        // Create cells for name and value
+                        const nameCell = document.createElement("td");
+                        nameCell.textContent = field.name;
+                        // Add Bootstrap text-primary class to make the text color primary
+                        nameCell.classList.add("text-primary");
+
+                        const valueCell = document.createElement("td");
+                        valueCell.textContent = field.value;
+
+                        // Append cells to rows
+                        nameRow.appendChild(nameCell);
+                        valueRow.appendChild(valueCell);
+
+                        // Append rows to the table
+                        tableBody.appendChild(nameRow);
+                        tableBody.appendChild(valueRow);
+}
+
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+    
+    // Get the entry_id from the URL and call the function
+    const entryId = getEntryIdFromUrl();
+    if (entryId) {
+        fetchAndPopulateTable(entryId);
+    } else {
+        console.error("No entry_id found in the URL");
+    }
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function getEntryIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get("entry_id");
+        }
+    
+        const entryId = getEntryIdFromUrl();
+        const approveBtn = document.getElementById("approve-btn");
+        const declineBtn = document.getElementById("decline-btn");
+        const approveMsg = document.getElementById("approve-msg");
+        const declinedMsg = document.getElementById("declined-msg");
+    
+        if (!entryId) {
+            console.error("No entry_id found in URL");
+            return;
+        }
+    
+        // Store the fetched entry data
+        let currentEntryData = {};
+    
+        // Function to fetch the current entry data
+        async function fetchEntryData() {
+            try {
+                const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/forms-status-api.php?entry_id=${entryId}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+                currentEntryData = data.data.data[0]; // Assuming data structure is as described
+                console.log("Fetched Entry Data:", currentEntryData); // Debugging
+            } catch (error) {
+                console.error("Error fetching entry data:", error);
+            }
+        }
+    
+        // Function to update the entry status
+        async function updateStatus(updatedFields) {
+            // Merge current data with the updated fields
+            const updateData = { ...currentEntryData, ...updatedFields };
+            console.log("Updating status with data:", updateData); // Debugging
+    
+            try {
+                const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/forms-status-api.php`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(updateData)
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+    
+                const result = await response.json();
+                console.log("Update response:", result);
+    
+                if (result.status== "success") {
+                    fetchEntryData(); // Re-fetch data to confirm changes
+    
+                    // Show appropriate message
+                    if (updatedFields.approved== 1) {
+                        approveMsg.style.display = "block";
+                        declinedMsg.style.display = "none";
+                    } else if (updatedFields.declined== 1) {
+                        declinedMsg.style.display = "block";
+                        approveMsg.style.display = "none";
+                    }
+                } else {
+                    console.error("Failed to update status:", result.message);
+                }
+            } catch (error) {
+                console.error("Error updating status:", error);
+            }
+        }
+    
+        // Event listener for Approve button
+        approveBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            console.log("Approve button clicked");
+    
+            // Fields to update for approval
+            const updatedFields = {
+                pending: 0,
+                approved: 1,
+                overdue: 0,
+                declined: 0
+            };
+    
+            updateStatus(updatedFields);
+        });
+    
+        // Event listener for Decline button
+        declineBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            console.log("Decline button clicked");
+    
+            // Fields to update for decline
+            const updatedFields = {
+                pending: 0,
+                approved: 0,
+                overdue: 0,
+                declined: 1
+            };
+    
+            updateStatus(updatedFields);
+        });
+    
+        // Initial fetch of entry data when the page loads
+        fetchEntryData();
+    });
+    </script>
+    
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Function to get URL parameter by name
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    
+        // Get concept-note-id from the URL
+        const conceptNoteId = getUrlParameter("concept-note-id");
+        if (!conceptNoteId) {
+            console.error("concept-note-id not found in URL");
+            return;
+        }
+    
+        // Set the iframe src with the concept-note-id parameter
+        const iframe = document.getElementById("read-only-concept-note");
+        iframe.src = `admin-concept-note-transition.html?concept-note-id=${conceptNoteId}`;
+    });
+    
+    </script>
+        
+    <script>
+        // Clear local storage when the user navigates away from the page
+    window.addEventListener("beforeunload", function() {
+        localStorage.clear();
+    });
+    </script>
+    
+    
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        // Retrieve the value of 'overdue' from local storage
+        const overdueValue = localStorage.getItem("overdue");
+        console.log("Overdue value from local storage:", overdueValue); // Log the value for debugging
+
+        // Select the buttons
+        const approveBtn = document.getElementById("approve-btn");
+        const reviseBtn = document.getElementById("revise-btn");
+        const declineBtn = document.getElementById("decline-btn");
+
+        // Check if the 'overdue' value is '1'
+        if (overdueValue== "1") {
+            console.log("Hiding buttons due to overdue being 1");
+            // Apply 'display: none !important' to each button
+            [approveBtn, reviseBtn, declineBtn].forEach(button => {
+                if (button) {
+                    button.style.display = "none";
+                    button.style.setProperty("display", "none", "important");
+                }
+            });
+        } else {
+            console.log("Overdue value is not 1, buttons remain visible");
+        }
+    }, 1000); // Delay execution by 3 seconds (3000 milliseconds)
+});
+
+</script>
+
+<script>
+    document.getElementById('otherReason').addEventListener('change', function() {
+var textAreaDiv = document.getElementById('text-area-div');
+var textArea = document.getElementById('otherReasontextbox');
+
+if (this.checked) {
+    textAreaDiv.style.display = 'block'; // Remove display: none
+    textArea.value = '-' + this.value;   // Set the value of the textarea
+} else {
+    textAreaDiv.style.display = 'none';  // Hide the text area div when unchecked
+    textArea.value = '';                 // Clear the value of the textarea
+}
+});
+
+</script>
+    <script>
+        document.getElementById('otherReasonTwo').addEventListener('change', function() {
+    var textAreaDiv = document.getElementById('text-area-div-two');
+    var textArea = document.getElementById('otherReasontextboxTwo');
+
+    if (this.checked) {
+        textAreaDiv.style.display = 'block'; // Remove display: none
+        textArea.value = '-' + this.value;   // Set the value of the textarea
+    } else {
+        textAreaDiv.style.display = 'none';  // Hide the text area div when unchecked
+        textArea.value = '';                 // Clear the value of the textarea
+    }
+});
+
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const approveButton = document.getElementById("approve-btn");
+
+    approveButton.addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent default action of the anchor tag
+
+        // Step 1: Access the concept note ID from local storage
+        const conceptNoteId = localStorage.getItem("concept_note_id");
+        if (!conceptNoteId) {
+            console.error("Concept note ID not found in local storage.");
+            alert("Concept note ID not found. Please check and try again.");
+            return;
+        }
+
+        // Step 2: Update specific keys in local storage
+        localStorage.setItem("pending", 0);
+        localStorage.setItem("approved", 1);
+        localStorage.setItem("overdue", 0);
+        localStorage.setItem("declined", 0);
+        localStorage.setItem("revise", 0);
+
+        // Step 3: Collect all values from local storage
+        let conceptNoteData = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key !== "comment") { // Ignore the 'comment' key if present
+                const value = localStorage.getItem(key);
+                conceptNoteData[key] = value;
+            }
+        }
+
+        console.log("Data to be sent:", conceptNoteData);
+
+        // Step 4: Send PUT request to the API
+        try {
+            const response = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(conceptNoteData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            if (result.status== "success") {
+                toastr.success('Success!', 'Concept Note Approved Successfully!');
+            } else {
+                console.error("Failed to update concept note:", result.message);
+                alert("Failed to approve concept note. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    });
+});
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const reviseButton = document.getElementById("revise-btn");
+    const modal = document.getElementById("revise-modal");
+    const saveButton = document.getElementById("revise-save");
+    const closeButton = document.getElementById("revise-close");
+
+    // Function to get the user ID from the cookie
+    function getUserIdFromCookie() {
+        const name = "user=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookies = decodedCookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.startsWith(name)) {
+                return JSON.parse(cookie.substring(name.length)).user_id;
+            }
+        }
+        return null;
+    }
+
+    // Show the modal on revise button click
+    reviseButton.addEventListener("click", function () {
+        const conceptNoteId = localStorage.getItem("concept_note_id");
+        if (!conceptNoteId) {
+            console.error("Concept note ID not found in local storage.");
+            alert("Concept note ID not found. Please check and try again.");
+            return;
+        }
+        $(modal).modal('show'); // Show the modal
+    });
+
+    // Handle save button click inside the modal
+    saveButton.addEventListener("click", async function () {
+        const conceptNoteId = localStorage.getItem("concept_note_id");
+        const userId = getUserIdFromCookie();
+        if (!conceptNoteId || !userId) {
+            console.error("Concept note ID or user ID not found.");
+            alert("Required data missing. Please check and try again.");
+            return;
+        }
+
+        // Gather checked values from the modal form
+        let comments = [];
+        const checkboxes = document.querySelectorAll("#revise-modal .custom-control-input");
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                comments.push(checkbox.value);
+            }
+        });
+
+        // Add text area content if "Other" is checked
+        const otherReasonTextarea = document.getElementById("otherReasontextboxTwo");
+        if (document.getElementById("otherReasonTwo").checked && otherReasonTextarea.value.trim()) {
+            comments.push(otherReasonTextarea.value.trim());
+        }
+
+        const commentData = comments.join("\n");
+        
+        // Save the comment as a key in local storage
+        localStorage.setItem("comment", commentData);
+
+        // Update specific keys in local storage
+        localStorage.setItem("pending", 0);
+        localStorage.setItem("approved", 0);
+        localStorage.setItem("overdue", 0);
+        localStorage.setItem("declined", 0);
+        localStorage.setItem("revise", 1);
+
+        // Collect all values from local storage for PUT request
+        let conceptNoteData = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            if (key !== "comment") { // Exclude the 'comment' key for the PUT request
+                conceptNoteData[key] = value;
+            }
+        }
+
+        // Perform the PUT request to update concept note
+        try {
+            const putResponse = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(conceptNoteData)
+            });
+
+            if (!putResponse.ok) {
+                throw new Error(`HTTP error! Status: ${putResponse.status}`);
+            }
+
+            const putResult = await putResponse.json();
+            if (putResult.status== "success") {
+                // Prepare data for the POST request to save the revise comment
+                const postData = {
+                    concept_note_id: conceptNoteId,
+                    author_id: userId,
+                    comment: commentData,
+                    submission_date: new Date().toISOString() // Current date and time in ISO format
+                };
+
+                const postResponse = await fetch("https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-revise-comment-api.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(postData)
+                });
+
+                if (!postResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${postResponse.status}`);
+                }
+
+                const postResult = await postResponse.json();
+                if (postResult.status== "success") {
+                    toastr.success('Success!', 'Concept Note Revised Successfully!');
+                } else {
+                    alert("Failed to add revise comment. Please try again.");
+                    console.error("API Error Message:", postResult.message);
+                }
+            } else {
+                alert("Failed to update concept note. Please try again.");
+                console.error("API Error Message:", putResult.message);
+            }
+        } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    });
+
+    // Handle close button click
+    closeButton.addEventListener("click", function () {
+        $(modal).modal('hide'); // Hide the modal
+    });
+});
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const declineButton = document.getElementById("decline-btn");
+        const declineModal = document.getElementById("decline-modal");
+        const declineSaveButton = document.getElementById("decline-save");
+        const declineCloseButton = document.getElementById("decline-close");
+
+        // Function to get the user ID from the cookie
+        function getUserIdFromCookie() {
+            const name = "user=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookies = decodedCookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name)) {
+                    return JSON.parse(cookie.substring(name.length)).user_id;
+                }
+            }
+            return null;
+        }
+
+        // Show the modal on decline button click
+        declineButton.addEventListener("click", function () {
+            const conceptNoteId = localStorage.getItem("concept_note_id");
+            if (!conceptNoteId) {
+                console.error("Concept note ID not found in local storage.");
+                alert("Concept note ID not found. Please check and try again.");
+                return;
+            }
+            $(declineModal).modal('show'); // Show the modal
+        });
+
+        // Handle save button click inside the modal
+        declineSaveButton.addEventListener("click", async function () {
+            const conceptNoteId = localStorage.getItem("concept_note_id");
+            const userId = getUserIdFromCookie();
+            if (!conceptNoteId || !userId) {
+                console.error("Concept note ID or user ID not found.");
+                alert("Required data missing. Please check and try again.");
+                return;
+            }
+
+            // Gather checked values from the modal form
+            let comments = [];
+            const checkboxes = document.querySelectorAll("#decline-modal .custom-control-input");
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    comments.push(checkbox.value);
+                }
+            });
+
+            // Add text area content if "Other" is checked
+            const otherReasonTextarea = document.getElementById("otherReasontextbox");
+            if (document.getElementById("otherReason").checked && otherReasonTextarea.value.trim()) {
+                comments.push(otherReasonTextarea.value.trim());
+            }
+
+            const commentData = comments.join("\n");
+
+            // Save the comment as a key in local storage
+            localStorage.setItem("comment", commentData);
+
+            // Update specific keys in local storage
+            localStorage.setItem("pending", 0);
+            localStorage.setItem("approved", 0);
+            localStorage.setItem("overdue", 0);
+            localStorage.setItem("declined", 1);
+            localStorage.setItem("revise", 0);
+
+            // Collect all values from local storage for PUT request
+            let conceptNoteData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                if (key !== "comment") { // Exclude the 'comment' key for the PUT request
+                    conceptNoteData[key] = value;
+                }
+            }
+
+            // Perform the PUT request to update concept note
+            try {
+                const putResponse = await fetch(`https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(conceptNoteData)
+                });
+
+                if (!putResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${putResponse.status}`);
+                }
+
+                const putResult = await putResponse.json();
+                if (putResult.status== "success") {
+                    // Prepare data for the POST request to save the decline comment
+                    const postData = {
+                        concept_note_id: conceptNoteId,
+                        author_id: userId,
+                        comment: commentData,
+                        submission_date: new Date().toISOString() // Current date and time in ISO format
+                    };
+
+                    const postResponse = await fetch("https://hammad-khan.org/application-version-one/forms-processing/api/concept-note-decline-comment-api.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(postData)
+                    });
+
+                    if (!postResponse.ok) {
+                        throw new Error(`HTTP error! Status: ${postResponse.status}`);
+                    }
+
+                    const postResult = await postResponse.json();
+                    if (postResult.status== "success") {
+                        toastr.success('Success!', 'Concept Note Declined Successfully!');
+                    } else {
+                        alert("Failed to add decline comment. Please try again.");
+                        console.error("API Error Message:", postResult.message);
+                    }
+                } else {
+                    alert("Failed to update concept note. Please try again.");
+                    console.error("API Error Message:", putResult.message);
+                }
+            } catch (error) {
+                console.error("Error submitting data:", error);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+
+        // Handle close button click
+        declineCloseButton.addEventListener("click", function () {
+            $(declineModal).modal('hide'); // Hide the modal
+        });
+    });
+</script>
+
+</body>
+
+</html>

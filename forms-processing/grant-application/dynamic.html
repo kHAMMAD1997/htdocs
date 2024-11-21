@@ -114,7 +114,7 @@
         const rows = JSON.parse(localStorage.getItem('activityRows')) || [];
         const wrapper = $(".input_fields_wrapscert");
 
-        if (rows.length === 0) {
+        if (rows.length== 0) {
             // Add one default row if no data is in localStorage
             addRow(wrapper, 1);
         } else {

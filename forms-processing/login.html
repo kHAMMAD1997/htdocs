@@ -23,21 +23,21 @@
 
 <body>
     <div class="main-wrapper">
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
+        <!--  -->
         <div class="preloader">
             <div class="lds-ripple">
                 <div class="lds-pos"></div>
                 <div class="lds-pos"></div>
             </div>
         </div>
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Login box.scss -->
-        <!-- ============================================================== -->
+        <!--  -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
@@ -90,7 +90,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="email" aria-describedby="basic-addon1">
                             </div>
                             <!-- pwd -->
                             <div class="row m-t-20 p-t-20 border-top border-secondary">
@@ -104,39 +104,39 @@
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
+        <!--  -->
         <!-- Login box.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Page wrapper scss in scafholding.scss -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Right Sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+        <!--  -->
+        <!--  -->
         <!-- Right Sidebar -->
-        <!-- ============================================================== -->
+        <!--  -->
     </div>
-    <!-- ============================================================== -->
+    <!--  -->
     <!-- All Required js -->
-    <!-- ============================================================== -->
+    <!--  -->
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- ============================================================== -->
+    <!--  -->
     <!-- This page plugin js -->
-    <!-- ============================================================== -->
+    <!--  -->
     <script>
 
     $('[data-toggle="tooltip"]').tooltip();
     $(".preloader").fadeOut();
-    // ============================================================== 
+    //  
     // Login and Recover Password 
-    // ============================================================== 
+    //  
     $('#to-recover').on("click", function() {
         $("#loginform").slideUp();
         $("#recoverform").fadeIn();
@@ -168,7 +168,7 @@
             console.log('Response Data:', data);
             
             const messageElement = document.getElementById('msg');
-            if (data.status === 'success') {
+            if (data.status== 'success') {
                 // Log the user object
                 console.log('User Data:', data.user);
 
@@ -176,7 +176,7 @@
                 document.cookie = `user=${JSON.stringify(data.user)}; path=/`;
 
                 // Check if the user is an admin and redirect accordingly
-                if (parseInt(data.user.is_admin) === 1) {
+                if (parseInt(data.user.is_admin)== 1) {
                     window.location.href = '/forms-processing/admin-dashboard.html'; // Redirect to admin dashboard
                 } else {
                     window.location.href = '/forms-processing/user-dashboard.html'; // Redirect to user dashboard

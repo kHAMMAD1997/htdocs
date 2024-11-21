@@ -4,8 +4,8 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
+	typeof exports== 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
+	typeof define== 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
 	(factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
 
@@ -123,7 +123,7 @@ var Util = function ($$$1) {
   function escapeId(selector) {
     // We escape IDs in case of special selectors (selector = '#myId:something')
     // $.escapeSelector does not exist in jQuery < 3
-    selector = typeof $$$1.escapeSelector === 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
+    selector = typeof $$$1.escapeSelector== 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
     return selector;
   }
   /**
@@ -146,12 +146,12 @@ var Util = function ($$$1) {
     getSelectorFromElement: function getSelectorFromElement(element) {
       var selector = element.getAttribute('data-target');
 
-      if (!selector || selector === '#') {
+      if (!selector || selector== '#') {
         selector = element.getAttribute('href') || '';
       } // If it's an ID
 
 
-      if (selector.charAt(0) === '#') {
+      if (selector.charAt(0)== '#') {
         selector = escapeId(selector);
       }
 
@@ -315,7 +315,7 @@ var Alert = function ($$$1) {
           $element.data(DATA_KEY, data);
         }
 
-        if (config === 'close') {
+        if (config== 'close') {
           data[config](this);
         }
       });
@@ -426,7 +426,7 @@ var Button = function ($$$1) {
         var input = $$$1(this._element).find(Selector.INPUT)[0];
 
         if (input) {
-          if (input.type === 'radio') {
+          if (input.type== 'radio') {
             if (input.checked && $$$1(this._element).hasClass(ClassName.ACTIVE)) {
               triggerChangeEvent = false;
             } else {
@@ -476,7 +476,7 @@ var Button = function ($$$1) {
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (config === 'toggle') {
+        if (config== 'toggle') {
           data[config]();
         }
       });
@@ -697,7 +697,7 @@ var Carousel = function ($$$1) {
         return;
       }
 
-      if (activeIndex === index) {
+      if (activeIndex== index) {
         this.pause();
         this.cycle();
         return;
@@ -737,7 +737,7 @@ var Carousel = function ($$$1) {
         });
       }
 
-      if (this._config.pause === 'hover') {
+      if (this._config.pause== 'hover') {
         $$$1(this._element).on(Event.MOUSEENTER, function (event) {
           return _this2.pause(event);
         }).on(Event.MOUSELEAVE, function (event) {
@@ -793,21 +793,21 @@ var Carousel = function ($$$1) {
     };
 
     _proto._getItemByDirection = function _getItemByDirection(direction, activeElement) {
-      var isNextDirection = direction === Direction.NEXT;
-      var isPrevDirection = direction === Direction.PREV;
+      var isNextDirection = direction== Direction.NEXT;
+      var isPrevDirection = direction== Direction.PREV;
 
       var activeIndex = this._getItemIndex(activeElement);
 
       var lastItemIndex = this._items.length - 1;
-      var isGoingToWrap = isPrevDirection && activeIndex === 0 || isNextDirection && activeIndex === lastItemIndex;
+      var isGoingToWrap = isPrevDirection && activeIndex== 0 || isNextDirection && activeIndex== lastItemIndex;
 
       if (isGoingToWrap && !this._config.wrap) {
         return activeElement;
       }
 
-      var delta = direction === Direction.PREV ? -1 : 1;
+      var delta = direction== Direction.PREV ? -1 : 1;
       var itemIndex = (activeIndex + delta) % this._items.length;
-      return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
+      return itemIndex== -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
     };
 
     _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
@@ -853,7 +853,7 @@ var Carousel = function ($$$1) {
       var orderClassName;
       var eventDirectionName;
 
-      if (direction === Direction.NEXT) {
+      if (direction== Direction.NEXT) {
         directionalClassName = ClassName.LEFT;
         orderClassName = ClassName.NEXT;
         eventDirectionName = Direction.LEFT;
@@ -926,21 +926,21 @@ var Carousel = function ($$$1) {
 
         var _config = _extends({}, Default, $$$1(this).data());
 
-        if (typeof config === 'object') {
+        if (typeof config== 'object') {
           _config = _extends({}, _config, config);
         }
 
-        var action = typeof config === 'string' ? config : _config.slide;
+        var action = typeof config== 'string' ? config : _config.slide;
 
         if (!data) {
           data = new Carousel(this, _config);
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'number') {
+        if (typeof config== 'number') {
           data.to(config);
-        } else if (typeof action === 'string') {
-          if (typeof data[action] === 'undefined') {
+        } else if (typeof action== 'string') {
+          if (typeof data[action]== 'undefined') {
             throw new TypeError("No method named \"" + action + "\"");
           }
 
@@ -1139,7 +1139,7 @@ var Collapse = function ($$$1) {
       if (this._parent) {
         actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
 
-        if (actives.length === 0) {
+        if (actives.length== 0) {
           actives = null;
         }
       }
@@ -1321,7 +1321,7 @@ var Collapse = function ($$$1) {
         var $this = $$$1(this);
         var data = $this.data(DATA_KEY);
 
-        var _config = _extends({}, Default, $this.data(), typeof config === 'object' && config);
+        var _config = _extends({}, Default, $this.data(), typeof config== 'object' && config);
 
         if (!data && _config.toggle && /show|hide/.test(config)) {
           _config.toggle = false;
@@ -1332,8 +1332,8 @@ var Collapse = function ($$$1) {
           $this.data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -1364,7 +1364,7 @@ var Collapse = function ($$$1) {
 
   $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
     // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
-    if (event.currentTarget.tagName === 'A') {
+    if (event.currentTarget.tagName== 'A') {
       event.preventDefault();
     }
 
@@ -1529,7 +1529,7 @@ var Dropdown = function ($$$1) {
          * Check for Popper dependency
          * Popper - https://popper.js.org
          */
-        if (typeof Popper === 'undefined') {
+        if (typeof Popper== 'undefined') {
           throw new TypeError('Bootstrap dropdown require Popper.js (https://popper.js.org)');
         }
 
@@ -1555,7 +1555,7 @@ var Dropdown = function ($$$1) {
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
 
-      if ('ontouchstart' in document.documentElement && $$$1(parent).closest(Selector.NAVBAR_NAV).length === 0) {
+      if ('ontouchstart' in document.documentElement && $$$1(parent).closest(Selector.NAVBAR_NAV).length== 0) {
         $$$1('body').children().on('mouseover', null, $$$1.noop);
       }
 
@@ -1646,7 +1646,7 @@ var Dropdown = function ($$$1) {
 
       var offsetConf = {};
 
-      if (typeof this._config.offset === 'function') {
+      if (typeof this._config.offset== 'function') {
         offsetConf.fn = function (data) {
           data.offsets = _extends({}, data.offsets, _this2._config.offset(data.offsets) || {});
           return data;
@@ -1675,15 +1675,15 @@ var Dropdown = function ($$$1) {
       return this.each(function () {
         var data = $$$1(this).data(DATA_KEY);
 
-        var _config = typeof config === 'object' ? config : null;
+        var _config = typeof config== 'object' ? config : null;
 
         if (!data) {
           data = new Dropdown(this, _config);
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -1693,7 +1693,7 @@ var Dropdown = function ($$$1) {
     };
 
     Dropdown._clearMenus = function _clearMenus(event) {
-      if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH || event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
+      if (event && (event.which== RIGHT_MOUSE_BUTTON_WHICH || event.type== 'keyup' && event.which !== TAB_KEYCODE)) {
         return;
       }
 
@@ -1717,7 +1717,7 @@ var Dropdown = function ($$$1) {
           continue;
         }
 
-        if (event && (event.type === 'click' && /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) && $$$1.contains(parent, event.target)) {
+        if (event && (event.type== 'click' && /input|textarea/i.test(event.target.tagName) || event.type== 'keyup' && event.which== TAB_KEYCODE) && $$$1.contains(parent, event.target)) {
           continue;
         }
 
@@ -1760,7 +1760,7 @@ var Dropdown = function ($$$1) {
       //  - If key is other than escape
       //    - If key is not up or down => not a dropdown command
       //    - If trigger inside the menu => not a dropdown command
-      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $$$1(event.target).closest(Selector.MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+      if (/input|textarea/i.test(event.target.tagName) ? event.which== SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $$$1(event.target).closest(Selector.MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
         return;
       }
 
@@ -1775,8 +1775,8 @@ var Dropdown = function ($$$1) {
 
       var isActive = $$$1(parent).hasClass(ClassName.SHOW);
 
-      if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
-        if (event.which === ESCAPE_KEYCODE) {
+      if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which== ESCAPE_KEYCODE || event.which== SPACE_KEYCODE)) {
+        if (event.which== ESCAPE_KEYCODE) {
           var toggle = $$$1(parent).find(Selector.DATA_TOGGLE)[0];
           $$$1(toggle).trigger('focus');
         }
@@ -1787,18 +1787,18 @@ var Dropdown = function ($$$1) {
 
       var items = $$$1(parent).find(Selector.VISIBLE_ITEMS).get();
 
-      if (items.length === 0) {
+      if (items.length== 0) {
         return;
       }
 
       var index = items.indexOf(event.target);
 
-      if (event.which === ARROW_UP_KEYCODE && index > 0) {
+      if (event.which== ARROW_UP_KEYCODE && index > 0) {
         // Up
         index--;
       }
 
-      if (event.which === ARROW_DOWN_KEYCODE && index < items.length - 1) {
+      if (event.which== ARROW_DOWN_KEYCODE && index < items.length - 1) {
         // Down
         index++;
       }
@@ -2121,7 +2121,7 @@ var Modal = function ($$$1) {
 
       $$$1(document).off(Event.FOCUSIN) // Guard against infinite focus loop
       .on(Event.FOCUSIN, function (event) {
-        if (document !== event.target && _this4._element !== event.target && $$$1(_this4._element).has(event.target).length === 0) {
+        if (document !== event.target && _this4._element !== event.target && $$$1(_this4._element).has(event.target).length== 0) {
           _this4._element.focus();
         }
       });
@@ -2132,7 +2132,7 @@ var Modal = function ($$$1) {
 
       if (this._isShown && this._config.keyboard) {
         $$$1(this._element).on(Event.KEYDOWN_DISMISS, function (event) {
-          if (event.which === ESCAPE_KEYCODE) {
+          if (event.which== ESCAPE_KEYCODE) {
             event.preventDefault();
 
             _this5.hide();
@@ -2207,7 +2207,7 @@ var Modal = function ($$$1) {
             return;
           }
 
-          if (_this8._config.backdrop === 'static') {
+          if (_this8._config.backdrop== 'static') {
             _this8._element.focus();
           } else {
             _this8.hide();
@@ -2349,15 +2349,15 @@ var Modal = function ($$$1) {
       return this.each(function () {
         var data = $$$1(this).data(DATA_KEY);
 
-        var _config = _extends({}, Modal.Default, $$$1(this).data(), typeof config === 'object' && config);
+        var _config = _extends({}, Modal.Default, $$$1(this).data(), typeof config== 'object' && config);
 
         if (!data) {
           data = new Modal(this, _config);
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -2400,7 +2400,7 @@ var Modal = function ($$$1) {
 
     var config = $$$1(target).data(DATA_KEY) ? 'toggle' : _extends({}, $$$1(target).data(), $$$1(this).data());
 
-    if (this.tagName === 'A' || this.tagName === 'AREA') {
+    if (this.tagName== 'A' || this.tagName== 'AREA') {
       event.preventDefault();
     }
 
@@ -2538,7 +2538,7 @@ var Tooltip = function ($$$1) {
        * Check for Popper dependency
        * Popper - https://popper.js.org
        */
-      if (typeof Popper === 'undefined') {
+      if (typeof Popper== 'undefined') {
         throw new TypeError('Bootstrap tooltips require Popper.js (https://popper.js.org)');
       } // private
 
@@ -2632,7 +2632,7 @@ var Tooltip = function ($$$1) {
     _proto.show = function show() {
       var _this = this;
 
-      if ($$$1(this.element).css('display') === 'none') {
+      if ($$$1(this.element).css('display')== 'none') {
         throw new Error('Please use show on visible elements');
       }
 
@@ -2656,12 +2656,12 @@ var Tooltip = function ($$$1) {
           $$$1(tip).addClass(ClassName.FADE);
         }
 
-        var placement = typeof this.config.placement === 'function' ? this.config.placement.call(this, tip, this.element) : this.config.placement;
+        var placement = typeof this.config.placement== 'function' ? this.config.placement.call(this, tip, this.element) : this.config.placement;
 
         var attachment = this._getAttachment(placement);
 
         this.addAttachmentClass(attachment);
-        var container = this.config.container === false ? document.body : $$$1(this.config.container);
+        var container = this.config.container== false ? document.body : $$$1(this.config.container);
         $$$1(tip).data(this.constructor.DATA_KEY, this);
 
         if (!$$$1.contains(this.element.ownerDocument.documentElement, this.tip)) {
@@ -2712,7 +2712,7 @@ var Tooltip = function ($$$1) {
           _this._hoverState = null;
           $$$1(_this.element).trigger(_this.constructor.Event.SHOWN);
 
-          if (prevHoverState === HoverState.OUT) {
+          if (prevHoverState== HoverState.OUT) {
             _this._leave(null, _this);
           }
         };
@@ -2806,7 +2806,7 @@ var Tooltip = function ($$$1) {
     _proto.setElementContent = function setElementContent($element, content) {
       var html = this.config.html;
 
-      if (typeof content === 'object' && (content.nodeType || content.jquery)) {
+      if (typeof content== 'object' && (content.nodeType || content.jquery)) {
         // Content is a DOM node or a jQuery
         if (html) {
           if (!$$$1(content).parent().is($element)) {
@@ -2824,7 +2824,7 @@ var Tooltip = function ($$$1) {
       var title = this.element.getAttribute('data-original-title');
 
       if (!title) {
-        title = typeof this.config.title === 'function' ? this.config.title.call(this.element) : this.config.title;
+        title = typeof this.config.title== 'function' ? this.config.title.call(this.element) : this.config.title;
       }
 
       return title;
@@ -2840,13 +2840,13 @@ var Tooltip = function ($$$1) {
 
       var triggers = this.config.trigger.split(' ');
       triggers.forEach(function (trigger) {
-        if (trigger === 'click') {
+        if (trigger== 'click') {
           $$$1(_this3.element).on(_this3.constructor.Event.CLICK, _this3.config.selector, function (event) {
             return _this3.toggle(event);
           });
         } else if (trigger !== Trigger.MANUAL) {
-          var eventIn = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSEENTER : _this3.constructor.Event.FOCUSIN;
-          var eventOut = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSELEAVE : _this3.constructor.Event.FOCUSOUT;
+          var eventIn = trigger== Trigger.HOVER ? _this3.constructor.Event.MOUSEENTER : _this3.constructor.Event.FOCUSIN;
+          var eventOut = trigger== Trigger.HOVER ? _this3.constructor.Event.MOUSELEAVE : _this3.constructor.Event.FOCUSOUT;
           $$$1(_this3.element).on(eventIn, _this3.config.selector, function (event) {
             return _this3._enter(event);
           }).on(eventOut, _this3.config.selector, function (event) {
@@ -2888,10 +2888,10 @@ var Tooltip = function ($$$1) {
       }
 
       if (event) {
-        context._activeTrigger[event.type === 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
+        context._activeTrigger[event.type== 'focusin' ? Trigger.FOCUS : Trigger.HOVER] = true;
       }
 
-      if ($$$1(context.getTipElement()).hasClass(ClassName.SHOW) || context._hoverState === HoverState.SHOW) {
+      if ($$$1(context.getTipElement()).hasClass(ClassName.SHOW) || context._hoverState== HoverState.SHOW) {
         context._hoverState = HoverState.SHOW;
         return;
       }
@@ -2905,7 +2905,7 @@ var Tooltip = function ($$$1) {
       }
 
       context._timeout = setTimeout(function () {
-        if (context._hoverState === HoverState.SHOW) {
+        if (context._hoverState== HoverState.SHOW) {
           context.show();
         }
       }, context.config.delay.show);
@@ -2921,7 +2921,7 @@ var Tooltip = function ($$$1) {
       }
 
       if (event) {
-        context._activeTrigger[event.type === 'focusout' ? Trigger.FOCUS : Trigger.HOVER] = false;
+        context._activeTrigger[event.type== 'focusout' ? Trigger.FOCUS : Trigger.HOVER] = false;
       }
 
       if (context._isWithActiveTrigger()) {
@@ -2937,7 +2937,7 @@ var Tooltip = function ($$$1) {
       }
 
       context._timeout = setTimeout(function () {
-        if (context._hoverState === HoverState.OUT) {
+        if (context._hoverState== HoverState.OUT) {
           context.hide();
         }
       }, context.config.delay.hide);
@@ -2956,18 +2956,18 @@ var Tooltip = function ($$$1) {
     _proto._getConfig = function _getConfig(config) {
       config = _extends({}, this.constructor.Default, $$$1(this.element).data(), config);
 
-      if (typeof config.delay === 'number') {
+      if (typeof config.delay== 'number') {
         config.delay = {
           show: config.delay,
           hide: config.delay
         };
       }
 
-      if (typeof config.title === 'number') {
+      if (typeof config.title== 'number') {
         config.title = config.title.toString();
       }
 
-      if (typeof config.content === 'number') {
+      if (typeof config.content== 'number') {
         config.content = config.content.toString();
       }
 
@@ -3024,7 +3024,7 @@ var Tooltip = function ($$$1) {
       return this.each(function () {
         var data = $$$1(this).data(DATA_KEY);
 
-        var _config = typeof config === 'object' && config;
+        var _config = typeof config== 'object' && config;
 
         if (!data && /dispose|hide/.test(config)) {
           return;
@@ -3035,8 +3035,8 @@ var Tooltip = function ($$$1) {
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -3189,7 +3189,7 @@ var Popover = function ($$$1) {
 
       var content = this._getContent();
 
-      if (typeof content === 'function') {
+      if (typeof content== 'function') {
         content = content.call(this.element);
       }
 
@@ -3216,7 +3216,7 @@ var Popover = function ($$$1) {
       return this.each(function () {
         var data = $$$1(this).data(DATA_KEY);
 
-        var _config = typeof config === 'object' ? config : null;
+        var _config = typeof config== 'object' ? config : null;
 
         if (!data && /destroy|hide/.test(config)) {
           return;
@@ -3227,8 +3227,8 @@ var Popover = function ($$$1) {
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -3362,7 +3362,7 @@ var ScrollSpy = function ($$$1) {
       var _this = this;
 
       this._element = element;
-      this._scrollElement = element.tagName === 'BODY' ? window : element;
+      this._scrollElement = element.tagName== 'BODY' ? window : element;
       this._config = this._getConfig(config);
       this._selector = this._config.target + " " + Selector.NAV_LINKS + "," + (this._config.target + " " + Selector.LIST_ITEMS + ",") + (this._config.target + " " + Selector.DROPDOWN_ITEMS);
       this._offsets = [];
@@ -3384,9 +3384,9 @@ var ScrollSpy = function ($$$1) {
     _proto.refresh = function refresh() {
       var _this2 = this;
 
-      var autoMethod = this._scrollElement === this._scrollElement.window ? OffsetMethod.OFFSET : OffsetMethod.POSITION;
-      var offsetMethod = this._config.method === 'auto' ? autoMethod : this._config.method;
-      var offsetBase = offsetMethod === OffsetMethod.POSITION ? this._getScrollTop() : 0;
+      var autoMethod = this._scrollElement== this._scrollElement.window ? OffsetMethod.OFFSET : OffsetMethod.POSITION;
+      var offsetMethod = this._config.method== 'auto' ? autoMethod : this._config.method;
+      var offsetBase = offsetMethod== OffsetMethod.POSITION ? this._getScrollTop() : 0;
       this._offsets = [];
       this._targets = [];
       this._scrollHeight = this._getScrollHeight();
@@ -3453,7 +3453,7 @@ var ScrollSpy = function ($$$1) {
     };
 
     _proto._getScrollTop = function _getScrollTop() {
-      return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
+      return this._scrollElement== window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
     };
 
     _proto._getScrollHeight = function _getScrollHeight() {
@@ -3461,7 +3461,7 @@ var ScrollSpy = function ($$$1) {
     };
 
     _proto._getOffsetHeight = function _getOffsetHeight() {
-      return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
+      return this._scrollElement== window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
     };
 
     _proto._process = function _process() {
@@ -3494,7 +3494,7 @@ var ScrollSpy = function ($$$1) {
       }
 
       for (var i = this._offsets.length; i--;) {
-        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
+        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1]== 'undefined' || scrollTop < this._offsets[i + 1]);
 
         if (isActiveTarget) {
           this._activate(this._targets[i]);
@@ -3542,15 +3542,15 @@ var ScrollSpy = function ($$$1) {
       return this.each(function () {
         var data = $$$1(this).data(DATA_KEY);
 
-        var _config = typeof config === 'object' && config;
+        var _config = typeof config== 'object' && config;
 
         if (!data) {
           data = new ScrollSpy(this, _config);
           $$$1(this).data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -3669,7 +3669,7 @@ var Tab = function ($$$1) {
     _proto.show = function show() {
       var _this = this;
 
-      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && $$$1(this._element).hasClass(ClassName.ACTIVE) || $$$1(this._element).hasClass(ClassName.DISABLED)) {
+      if (this._element.parentNode && this._element.parentNode.nodeType== Node.ELEMENT_NODE && $$$1(this._element).hasClass(ClassName.ACTIVE) || $$$1(this._element).hasClass(ClassName.DISABLED)) {
         return;
       }
 
@@ -3679,7 +3679,7 @@ var Tab = function ($$$1) {
       var selector = Util.getSelectorFromElement(this._element);
 
       if (listElement) {
-        var itemSelector = listElement.nodeName === 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE;
+        var itemSelector = listElement.nodeName== 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE;
         previous = $$$1.makeArray($$$1(listElement).find(itemSelector));
         previous = previous[previous.length - 1];
       }
@@ -3736,7 +3736,7 @@ var Tab = function ($$$1) {
 
       var activeElements;
 
-      if (container.nodeName === 'UL') {
+      if (container.nodeName== 'UL') {
         activeElements = $$$1(container).find(Selector.ACTIVE_UL);
       } else {
         activeElements = $$$1(container).children(Selector.ACTIVE);
@@ -3765,14 +3765,14 @@ var Tab = function ($$$1) {
           $$$1(dropdownChild).removeClass(ClassName.ACTIVE);
         }
 
-        if (active.getAttribute('role') === 'tab') {
+        if (active.getAttribute('role')== 'tab') {
           active.setAttribute('aria-selected', false);
         }
       }
 
       $$$1(element).addClass(ClassName.ACTIVE);
 
-      if (element.getAttribute('role') === 'tab') {
+      if (element.getAttribute('role')== 'tab') {
         element.setAttribute('aria-selected', true);
       }
 
@@ -3805,8 +3805,8 @@ var Tab = function ($$$1) {
           $this.data(DATA_KEY, data);
         }
 
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
+        if (typeof config== 'string') {
+          if (typeof data[config]== 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
 
@@ -3860,7 +3860,7 @@ var Tab = function ($$$1) {
  */
 
 (function ($$$1) {
-  if (typeof $$$1 === 'undefined') {
+  if (typeof $$$1== 'undefined') {
     throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
   }
 
@@ -3871,7 +3871,7 @@ var Tab = function ($$$1) {
   var minPatch = 1;
   var maxMajor = 4;
 
-  if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+  if (version[0] < ltMajor && version[1] < minMinor || version[0]== minMajor && version[1]== minMinor && version[2] < minPatch || version[0] >= maxMajor) {
     throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
   }
 })($);

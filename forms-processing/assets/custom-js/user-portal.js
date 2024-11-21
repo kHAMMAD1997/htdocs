@@ -24,19 +24,19 @@ if (user) {
     fetch(`/forms-processing/api/permissions-api.php?user_id=${user.user_id}`)
         .then(response => response.json())
         .then(data => {
-            if (data.status === "success") {
+            if (data.status== "success") {
                 const permissions = data.data;
 
                 // Show admin features if user is an admin
-                if (parseInt(user.is_admin) === 1) {
+                if (parseInt(user.is_admin)== 1) {
                     setDisplayByClass("admin-feature", "block");
                 }
 
                 // Check and display features based on permissions
-                setDisplayByClass("concept-note", permissions.concept_note === "1" ? "" : "none");
-                setDisplayByClass("narrative-report", permissions.narrative_report === "1" ? "" : "none");
-                setDisplayByClass("grant-application", permissions.grant_application === "1" ? "" : "none");
-                setDisplayByClass("short-concept-note", permissions.short_concept_note === "1" ? "" : "none");
+                setDisplayByClass("concept-note", permissions.concept_note== "1" ? "" : "none");
+                setDisplayByClass("narrative-report", permissions.narrative_report== "1" ? "" : "none");
+                setDisplayByClass("grant-application", permissions.grant_application== "1" ? "" : "none");
+                setDisplayByClass("short-concept-note", permissions.short_concept_note== "1" ? "" : "none");
             } else {
                 console.error("Error fetching permissions:", data.message);
             }

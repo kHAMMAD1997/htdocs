@@ -77,7 +77,7 @@
                 }
 
                 const data = await response.json();
-                if (data.status === "success" && data.data && Array.isArray(data.data.data) && data.data.data.length > 0) {
+                if (data.status== "success" && data.data && Array.isArray(data.data.data) && data.data.data.length > 0) {
                     const conceptNoteData = data.data.data[0];
 
                     // Clear existing local storage
@@ -110,10 +110,10 @@
                 const decline_url = `/forms-processing/api/concept-note-decline-comment-api.php?concept_note_id=${id}`;
 
                 // Check conditions and log the appropriate message
-                if (revise === '1') {
+                if (revise== '1') {
                     comment_url = revise_url;
                     console.log('Revise is set to 1');
-                } else if (declined === '1') {
+                } else if (declined== '1') {
                     comment_url = decline_url;
                     console.log('Declined is set to 1');
                 } else {
@@ -128,7 +128,7 @@
                 }
 
                 const data = await response.json();
-                if (data.status === "success" && Array.isArray(data.data) && data.data.length > 0) {
+                if (data.status== "success" && Array.isArray(data.data) && data.data.length > 0) {
                     // Find the latest comment based on the submission_date
                     const latestComment = data.data.reduce((latest, current) => {
                         return new Date(current.submission_date) > new Date(latest.submission_date) ? current : latest;
