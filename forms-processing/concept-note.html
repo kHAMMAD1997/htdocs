@@ -307,6 +307,103 @@ document.addEventListener('DOMContentLoaded', function() {
     // Optional: Resend height if the content changes (e.g., dynamically loaded content)
     new ResizeObserver(sendHeightToParent).observe(document.body);
   </script> -->
+  <script>
+    async function sendProjectData() {
+      try {
+          // Step 1: Fetch system emails
+          const systemEmailsResponse = await fetch('/forms-processing/api/systems-emails-api.php');
+          const systemEmailsData = await systemEmailsResponse.json();
+          const programsEmail = systemEmailsData.programs_email;
+  
+          // Step 2: Fetch admin users
+          const adminUsersResponse = await fetch('/forms-processing/api/user-main-api.php?is_admin=1');
+          const adminUsersData = await adminUsersResponse.json();
+  
+          // Extract admin usernames and emails
+          const adminEmails = adminUsersData.data.map(user => user.email);
+          const administratorName = adminUsersData.data[0]?.username || "Administrator";
+  
+          // Step 3: Collect recipient emails
+          const recipientEmails = [programsEmail, ...adminEmails];
+  
+          // Step 4: Fetch and parse data from local storage
+          const localStorageKeys = [
+              "activityRows",
+              "total_budget",
+              "sector",
+              "contactName",
+              "contactEmail",
+              "women",
+              "projectLocation",
+              "organization",
+              "boys",
+              "girls",
+              "households",
+              "pwds",
+              "contactTitle",
+              "projectTitle",
+              "countryProject",
+              "men",
+              "contactPhone",
+              "pending",
+              "approved",
+              "overdue",
+              "declined",
+              "revise",
+              "submissionDate",
+              "user_id",
+          ];
+  
+          // Retrieve and structure local storage data
+          const localStorageData = {};
+          localStorageKeys.forEach((key) => {
+              const value = localStorage.getItem(key);
+              if (value) localStorageData[key] = value;
+          });
+  
+          const activityRows = JSON.parse(localStorageData.activityRows);
+  
+          // Step 5: Prepare JSON payload
+          const dataPayload = {
+              recipientEmails,
+              administratorName,
+              applicantName: localStorageData.contactName,
+              applicantTitle: localStorageData.contactTitle,
+              applicantOrganization: localStorageData.organization,
+              projectTitle: localStorageData.projectTitle,
+              projectLocation: localStorageData.projectLocation,
+              mainActivity: JSON.stringify(activityRows),
+              timeline: `${activityRows[0].startDate} – ${activityRows[activityRows.length - 1].endDate}`,
+              plannedBeneficiaries: `${localStorageData.households} households`,
+              requestedAmount: localStorageData.total_budget,
+              submissionDate: new Date().toISOString().split('T')[0],
+          };
+  
+          console.log("Data Payload:", dataPayload);
+  
+          // Step 6: Send POST request
+          const postResponse = await fetch('/forms-processing/api/admin-concept-note-emailer.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(dataPayload),
+          });
+  
+          // Step 7: Handle response
+          if (postResponse.ok) {
+              console.log("POST request successful.");
+              return true;
+          } else {
+              console.error("POST request failed:", await postResponse.text());
+              return false;
+          }
+      } catch (error) {
+          console.error("An error occurred:", error);
+          return false;
+      }
+  }
+ </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -433,9 +530,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if the response contains a success status
     if (result.status== "success") {
+        sendProjectData();
         alert("Concept Note submitted successfully!");
         //localStorage.clear(); // Clear local storage after successful submission
-        window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
+        //window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
     } else {
         alert("Failed to submit Concept Note. Please try again.");
         console.error("API Error Message:", result.message);
@@ -489,8 +587,32 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   
-  
-    </script>
+ </script>
+ <script>
+  // This script initializes localStorage with required keys and values before the page loads
+  document.addEventListener("DOMContentLoaded", function () {
+      // Loop to create keys "table-1" to "table-8"
+      for (let i = 1; i <= 8; i++) {
+          const key = `table-${i}`;
+          const value = JSON.stringify([
+              ["", "", "", "", "", ""],
+              ["", "", "", "", "", ""],
+              ["", "", "", "", "", ""],
+              ["", "", "", "", "", ""]
+          ]);
+
+          // Set the key-value pair in localStorage
+          if (!localStorage.getItem(key)) {
+              localStorage.setItem(key, value);
+          }
+      }
+
+      // Initialize the "total_budget" key to 0 if it does not already exist
+      if (!localStorage.getItem("total_budget")) {
+          localStorage.setItem("total_budget", "0");
+      }
+  });
+</script>
 
   
 </body>

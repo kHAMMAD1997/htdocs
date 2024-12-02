@@ -432,6 +432,248 @@
             window.location.href = '/forms-processing/login.html';
         });
     </script>
+
+<script>
+    async function sendApprovalEmail() {
+        try {
+            // Step 1: Access the concept_note_id from localStorage
+            const conceptNoteId = localStorage.getItem("concept_note_id");
+            if (!conceptNoteId) {
+                console.error("Concept Note ID not found in local storage.");
+                return;
+            }
+
+            // Step 2: Consume the GET endpoint for concept-note-api.php to retrieve user_id
+            const conceptNoteResponse = await fetch(`/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`);
+            if (!conceptNoteResponse.ok) {
+                throw new Error(`Failed to fetch concept note data: ${conceptNoteResponse.status}`);
+            }
+            const conceptNoteData = await conceptNoteResponse.json();
+           
+            if (!conceptNoteData || conceptNoteData.status !== "success" || !conceptNoteData.data.data[0]) {
+                console.error("Concept note data not found.");
+                return;
+            }
+
+            // Extract user_id from the concept note data
+            const { user_id: userId } = conceptNoteData.data.data[0];
+            if (!userId) {
+                console.error("User ID not found in concept note data.");
+                return;
+            }
+
+            // Step 3: Consume the GET endpoint for user-api.php to retrieve username and email
+            const userResponse = await fetch(`/forms-processing/api/user-main-api.php?user_id=${userId}`);
+            if (!userResponse.ok) {
+                throw new Error(`Failed to fetch user data: ${userResponse.status}`);
+            }
+            const userData = await userResponse.json();
+            if (!userData || userData.status !== "success" || !userData.data[0]) {
+                console.error("User data not found.");
+                return;
+            }
+            const { username, email } = userData.data[0];
+
+            // Step 4: Access projectTitle from localStorage
+            const projectTitle = localStorage.getItem("projectTitle");
+            if (!projectTitle) {
+                console.error("Project title not found in local storage.");
+                return;
+            }
+
+            // Step 5: Construct JSON payload
+            const payload = {
+                recipient_email: email,
+                applicant_name: username,
+                project_title: projectTitle,
+            };
+
+            // Step 6: Consume the POST endpoint for concept-note-approval-emailer.php
+            const emailResponse = await fetch("/forms-processing/api/concept-narrative-report-approval-emailer.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!emailResponse.ok) {
+                throw new Error(`Failed to send email: ${emailResponse.status}`);
+            }
+
+            const emailResult = await emailResponse.json();
+            if (emailResult.status === "success") {
+                console.log("Email sent successfully!");
+            } else {
+                console.error("Failed to send email:", emailResult.message);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    }
+</script>
+
+<script>
+    async function sendReviseEmail() {
+        try {
+            // Step 1: Access the concept_note_id from localStorage
+            const conceptNoteId = localStorage.getItem("concept_note_id");
+            if (!conceptNoteId) {
+                console.error("Concept Note ID not found in local storage.");
+                return;
+            }
+
+            // Step 2: Consume the GET endpoint for concept-note-api.php to retrieve user_id
+            const conceptNoteResponse = await fetch(`/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`);
+            if (!conceptNoteResponse.ok) {
+                throw new Error(`Failed to fetch concept note data: ${conceptNoteResponse.status}`);
+            }
+            const conceptNoteData = await conceptNoteResponse.json();
+           
+            if (!conceptNoteData || conceptNoteData.status !== "success" || !conceptNoteData.data.data[0]) {
+                console.error("Concept note data not found.");
+                return;
+            }
+
+            // Extract user_id from the concept note data
+            const { user_id: userId } = conceptNoteData.data.data[0];
+            if (!userId) {
+                console.error("User ID not found in concept note data.");
+                return;
+            }
+
+            // Step 3: Consume the GET endpoint for user-api.php to retrieve username and email
+            const userResponse = await fetch(`/forms-processing/api/user-main-api.php?user_id=${userId}`);
+            if (!userResponse.ok) {
+                throw new Error(`Failed to fetch user data: ${userResponse.status}`);
+            }
+            const userData = await userResponse.json();
+            if (!userData || userData.status !== "success" || !userData.data[0]) {
+                console.error("User data not found.");
+                return;
+            }
+            const { username, email } = userData.data[0];
+
+            // Step 4: Access projectTitle from localStorage
+            const projectTitle = localStorage.getItem("projectTitle");
+            if (!projectTitle) {
+                console.error("Project title not found in local storage.");
+                return;
+            }
+
+            // Step 5: Construct JSON payload
+            const payload = {
+                recipient_email: email,
+                applicant_name: username,
+                project_title: projectTitle,
+            };
+
+            // Step 6: Consume the POST endpoint for concept-note-approval-emailer.php
+            const emailResponse = await fetch("/forms-processing/api/concept-narrative-report-revise-emailer.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!emailResponse.ok) {
+                throw new Error(`Failed to send email: ${emailResponse.status}`);
+            }
+
+            const emailResult = await emailResponse.json();
+            if (emailResult.status === "success") {
+                console.log("Email sent successfully!");
+            } else {
+                console.error("Failed to send email:", emailResult.message);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    }
+</script>
+
+<script>
+    async function sendDeclineEmail() {
+        try {
+            // Step 1: Access the concept_note_id from localStorage
+            const conceptNoteId = localStorage.getItem("concept_note_id");
+            if (!conceptNoteId) {
+                console.error("Concept Note ID not found in local storage.");
+                return;
+            }
+
+            // Step 2: Consume the GET endpoint for concept-note-api.php to retrieve user_id
+            const conceptNoteResponse = await fetch(`/forms-processing/api/concept-note-api.php?concept_note_id=${conceptNoteId}`);
+            if (!conceptNoteResponse.ok) {
+                throw new Error(`Failed to fetch concept note data: ${conceptNoteResponse.status}`);
+            }
+            const conceptNoteData = await conceptNoteResponse.json();
+           
+            if (!conceptNoteData || conceptNoteData.status !== "success" || !conceptNoteData.data.data[0]) {
+                console.error("Concept note data not found.");
+                return;
+            }
+
+            // Extract user_id from the concept note data
+            const { user_id: userId } = conceptNoteData.data.data[0];
+            if (!userId) {
+                console.error("User ID not found in concept note data.");
+                return;
+            }
+
+            // Step 3: Consume the GET endpoint for user-api.php to retrieve username and email
+            const userResponse = await fetch(`/forms-processing/api/user-main-api.php?user_id=${userId}`);
+            if (!userResponse.ok) {
+                throw new Error(`Failed to fetch user data: ${userResponse.status}`);
+            }
+            const userData = await userResponse.json();
+            if (!userData || userData.status !== "success" || !userData.data[0]) {
+                console.error("User data not found.");
+                return;
+            }
+            const { username, email } = userData.data[0];
+
+            // Step 4: Access projectTitle from localStorage
+            const projectTitle = localStorage.getItem("projectTitle");
+            if (!projectTitle) {
+                console.error("Project title not found in local storage.");
+                return;
+            }
+
+            // Step 5: Construct JSON payload
+            const payload = {
+                recipient_email: email,
+                applicant_name: username,
+                project_title: projectTitle,
+            };
+
+            // Step 6: Consume the POST endpoint for concept-note-approval-emailer.php
+            const emailResponse = await fetch("/forms-processing/api/concept-narrative-report-decline-emailer.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!emailResponse.ok) {
+                throw new Error(`Failed to send email: ${emailResponse.status}`);
+            }
+
+            const emailResult = await emailResponse.json();
+            if (emailResult.status === "success") {
+                console.log("Email sent successfully!");
+            } else {
+                console.error("Failed to send email:", emailResult.message);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+    }
+</script>
+
+
 <script>
     // Function to extract the 'entry_id' from the URL parameters
     function getEntryIdFromUrl() {
@@ -761,6 +1003,7 @@ if (this.checked) {
 
                 const result = await response.json();
                 if (result.status== "success") {
+                    sendApprovalEmail();
                     toastr.success('Success!', 'Narrative Report Approved Successfully!');
                 } else {
                     console.error("Failed to update narrative report:", result.message);
@@ -892,6 +1135,7 @@ if (this.checked) {
 
                     const postResult = await postResponse.json();
                     if (postResult.status== "success") {
+                        sendReviseEmail();
                         toastr.success('Success!', 'Narrative Report Revised Successfully!');
                     } else {
                         alert("Failed to add revise comment. Please try again.");
@@ -1031,6 +1275,7 @@ if (this.checked) {
 
                     const postResult = await postResponse.json();
                     if (postResult.status== "success") {
+                        sendDeclineEmail();
                         toastr.success('Success!', 'Narrative Report Declined Successfully!');
                     } else {
                         alert("Failed to add decline comment. Please try again.");

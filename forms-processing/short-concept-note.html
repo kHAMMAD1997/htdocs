@@ -297,19 +297,143 @@ document.addEventListener('DOMContentLoaded', function() {
       // });
   });
   </script>
-  <!-- <script>
-    // Function to send the height to the parent window
-    function sendHeightToParent() {
-      const height = document.documentElement.scrollHeight;
-      window.parent.postMessage({ type: 'resize', height: height }, '*');
+ <script>
+  async function sendProjectData() {
+    try {
+        // Step 1: Fetch system emails
+        const systemEmailsResponse = await fetch('/forms-processing/api/systems-emails-api.php');
+        const systemEmailsData = await systemEmailsResponse.json();
+        const programsEmail = systemEmailsData.programs_email;
+
+        // Step 2: Fetch admin users
+        const adminUsersResponse = await fetch('/forms-processing/api/user-main-api.php?is_admin=1');
+        const adminUsersData = await adminUsersResponse.json();
+
+        // Extract admin usernames and emails
+        const adminEmails = adminUsersData.data.map(user => user.email);
+        const administratorName = adminUsersData.data[0]?.username || "Administrator";
+
+        // Step 3: Collect recipient emails
+        const recipientEmails = [programsEmail, ...adminEmails];
+
+        // Step 4: Fetch and parse data from local storage
+        const localStorageKeys = [
+            "activityRows",
+            "totalBudget",
+            "sector",
+            "contactName",
+            "contactEmail",
+            "women",
+            "projectLocation",
+            "organization",
+            "boys",
+            "girls",
+            "households",
+            "pwds",
+            "contactTitle",
+            "projectTitle",
+            "countryProject",
+            "men",
+            "contactPhone",
+            "pending",
+            "approved",
+            "overdue",
+            "declined",
+            "revise",
+            "submissionDate",
+            "user_id",
+        ];
+
+        // Retrieve and structure local storage data
+        const localStorageData = {};
+        localStorageKeys.forEach((key) => {
+            const value = localStorage.getItem(key);
+            if (value) localStorageData[key] = value;
+        });
+
+        const activityRows = JSON.parse(localStorageData.activityRows);
+
+        // Step 5: Prepare JSON payload
+        const dataPayload = {
+            recipientEmails,
+            administratorName,
+            applicantName: localStorageData.contactName,
+            applicantTitle: localStorageData.contactTitle,
+            applicantOrganization: localStorageData.organization,
+            projectTitle: localStorageData.projectTitle,
+            projectLocation: localStorageData.projectLocation,
+            mainActivity: JSON.stringify(activityRows),
+            timeline: `${activityRows[0].startDate} – ${activityRows[activityRows.length - 1].endDate}`,
+            plannedBeneficiaries: `${localStorageData.households} households`,
+            requestedAmount: localStorageData.totalBudget,
+            submissionDate: new Date().toISOString().split('T')[0],
+        };
+
+        console.log("Data Payload:", dataPayload);
+
+        // Step 6: Send POST request
+        const postResponse = await fetch('/forms-processing/api/admin-short-concept-note-emailer.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataPayload),
+        });
+
+        // Step 7: Handle response
+        if (postResponse.ok) {
+            console.log("POST request successful.");
+            return true;
+        } else {
+            console.error("POST request failed:", await postResponse.text());
+            return false;
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        return false;
     }
+}
 
-    // Send height on load
-    window.addEventListener('load', sendHeightToParent);
 
-    // Optional: Resend height if the content changes (e.g., dynamically loaded content)
-    new ResizeObserver(sendHeightToParent).observe(document.body);
-  </script> -->
+
+
+</script>
+<script>
+  async function executeWithPreloader() {
+    const preloader = document.getElementById('preloader');
+    console.log('Emailer called here-----------------');
+
+    try {
+        // Show the preloader
+        preloader.style.display = 'block';
+
+        // Call the sendProjectData function
+        const result = await sendProjectData();
+        console.log(result);
+
+        // Hide the preloader after the function completes
+        preloader.style.display = 'none';
+
+        // Return the result of the function
+        if (result) {
+            console.log("Function executed successfully.");
+            return true;
+        } else {
+            console.error("Function execution failed.");
+            return false;
+        }
+    } catch (error) {
+        console.error("An error occurred during execution:", error);
+
+        // Ensure preloader is hidden even if there's an error
+        preloader.style.display = 'none';
+        return false;
+    }
+}
+
+
+
+</script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -370,8 +494,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Submit data by gathering values from localStorage and sending to API
         async function submitData(event) {
             event.preventDefault(); // Prevent actual form submission
-            console.log(localStorage);
-            console.log(localStorage.length)
+            //console.log(localStorage);
+            //console.log(localStorage.length)
             
             // Gather data from localStorage
             let conceptNoteData = {};
@@ -382,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 conceptNoteData[key] = value;
                 
             }
-            console.log(conceptNoteData);
+            //console.log(conceptNoteData);
             // Set additional required fields
             conceptNoteData["pending"] = 1;
             conceptNoteData["approved"] = 0;
@@ -402,8 +526,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            console.log("---------------------------------------------------------");
-            console.log(conceptNoteData);
+            //console.log("---------------------------------------------------------");
+            //console.log(conceptNoteData);
 
             // Send data to API via POST request
             try {
@@ -427,18 +551,22 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (jsonError) {
         // If JSON parsing fails, log the raw response text
         const rawResponse = await response.text();
-        console.log("Raw response text:", rawResponse);
+        //console.log("Raw response text:", rawResponse);
         throw new Error("Response is not valid JSON");
     }
 
     // Log the parsed JSON response to check its content
-    console.log("Parsed JSON response:", result);
+    //console.log("Parsed JSON response:", result);
 
     // Check if the response contains a success status
     if (result.status== "success") {
-        alert("Concept Note submitted successfully!");
+        
+        // Call the function
+        //executeWithPreloader();
         //localStorage.clear(); // Clear local storage after successful submission
-        window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
+        sendProjectData();
+        alert("Concept Note submitted successfully!");
+        //window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
     } else {
         alert("Failed to submit Concept Note. Please try again.");
         console.error("API Error Message:", result.message);
@@ -461,19 +589,19 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
   function sendHeight() {
       const newHeight = document.body.scrollHeight + 50; // Add padding if needed
-      console.log('Sending new height:', newHeight); // Debugging log
+      //console.log('Sending new height:', newHeight); // Debugging log
       window.parent.postMessage({ height: newHeight }, '*');
   }
   
   // Send initial height after content is fully loaded
   window.addEventListener('load', () => {
-      console.log('Initial height send on load');
+      //console.log('Initial height send on load');
       sendHeight();
   });
   
   // Use MutationObserver for dynamic changes
   const observer = new MutationObserver((mutations) => {
-      console.log('Mutation observed:', mutations); // Debugging log
+      //console.log('Mutation observed:', mutations); // Debugging log
       sendHeight();
   });
   
@@ -487,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Adjust on window resize
   window.addEventListener('resize', () => {
-      console.log('Resize event detected');
+      //console.log('Resize event detected');
       sendHeight();
   });
   

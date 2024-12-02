@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Narrative Report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+            iframe {
+            width: 1150px;
+            border: none;
+            overflow: hidden; /* Hide scroll bars */
+            margin-bottom: 0px;
+        }
+        .starlabel::after {
+  content: " *";
+  color: red;
+}
+  </style>
+  <style>
+    /* Customize the file input appearance */
+#mediaUpload {
+  height: 40px; /* Set the height to match other input fields */
+  padding: 5px;
+}
+
+.custom-file {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#mediaUpload::-webkit-file-upload-button {
+  height: 100%;
+  padding: 0 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#mediaUpload::-moz-file-upload-button {
+  height: 100%;
+  padding: 0 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#mediaUpload:focus {
+  outline: none;
+}
+  </style>
+      <style>
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Keep it above all other elements */
+        }
+
+        /* Spinner styles */
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Keyframes for spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+  <div id="preloader">
+    <div class="spinner"></div>
+</div>
+<script>
+    // When the window has fully loaded, hide the preloader and show the main content
+    window.addEventListener("load", function() {
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    });
+</script>
+
+<div class="container">
+    <h2 class="text-center">Narrative Report </h2>
+  <form  id="userForm" novalidate>
+    <h4>1. Project Information</h4>
+    <div class="form-group">
+      <label for="projectTitle" class="starlabel">Project Title </label>
+      <input type="text" class="form-control" id="projectTitle" placeholder="Enter the project title" required>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="serviceAgreement">Service Agreement Number (if Applicable)</label>
+      <input type="text" class="form-control" id="serviceAgreement" placeholder="Enter the service agreement number">
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="country" class="starlabel">Country of Project </label>
+      <input type="text" class="form-control" id="country" placeholder="Enter the country of the project" required>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    
+    <div class="form-group">
+      <label for="projectLocation" >Project Location (City and State, Governorate, or District)</label>
+      <input type="text" class="form-control" id="projectLocation" placeholder="Enter the project location">
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    <h4>2. Project Timeline</h4>
+   <div class="form-group">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="startDate">Actual Start Date</label>
+        <input type="date" class="form-control" id="startDate" placeholder="Select start date" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please select a valid start date.</div>
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="endDate">Actual End Date</label>
+        <input type="date" class="form-control" id="endDate" placeholder="Select end date" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please select a valid end date.</div>
+      </div>
+    </div>
+   </div>
+   <h4>3. Project Details</h4>
+   <h5>Project Breakdown</h5>
+   <div class="form-group">
+    <iframe src="select.html" frameborder="0" id="dynamicIframe" onload="setIframeHeight()"></iframe>
+   </div>
+
+   <h5>Actual Beneficiaries</h5>
+   <div class="form-group">
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="households">Households</label>
+        <input type="number" class="form-control" id="households" placeholder="Households" required>
+        <div class="invalid-feedback">Please enter the number of households.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="men">Men</label>
+        <input type="number" class="form-control" id="men" placeholder="Men" required>
+        <div class="invalid-feedback">Please enter the number of men.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="women">Women</label>
+        <input type="number" class="form-control" id="women" placeholder="Women" required>
+        <div class="invalid-feedback">Please enter the number of women.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="boys">Boys</label>
+        <input type="number" class="form-control" id="boys" placeholder="Boys" required>
+        <div class="invalid-feedback">Please enter the number of boys.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="girls">Girls</label>
+        <input type="number" class="form-control" id="girls" placeholder="Girls" required>
+        <div class="invalid-feedback">Please enter the number of girls.</div>
+      </div>
+      
+      <div class="form-group col-md-2">
+        <label for="pwds">PWDs</label>
+        <input type="number" class="form-control" id="pwds" placeholder="PWDs" required>
+        <div class="invalid-feedback">Please enter the number of PWDs.</div>
+      </div>
+    </div>
+    
+    
+   </div>
+
+    <h4>4. Project Challenges</h4>
+    <div class="form-group">
+      <label for="mainChallenges" class="starlabel">Main Challenges (if Any)</label>
+      <textarea class="form-control" id="mainChallenges" placeholder="Describe the main challenges"></textarea>
+      <div class="valid-feedback">Valid.</div>
+    </div>
+    
+    <h4>5. Media Documentation</h4>
+    <div class="form-group">
+      <div class="mb-3">
+        <label for="mediaUpload" class="starlabel">Media (Upload Photos & Videos)</label>
+        <input type="file" class="form-control" id="mediaUpload" style="height: 40px;" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please upload at least one photo or video.</div>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('userForm');
+
+  // For each input field, listen for the blur event
+  form.querySelectorAll('input, select').forEach(field => {
+    field.addEventListener('blur', () => {
+      // Add was-validated class to the field's parent form
+      field.classList.add('was-validated');
+      
+      // Apply Bootstrap validation styles based on field validity
+      if (field.checkValidity()) {
+        field.classList.add('is-valid');
+        field.classList.remove('is-invalid');
+      } else {
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+      }
+    });
+  });
+
+  // Prevent default form submission for testing purposes
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    form.classList.add('was-validated');
+  });
+});
+</script>
+<script>
+    // Function to resize iframes based on received messages
+    function resizeIframe(event) {
+        if (event.data.type== 'resize') {
+            const iframe = document.getElementById('dynamicIframe');
+            if (iframe) {
+                iframe.style.height = event.data.height + 'px';
+            }
+        } else if (event.data.type== 'resize2') {
+            const iframe2 = document.getElementById('dynamicIframe2');
+            if (iframe2) {
+                iframe2.style.height = event.data.height + 'px';
+            }
+        }
+        
+    }
+
+    // Set height for dynamicIframe by requesting height from the iframe
+    function setIframeHeight() {
+        const iframe = document.getElementById('dynamicIframe');
+        iframe.contentWindow.postMessage({ type: 'requestHeight' }, '*');
+    }
+
+    // Set height for dynamicIframe2 by requesting height from the iframe
+    function setIframeHeight2() {
+        const iframe2 = document.getElementById('dynamicIframe2');
+        iframe2.contentWindow.postMessage({ type: 'requestHeight2' }, '*');
+    }
+
+    // Listen for resize messages from both iframes
+    window.addEventListener('message', resizeIframe);
+</script>
+<script>
+  //    
+  // Processing of data before submission
+  //  
+  document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("userForm");
+      const inputs = form.querySelectorAll("input, select, textarea");
+  
+      // Load saved data from localStorage on page load
+      inputs.forEach(input => {
+          const savedValue = localStorage.getItem(input.id);
+          if (savedValue) {
+              input.value = savedValue;
+          }
+      });
+  
+      // Save data to localStorage on input change
+      inputs.forEach(input => {
+          input.addEventListener("input", () => {
+              localStorage.setItem(input.id, input.value);
+          });
+      });
+  
+      // Optional: Clear localStorage on form submission
+      form.addEventListener("submit", (e) => {
+          e.preventDefault();  // Prevent form submission for demonstration
+          inputs.forEach(input => localStorage.removeItem(input.id));
+          alert("Form submitted and data cleared from local storage.");
+      });
+  });
+</script>
+
+<!-- <script>
+  // Function to send the height to the parent window
+  function sendHeightToParent() {
+    const height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: 'resize', height: height }, '*');
+  }
+
+  // Send height on load
+  window.addEventListener('load', sendHeightToParent);
+
+  // Optional: Resend height if the content changes (e.g., dynamically loaded content)
+  new ResizeObserver(sendHeightToParent).observe(document.body);
+</script> -->
+
+
+
+</body>
+</html>
