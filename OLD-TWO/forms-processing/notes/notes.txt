@@ -15,7 +15,7 @@
                                     <table width="645" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="border-collapse:collapse;border-spacing:0px;background-color:#ffffff">
                                         <tr>
                                             <td align="center" style="padding:20px 20px 0px 20px">
-                                                <img src="https://cdn-200e7.kxcdn.com/wp-content/uploads/2023/02/logo.svg" alt="Logo" style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:200px;">
+                                                <img src="/forms-processing/assets/images/logo.svg" alt="Logo" style="display:block;border:0;outline:none;text-decoration:none;width:100%;max-width:200px;">
                                             </td>
                                         </tr>
                                         <tr>
