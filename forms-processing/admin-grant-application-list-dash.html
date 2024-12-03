@@ -159,7 +159,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Hello Admin!</h4>
+                        <h4 class="page-title"></h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -388,95 +388,112 @@
 
 
 <script>
- document.addEventListener("DOMContentLoaded", async function () {
-    // Initialize DataTable
-    $('#zero_config').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: '/forms-processing/api/grant-application-datatables-api.php',
-            type: 'GET',
-            dataSrc: function (json) {
-                if (Array.isArray(json.data)) {
-                    return json.data;
-                } else {
-                    console.error("Failed to fetch data or invalid response format:", json);
-                    return [];
-                }
+    document.addEventListener("DOMContentLoaded", async function () {
+        // Function to get URL parameters as an object
+        function getUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let params = {};
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
             }
-        },
-        columns: [
-            {
-                data: 'grant_application_id',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${data}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'officialName',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'projectTitle',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'projectLocation',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'total_budget',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'declarationDate',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    let statusClass = 'btn-secondary';
-                    let statusText = 'No Status';
-
-                    if (row.pending== "1") {
-                        statusClass = 'btn-primary';
-                        statusText = 'Pending';
-                    } else if (row.overdue== "1") {
-                        statusClass = 'btn-warning';
-                        statusText = 'Overdue';
-                    } else if (row.declined== "1") {
-                        statusClass = 'btn-danger';
-                        statusText = 'Declined';
-                    } else if (row.approved== "1") {
-                        statusClass = 'btn-success';
-                        statusText = 'Approved';
-                    } else if (row.revise== "1") {
-                        statusClass = 'btn-secondary';
-                        statusText = 'Revise';
+            return params;
+        }
+    
+        // Construct the API URL based on URL parameters or use the default
+        let baseApiUrl = "/forms-processing/api/grant-application-datatables-api.php";
+        let urlParams = getUrlParameters();
+    
+        // Initialize DataTable
+        $('#zero_config').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: baseApiUrl,
+                type: 'GET',
+                data: function (d) {
+                    // Append additional URL parameters to DataTables request
+                    Object.assign(d, urlParams);
+                },
+                dataSrc: function (json) {
+                    if (Array.isArray(json.data)) {
+                        return json.data;
+                    } else {
+                        console.error("Failed to fetch data or invalid response format:", json);
+                        return [];
                     }
-
-                    return `<a class="btn btn-sm ${statusClass} text-white" style="width:120px!important" href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${statusText}</a>`;
                 }
-            }
-        ],
-        pageLength: 10,
-        lengthMenu: [10, 25, 50, 100],
-        order: [[0, 'asc']]
+            },
+            columns: [
+                {
+                    data: 'grant_application_id',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${data}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'officialName',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'projectTitle',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'projectLocation',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'total_budget',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: 'declarationDate',
+                    render: function (data, type, row) {
+                        return `<a href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${data || "No Data"}</a>`;
+                    }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        let statusClass = 'btn-secondary';
+                        let statusText = 'No Status';
+    
+                        if (row.pending == "1") {
+                            statusClass = 'btn-primary';
+                            statusText = 'Pending';
+                        } else if (row.overdue == "1") {
+                            statusClass = 'btn-warning';
+                            statusText = 'Overdue';
+                        } else if (row.declined == "1") {
+                            statusClass = 'btn-danger';
+                            statusText = 'Declined';
+                        } else if (row.approved == "1") {
+                            statusClass = 'btn-success';
+                            statusText = 'Approved';
+                        } else if (row.revise == "1") {
+                            statusClass = 'btn-secondary';
+                            statusText = 'Revise';
+                        }
+    
+                        return `<a class="btn btn-sm ${statusClass} text-white" style="width:120px!important" href="admin-single-grant-application-dash.html?grant-application-id=${row.grant_application_id}">${statusText}</a>`;
+                    }
+                }
+            ],
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100],
+            order: [[0, 'asc']]
+        });
     });
-});
-
-
-</script>
+    </script>
+    
     
     
     

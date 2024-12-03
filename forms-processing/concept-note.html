@@ -192,12 +192,14 @@
       </div>
       
      </div>
+
     <h4> 5. Beneficiaries and Budget</h4>
     <div class="form-group">
         <iframe src="spreadsheet/index.html" frameborder="0" id="dynamicIframe2" onload="setIframeHeight2()"></iframe>
 
     </div>
-
+    <div id="errors">
+    </div>
     <button type="button" class="btn btn-primary">Next</button>
   </form>
 </div>
@@ -418,6 +420,46 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        function checkLocalStorageForTables() {
+              const tableKeys = [
+                  { key: "table-1", message: "A.1 Direct Project Staff" },
+                  { key: "table-2", message: "B. Supplies, Commodities, Materials" },
+                  { key: "table-3", message: "C.1 Office Furniture and Equipment" },
+                  { key: "table-4", message: "C.2 Field Project Equipment"},
+                  { key: "table-5", message: "D. Contractual Services" },
+                  { key: "table-6", message: "E.1 Staff Travel: Airfare and Per Diem" },
+                  { key: "table-7", message: "E.2 Transportation 7" },
+                  { key: "table-8", message: "F. General Operating and Other Costs" }
+              ];
+
+              let errorsDiv = document.getElementById("errors");
+              let missingTables = false;
+
+              // Clear any existing error messages
+              errorsDiv.innerHTML = "";
+
+              tableKeys.forEach(table => {
+                  const value = localStorage.getItem(table.key);
+
+                  if (!value) {
+                      // If the key is missing, create an error div
+                      const errorDiv = document.createElement("div");
+                      errorDiv.className = "alert alert-danger";
+                      errorDiv.role = "alert";
+                      errorDiv.textContent = `"${table.message}" . Please add at least one item for this table.`;
+
+                      // Append the error div to the errors container
+                      errorsDiv.appendChild(errorDiv);
+
+                      missingTables = true;
+                  }
+              });
+
+              return !missingTables; // Return false if any table is missing, true otherwise
+          }
+
+
+
         // Helper function to check if any field is empty or invalid
         function validateFormFields() {
             const requiredFields = form.querySelectorAll("input[required], select[required]");
@@ -452,13 +494,14 @@ document.addEventListener('DOMContentLoaded', function() {
             nextButton.addEventListener("click", submitData);
         }
 
-        // Transition to preview mode if all fields are valid
+              // Transition to preview mode if all fields and tables are valid
         function goToPreviewMode() {
-            if (validateFormFields()) {
-                enablePreviewMode();
-            } else {
-                alert("Please fill out all required fields.");
-            }
+          // Check if form fields and table keys in localStorage are valid
+          if (validateFormFields() && checkLocalStorageForTables()) {
+              enablePreviewMode();
+          } else {
+              alert("Please fill out all required fields.");
+          }
         }
 
         // Submit data by gathering values from localStorage and sending to API
@@ -533,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sendProjectData();
         alert("Concept Note submitted successfully!");
         //localStorage.clear(); // Clear local storage after successful submission
-        //window.location.href = "/forms-processing/success.html"; // Redirect to success page or another relevant page
+       window.location.href = "/forms-processing/concept-note-success-msg.html"; // Redirect to success page or another relevant page
     } else {
         alert("Failed to submit Concept Note. Please try again.");
         console.error("API Error Message:", result.message);
@@ -588,31 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
  </script>
- <script>
-  // This script initializes localStorage with required keys and values before the page loads
-  document.addEventListener("DOMContentLoaded", function () {
-      // Loop to create keys "table-1" to "table-8"
-      for (let i = 1; i <= 8; i++) {
-          const key = `table-${i}`;
-          const value = JSON.stringify([
-              ["", "", "", "", "", ""],
-              ["", "", "", "", "", ""],
-              ["", "", "", "", "", ""],
-              ["", "", "", "", "", ""]
-          ]);
 
-          // Set the key-value pair in localStorage
-          if (!localStorage.getItem(key)) {
-              localStorage.setItem(key, value);
-          }
-      }
-
-      // Initialize the "total_budget" key to 0 if it does not already exist
-      if (!localStorage.getItem("total_budget")) {
-          localStorage.setItem("total_budget", "0");
-      }
-  });
-</script>
 
   
 </body>

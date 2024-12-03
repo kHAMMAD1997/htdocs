@@ -83,12 +83,25 @@
                     // Clear existing local storage
                     localStorage.clear();
 
-                    // Insert each field from the conceptNoteData into local storage
+                    const defaultTableValue = [
+                        ["", "", "", "", "", ""],
+                        ["", "", "", "", "", ""],
+                        ["", "", "", "", "", ""],
+                        ["", "", "", "", "", ""]
+                    ];
+        
+                    // Insert each field from the grantApplicationData into local storage
                     for (const [key, value] of Object.entries(conceptNoteData)) {
                         // Convert table_<number> keys to table-<number>
                         const modifiedKey = key.replace(/table_(\d+)/, 'table-$1');
-                        localStorage.setItem(modifiedKey, value);
+                        
+                        // Check if the value is null, undefined, or the string "null"
+                        const finalValue = (value == null || value === "null") ? JSON.stringify(defaultTableValue) : value;
+        
+                        // Store in local storage
+                        localStorage.setItem(modifiedKey, finalValue);
                     }
+        
 
                     console.log("Concept note data saved to local storage:", conceptNoteData);
                 } else {

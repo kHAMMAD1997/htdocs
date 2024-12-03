@@ -87,16 +87,30 @@ if (grantApplicationId) {
 
               // Clear existing local storage
               localStorage.clear();
+            // Default value for the tables
+                    // Default value for the tables
+            const defaultTableValue = [
+                ["", "", "", "", "", ""],
+                ["", "", "", "", "", ""],
+                ["", "", "", "", "", ""],
+                ["", "", "", "", "", ""]
+            ];
 
-              // Insert each field from the grantApplicationData into local storage
-              for (const [key, value] of Object.entries(grantApplicationData)) {
-                  // Convert table_<number> keys to table-<number>
-                  const modifiedKey = key.replace(/table_(\d+)/, 'table-$1');
-                  localStorage.setItem(modifiedKey, value);
-              }
+            // Insert each field from the grantApplicationData into local storage
+            for (const [key, value] of Object.entries(grantApplicationData)) {
+                // Convert table_<number> keys to table-<number>
+                const modifiedKey = key.replace(/table_(\d+)/, 'table-$1');
+                
+                // Check if the value is null, undefined, or the string "null"
+                const finalValue = (value == null || value === "null") ? JSON.stringify(defaultTableValue) : value;
+
+                // Store in local storage
+                localStorage.setItem(modifiedKey, finalValue);
+            }
+
 
               console.log("Grant application data saved to local storage:", grantApplicationData);
-              confirm
+              
 
               console.log(localStorage.getItem("revise"));
               console.log("-------------------------------------------------")

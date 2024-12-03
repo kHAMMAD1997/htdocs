@@ -233,7 +233,7 @@
                             <div class="card-body" >
                                 
                               
-                                <iframe  id="read-only-concept-note" src="admin-read-only-concept-note.html" width="100%" height="2500" frameborder="0" style="overflow:hidden;"></iframe>
+                                <iframe  id="read-only-concept-note" src="admin-read-only-concept-note.html" width="100%" height="1500" frameborder="0" style="overflow:hidden;"></iframe>
 
                             </div>
                         </div>
@@ -258,6 +258,46 @@
                         </div>
                     </div>
                 </div>
+
+
+<!-- ========================Approved successful modal================================================= -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="approved-success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="/forms-processing/assets/images/background/img6.gif" width="100% ">
+                                                <div class="text-center">
+                                                    <p style="color: green; font-weight: bold; font-size: x-large;">Approved successfully!</p>
+                                                    <p style="color: green; font-weight: bold; font-size:medium;">The client will receive an email with the approval details.</p>
+                                                    <p style="color: green; font-weight: bold; font-size:medium;">This is just a reminder that a confirmation email has been sent.</p>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <script>
+                                function showApprovedSuccessModal() {
+                                    // Use Bootstrap's modal function to show the modal
+                                    const modal = new bootstrap.Modal(document.getElementById('approved-success-modal'));
+                                    modal.show();
+                                }
+                            </script>
+
+<!-- ========================Approved successful modal================================================= -->
+
+
                 <!-- Modal Finance -->
                 <div class="modal fade none-border" id="finance-modal">
                     <div class="modal-dialog">
@@ -1285,7 +1325,8 @@ if (this.checked) {
             if (result.status== "success") {
                 // Call the function
                 sendApprovalEmail();
-                toastr.success('Success!', 'Concept Note Approved Successfully!');
+                showApprovedSuccessModal();
+                //toastr.success('Success!', 'Concept Note Approved Successfully!');
             } else {
                 console.error("Failed to update concept note:", result.message);
                 alert("Failed to approve concept note. Please try again.");

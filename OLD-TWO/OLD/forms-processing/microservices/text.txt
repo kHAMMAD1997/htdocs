@@ -1,3 +1,0 @@
-
-cronjob
-/usr/local/bin/php /home/hammadkh/public_html/app-form-processing/cron-job/cron/forms-sync-cron-job.php /dev/null 2>&1

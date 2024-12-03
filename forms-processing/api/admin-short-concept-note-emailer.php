@@ -88,7 +88,7 @@ $emailContent = <<<HTML
                                         </tr>
                                         <tr>
                                             <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px">
-                                                <h2 style="font-family:arial, 'Roboto', sans-serif;font-size:26px;color:#D12E0B;">
+                                                <h2 style="font-family:arial, 'Roboto', sans-serif;font-size:26px;color:#00984a;">
                                                     <strong>Concept Note Submission Review</strong>
                                                 </h2>
                                                 <p>Dear <strong>$administratorName</strong>,</p>
