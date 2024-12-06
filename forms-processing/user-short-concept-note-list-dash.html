@@ -443,6 +443,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     // Status column with dynamic button style
                     const statusCell = document.createElement("td");
                     const statusButton = document.createElement("a");
+                    statusButton.style.width = "110px";
                     statusButton.classList.add("btn", "btn-sm", "text-white");
 
                     if (entry.pending== "1") {
@@ -474,6 +475,9 @@ document.addEventListener("DOMContentLoaded", async function() {
                 // Update pagination links
                 const previousBtn = document.querySelector(".btn-secondary");
                 const nextBtn = document.querySelector(".btn-info");
+                if (nextBtn) {
+                nextBtn.style.backgroundColor = "rgb(54, 169, 225)";
+                 }
 
                 // Set href attributes for the buttons with updated page numbers
                 previousBtn.href = `#`;

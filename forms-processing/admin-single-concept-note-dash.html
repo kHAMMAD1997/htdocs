@@ -233,7 +233,7 @@
                             <div class="card-body" >
                                 
                               
-                                <iframe  id="read-only-concept-note" src="admin-read-only-concept-note.html" width="100%" height="1500" frameborder="0" style="overflow:hidden;"></iframe>
+                                <iframe  id="read-only-concept-note" src="admin-read-only-concept-note.html" width="100%" height="3300" frameborder="0" style="overflow:hidden;"></iframe>
 
                             </div>
                         </div>
@@ -258,7 +258,76 @@
                         </div>
                     </div>
                 </div>
+<!-- ======================== Decline successful modal================================================= -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="decline-success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="/forms-processing/assets/images/decline.png" width="50%" style="display: block; margin: auto;">
+                                                <div class="text-center">
+                                                    <p style="color: #EE404C; font-weight: bold; font-size: x-large;">Declined successfully!</p>
+                                                    <p style="color: #EE404C; font-weight: bold; font-size: medium;">The client will receive an email with the decline details.</p>
+                                                    <p style="color: #EE404C; font-weight: bold; font-size: medium;">Good news! A confirmation email has been successfully sent.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" style="background-color: #EE404C;" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <script>
+                                function showDeclineSuccessModal() {
+                                    // Use Bootstrap's modal function to show the modal
+                                    const modal = new bootstrap.Modal(document.getElementById('decline-success-modal'));
+                                    modal.show();
+                                }
+                            </script>
 
+<!-- ========================Decline successful modal================================================= -->
+<!-- ========================Revise successful modal================================================= -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="revise-success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="/forms-processing/assets/images/revise.png" width="50%" style="display: block; margin: auto;">
+                                                <div class="text-center">
+                                                    <p style="color: #C532C6; font-weight: bold; font-size: x-large;">Revised successfully!</p>
+                                                    <p style="color: #C532C6; font-weight: bold; font-size: medium;">The client will receive an email with the revise details.</p>
+                                                    <p style="color: #C532C6; font-weight: bold; font-size: medium;">Good news! A confirmation email has been successfully sent.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" style="background-color: #C532C6;" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <script>
+                                function showReviseSuccessModal() {
+                                    // Use Bootstrap's modal function to show the modal
+                                    const modal = new bootstrap.Modal(document.getElementById('revise-success-modal'));
+                                    modal.show();
+                                }
+                            </script>
+
+<!-- ========================Revise successful modal================================================= -->
 
 <!-- ========================Approved successful modal================================================= -->
                                 <!-- Modal -->
@@ -276,7 +345,7 @@
                                                 <div class="text-center">
                                                     <p style="color: green; font-weight: bold; font-size: x-large;">Approved successfully!</p>
                                                     <p style="color: green; font-weight: bold; font-size:medium;">The client will receive an email with the approval details.</p>
-                                                    <p style="color: green; font-weight: bold; font-size:medium;">This is just a reminder that a confirmation email has been sent.</p>
+                                                    <p style="color: green; font-weight: bold; font-size:medium;">Good news! A confirmation email has been successfully sent.</p>
                                                 </div>
 
 
@@ -427,10 +496,8 @@
             return false;
         }
         const systemsEmails = await systemsEmailsResponse.json();
-        const systemEmailsList = [
-            systemsEmails.programs_email,
-            systemsEmails.finance_email
-        ];
+        const systemEmailsList = Object.values(systemsEmails);
+
 
         // Step 2: Send GET request to /user-main-api.php?is_admin=1
         const adminUsersResponse = await fetch('/forms-processing/api/user-main-api.php?is_admin=1');
@@ -443,7 +510,7 @@
         const adminEmailsList = adminUsers.data.map(user => user.email);
 
         // Step 3: Combine emails into "recipientEmail"
-        const recipientEmails = [...systemEmailsList, ...adminEmailsList];
+        const recipientEmails = [...systemEmailsList];
 
         // Step 4: Retrieve email-payload from local storage
         const emailPayloadString = localStorage.getItem('email-payload');
@@ -1457,7 +1524,8 @@ if (this.checked) {
                 const postResult = await postResponse.json();
                 if (postResult.status== "success") {
                     sendReviseEmail();
-                    toastr.success('Success!', 'Concept Note Revised Successfully!');
+                   /// toastr.success('Success!', 'Concept Note Revised Successfully!');
+                   showReviseSuccessModal();
                 } else {
                     alert("Failed to add revise comment. Please try again.");
                     console.error("API Error Message:", postResult.message);
@@ -1597,7 +1665,8 @@ if (this.checked) {
                     const postResult = await postResponse.json();
                     if (postResult.status== "success") {
                         sendDeclineEmail();
-                        toastr.success('Success!', 'Concept Note Declined Successfully!');
+                        //toastr.success('Success!', 'Concept Note Declined Successfully!');
+                        showDeclineSuccessModal();
                     } else {
                         alert("Failed to add decline comment. Please try again.");
                         console.error("API Error Message:", postResult.message);

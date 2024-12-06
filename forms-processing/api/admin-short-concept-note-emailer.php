@@ -89,10 +89,10 @@ $emailContent = <<<HTML
                                         <tr>
                                             <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px">
                                                 <h2 style="font-family:arial, 'Roboto', sans-serif;font-size:26px;color:#00984a;">
-                                                    <strong>Concept Note Submission Review</strong>
+                                                    <strong>Short Concept Note Submission Review</strong>
                                                 </h2>
                                                 <p>Dear <strong>$administratorName</strong>,</p>
-                                                <p>A new concept note application has been submitted and is ready for your review. Below are the details:</p>
+                                                <p>A new short concept note application has been submitted and is ready for your review. Below are the details:</p>
                                                 <hr>
                                                 <p><strong>Applicant:</strong></p>
                                                 <p>$applicantName, $applicantTitle<br>
@@ -116,7 +116,7 @@ $emailContent = <<<HTML
                                                 $submissionDate</p>
                                                 <hr>
                                                 <p>Please review the details and provide your decision regarding the next steps for this application by clicking the link below:</p>
-                                                <p><a href="https://example.com/review?concept_note_id=$submissionDate" style="display:inline-block;padding:10px 20px;background-color:#B5CB16;color:#ffffff;text-decoration:none;border-radius:5px;font-size:16px;">Review Application</a></p>
+                                                <p><a href="https://test.hammad-khan.org/" style="display:inline-block;padding:10px 20px;background-color:#B5CB16;color:#ffffff;text-decoration:none;border-radius:5px;font-size:16px;">Review Application</a></p>
                                                 <p>If you have any immediate questions or require further clarification, please feel free to reach out to us at <a href="mailto:programs@mercywithoutlimits.org">programs@mercywithoutlimits.org</a>.</p>
                                                 <p>Thank you for your prompt attention to this request.</p>
                                                 <p>Best regards,</p>

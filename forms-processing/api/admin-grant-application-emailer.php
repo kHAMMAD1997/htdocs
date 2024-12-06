@@ -116,7 +116,7 @@ $emailContent = <<<HTML
                                                 $submissionDate</p>
                                                 <hr>
                                                 <p>Please review the details and provide your decision regarding the next steps for this application by clicking the link below:</p>
-                                                <p><a href="https://example.com/review?concept_note_id=$submissionDate" style="display:inline-block;padding:10px 20px;background-color:#B5CB16;color:#ffffff;text-decoration:none;border-radius:5px;font-size:16px;">Review Application</a></p>
+                                                <p><a href="https://test.hammad-khan.org/" style="display:inline-block;padding:10px 20px;background-color:#B5CB16;color:#ffffff;text-decoration:none;border-radius:5px;font-size:16px;">Review Application</a></p>
                                                 <p>If you have any immediate questions or require further clarification, please feel free to reach out to us at <a href="mailto:programs@mercywithoutlimits.org">programs@mercywithoutlimits.org</a>.</p>
                                                 <p>Thank you for your prompt attention to this request.</p>
                                                 <p>Best regards,</p>

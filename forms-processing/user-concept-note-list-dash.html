@@ -441,6 +441,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     const statusCell = document.createElement("td");
                     const statusButton = document.createElement("a");
                     statusButton.classList.add("btn", "btn-sm", "text-white");
+                    statusButton.style.width = "110px";
 
                     if (entry.pending== "1") {
                         statusButton.classList.add("btn-primary");
@@ -471,6 +472,9 @@ document.addEventListener("DOMContentLoaded", async function() {
                 // Update pagination links
                 const previousBtn = document.querySelector(".btn-secondary");
                 const nextBtn = document.querySelector(".btn-info");
+                if (nextBtn) {
+                nextBtn.style.backgroundColor = "rgb(54, 169, 225)";
+                 }
 
                 // Set href attributes for the buttons with updated page numbers
                 previousBtn.href = `#`;

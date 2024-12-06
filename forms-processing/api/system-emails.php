@@ -1,5 +1,9 @@
 <?php
 // Define email constants
-define('PROGRAMS_EMAIL', 'programs@hammad-khan.org');
-define('FINANCE_EMAIL', 'finance@hammad-khan.org');
+//======================IMPORTANT =============================================
+//EMAIL_1 should always be the programs email
+define('EMAIL_1', 'programs@hammad-khan.org');
+//======================IMPORTANT =============================================
+define('EMAIL_2', 'finance@hammad-khan.org');
+define('EMAIL_3', 'finance2@hammad-khan.org');
 ?>

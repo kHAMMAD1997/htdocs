@@ -450,6 +450,7 @@ createButton.id = "createButton";
 createButton.classList.add("btn", "btn-sm", "text-white", "btn-info", "mb-2");
 createButton.textContent = "Create Narrative Report";
 createButton.style.pointerEvents = "auto";
+createButton.style.backgroundColor = "rgb(54, 169, 225)";
 createButton.onclick = function() {
     window.location.href = `user-create-concept-narrative-report-dash.html?concept-note-id=${entry.concept_note_id}`;
 };
@@ -528,8 +529,15 @@ row.appendChild(statusCell);
 
 </script>
 
-    
-    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const nextBtn = document.querySelector(".btn-info");
+    if (nextBtn) {
+        nextBtn.style.setProperty("background-color", "rgb(54, 169, 225)", "important");
+    }
+});
+
+ </script> 
     
     
     

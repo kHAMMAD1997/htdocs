@@ -444,6 +444,7 @@
                 const statusCell = document.createElement("td");
                 const statusButton = document.createElement("a");
                 statusButton.classList.add("btn", "btn-sm", "text-white");
+                statusButton.style.width = "110px";
 
                 if (entry.pending== "1") {
                     statusButton.classList.add("btn-primary");
@@ -483,6 +484,9 @@
     function updatePaginationButtons(page, totalPages) {
         const previousBtn = document.querySelector(".btn-previous");
         const nextBtn = document.querySelector(".btn-next");
+        if (nextBtn) {
+            nextBtn.style.backgroundColor = "rgb(54, 169, 225)";
+          }
 
         previousBtn.disabled = page== 1;
         nextBtn.disabled = page >= totalPages;
@@ -509,7 +513,15 @@
 </script>
     
     
-    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const nextBtn = document.querySelector(".btn-info");
+    if (nextBtn) {
+        nextBtn.style.setProperty("background-color", "rgb(54, 169, 225)", "important");
+    }
+});
+
+ </script> 
     
     
     

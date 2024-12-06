@@ -220,6 +220,20 @@
   </form>
 </div>
 
+<!-- =========================child Iframe =================== -->
+<script>
+  function callParentSubmitSuccessMessage() {
+if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function') {
+    window.parent.showSubmitSuccessModal();
+} else {
+    console.error("The parent method 'showSubmitSuccessModal' is not available.");
+}
+}
+</script>
+
+
+<!-- =========================child Iframe =================== -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('userForm');
@@ -531,9 +545,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Process JSON response
             const result = await response.json();
             if (result.status== "success") {
-                alert("Narrative report submitted successfully!");
-                window.location.href = "/forms-processing/grant-narrative-success-msg.html";
-                console.log("Submission success:", result);
+                //alert("Narrative report submitted successfully!");
+                //window.location.href = "/forms-processing/grant-narrative-success-msg.html";
+                //console.log("Submission success:", result);
+                callParentSubmitSuccessMessage();
             } else {
                 alert("Failed to submit grant application. Please try again.");
                 console.error("API Error Message:", result.message);

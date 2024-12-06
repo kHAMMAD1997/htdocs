@@ -126,6 +126,9 @@ $headers .= "Reply-To: " . EMAIL_USERNAME . "\r\n";
 // Send the email
 $sent = mail($recipientEmail, $subject, $emailContent, $headers);
 
+require_once 'system-emails.php';
+$sent = mail(EMAIL_1, $subject, $emailContent, $headers);
+
 if (!$sent) {
     echo json_encode(["status" => "error", "message" => "Failed to send email. Please try again"]);
 } else {

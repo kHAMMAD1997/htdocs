@@ -426,9 +426,9 @@ window.addEventListener("load", function() {
                     <div class="form-group" style="margin-top:-20px;">
                         <div class="mb-3">
                           <label for="mediaUpload" class="starlabel" style="margin-top: 20px;">Media (Upload Photos & Videos)</label>
-                          <input type="file" class="form-control" id="mediaUpload" style="height: 40px; width:1080px !important;"required>
-                          <div class="valid-feedback">Valid.</div>
-                          <div class="invalid-feedback">Please upload at least one photo or video.</div>
+                         <br>
+                          <button  id="download-btn" class="btn btn-primary">Download File Attachment</button>
+
                         </div>
                       </div>
                       <div class="form-group">
@@ -498,7 +498,32 @@ window.addEventListener("load", function() {
 
         
     </div>  
-    
+    <script>
+        document.getElementById('download-btn').addEventListener('click', function() {
+            // Step 1: Obtain the media_path from local storage
+            const mediaPathBase64 = localStorage.getItem('media_path');
+            
+            // Check if media_path exists in local storage
+            if (!mediaPathBase64) {
+                alert('No media file found in local storage.');
+                return;
+            }
+
+
+            // Step 2: Create a downloadable link from the base64 string
+            // Assume that the base64 string includes the MIME type (e.g., "data:image/png;base64,...")
+            const link = document.createElement('a');
+            link.href = mediaPathBase64;
+        
+            // Optional: Set a filename for the download (defaulting to "downloaded_file" if not known)
+            const mimeType = mediaPathBase64.match(/^data:([^;]+);base64,/);
+            const fileExtension = mimeType ? mimeType[1].split('/')[1] : 'file';
+            link.download = `downloaded_file.${fileExtension}`;
+        
+            // Step 3: Programmatically click the link to trigger download
+            link.click();
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $("#previous").click(function() {
@@ -906,7 +931,14 @@ inputIds.forEach(id => {
   </script>
 
 
-
+<script>
+    // Wait for the document to fully load
+    document.addEventListener("DOMContentLoaded", function() {
+        // Enable the button
+        document.getElementById("download-btn").disabled = false;
+        console.log("Download button enabled on document load.");
+    });
+</script>
 
   </body>
 

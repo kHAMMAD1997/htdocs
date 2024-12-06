@@ -154,7 +154,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <a href="admin-view-user-list-dash.html" class="btn btn-sm btn-info">View List of Users</a>
+                        <a href="admin-view-user-list-dash.html" class="btn btn-md btn-info" style="background-color: rgb(54, 169, 225); font-weight: bold;">View List of Users</a>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -182,7 +182,7 @@
                         <div class="card">
                             <form class="form-horizontal" id="createUserForm">
                                 <div class="card-body">
-                                    <h4 class="card-title text-center text-primary">Create User</h4>
+                                    <h4 class="card-title text-center text-success" style="color:rgb(54, 169, 225);">Create User</h4>
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Username</label>
                                         <div class="col-sm-9">
@@ -225,7 +225,7 @@
                                     </div>
                                     <div class="border-top">
                                         <div class="card-body">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary" style="background-color: rgb(54, 169, 225);">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -270,6 +270,43 @@
     <!--  -->
     <!-- All Jquery -->
     <!--  -->
+
+
+    <!-- ======================== create user successful modal================================================= -->
+                                <!-- Modal -->
+                                <div class="modal fade" id="create-user-success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="/forms-processing/assets/images/add-user.png" width="50%" style="display: block; margin: auto;">
+                                                <div class="text-center">
+                                                    <p style="color: #2867CE; font-weight: bold; font-size: x-large;">User Created Sucessfully!</p>
+                                                    <p style="color: #2867CE; font-weight: bold; font-size: medium;">User portal has been assigned.</p>
+                                                    <p style="color: #2867CE; font-weight: bold; font-size: medium;">Good news! The User can now login with the details created.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" style="background-color: #2867CE;" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <script>
+                                function showCreateUserSuccessModal() {
+                                    // Use Bootstrap's modal function to show the modal
+                                    const modal = new bootstrap.Modal(document.getElementById('create-user-success-modal'));
+                                    modal.show();
+                                }
+                            </script>
+
+<!-- ======================== Create user successful modal================================================= -->
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
     <script src="dist/js/jquery-ui.min.js"></script>
@@ -342,7 +379,8 @@
         .then(response => response.json())
         .then(data => {
             if (data.status== 'success') {
-                alert(data.message); // Show success message
+               // alert(data.message); // Show success message
+               showCreateUserSuccessModal();
                // window.location.href = '/forms-processing/user-list.html'; // Example: redirect to a user list
             } else {
                 alert(data.message); // Show error message

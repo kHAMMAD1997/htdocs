@@ -423,7 +423,7 @@ window.addEventListener("load", function() {
                         <iframe src="spreadsheet/index.html" frameborder="0" id="dynamicIframe2" onload="setIframeHeight2()" style=" height: 500px;"></iframe>
                     </div>
                     <div class="form-group" style="margin-top:-20px;" style="display: none !important;">
-                        <div class="mb-3" >
+                        <div class="mb-3" style="display: none !important;">
                           <label for="mediaUpload" class="starlabel" style="margin-top: 20px;">Media (Upload Photos & Videos)</label>
                           <input type="file" class="form-control" id="mediaUpload" style="height: 40px; width:1080px !important;"required>
                           <div class="valid-feedback">Valid.</div>
@@ -738,7 +738,7 @@ window.addEventListener("load", function() {
         // Step 1: Fetch system emails
         const systemEmailsResponse = await fetch('/forms-processing/api/systems-emails-api.php');
         const systemEmailsData = await systemEmailsResponse.json();
-        const programsEmail = systemEmailsData.programs_email;
+        const programsEmail = systemEmailsData.email_1;
 
         // Step 2: Fetch admin users
         const adminUsersResponse = await fetch('/forms-processing/api/user-main-api.php?is_admin=1');
@@ -797,7 +797,19 @@ window.addEventListener("load", function() {
 }
 
   </script>
-  
+  <!-- =========================child Iframe =================== -->
+<script>
+    function callParentSubmitSuccessMessage() {
+  if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function') {
+      window.parent.showSubmitSuccessModal();
+  } else {
+      console.error("The parent method 'showSubmitSuccessModal' is not available.");
+  }
+  }
+  </script>
+
+
+<!-- =========================child Iframe =================== -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
     const submitButton = document.getElementById("submit-data");
@@ -905,8 +917,9 @@ window.addEventListener("load", function() {
             // Handle successful JSON response
             if (result.status== "success") {
                 sendProjectData();
-                alert("Grant application submitted successfully!");
-                window.location.href = "grant-application-success-msg.html"; 
+                //alert("Grant application submitted successfully!");
+                //window.location.href = "grant-application-success-msg.html"; 
+                callParentSubmitSuccessMessage()
             } else {
                 alert("Failed to submit grant application. Please try again.");
                 console.error("API Error Message:", result.message);

@@ -219,6 +219,19 @@
     <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
   </form>
 </div>
+<!-- =========================child Iframe =================== -->
+<script>
+  function callParentSubmitSuccessMessage() {
+if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function') {
+    window.parent.showSubmitSuccessModal();
+} else {
+    console.error("The parent method 'showSubmitSuccessModal' is not available.");
+}
+}
+</script>
+
+
+<!-- =========================child Iframe =================== -->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -559,7 +572,9 @@ document.getElementById("mediaUpload").addEventListener("change", handleFileUplo
             if (response.ok) {
                 const result = await response.json();
                 if (result.status== "success") {
-                    alert("Narrative report submitted successfully!");
+                 
+
+                    //alert("Narrative report submitted successfully!");
                 } else {
                     alert("Failed to submit narrative report: " + result.message);
                 }
@@ -652,8 +667,9 @@ document.getElementById("mediaUpload").addEventListener("change", handleFileUplo
             // Process JSON response
             const result = await response.json();
             if (result.status== "success") {
-                alert("Narrative report submitted successfully!");
-                window.location.href = "concept-narrative-success-msg.html"; 
+               // alert("Narrative report submitted successfully!");
+                //window.location.href = "concept-narrative-success-msg.html"; 
+                callParentSubmitSuccessMessage();
                 console.log("Submission success:", result);
             } else {
                 alert("Failed to submit narrative report. Please try again.");

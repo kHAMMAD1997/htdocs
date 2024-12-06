@@ -159,7 +159,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <a href="admin-create-service-agreement-dash.html" class="btn btn-sm btn-info" style="width: fit-content !important;">Create Service Agreement</a>
+                        <a href="admin-create-service-agreement-dash.html" class="btn  btn-info btn-md" style="width: fit-content !important; background-color:rgb(54, 169, 225) ;font-weight: bold;">Create Service Agreement</a>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -447,7 +447,7 @@
                 render: function (data, type, row) {
                     // Button to download the attachment
                   
-                    return `<button  style="width: fit-content !important;" class="btn btn-sm btn-info text-white download-btn" data-attachment="${row.attachment}" data-filename="attachment_${row.service_agreement_id}.pdf">Download Attachment</button>`;
+                    return `<button  style="width: fit-content !important; background-color:rgb(54, 169, 225);" class="btn btn-sm btn-info text-white download-btn" data-attachment="${row.attachment}" data-filename="attachment_${row.service_agreement_id}.pdf">Download Attachment</button>`;
                 }
             }
         ],

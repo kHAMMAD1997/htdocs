@@ -203,6 +203,19 @@
     <button type="button" class="btn btn-primary">Next</button>
   </form>
 </div>
+<!-- =========================child Iframe =================== -->
+<script>
+  function callParentSubmitSuccessMessage() {
+if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function') {
+    window.parent.showSubmitSuccessModal();
+} else {
+    console.error("The parent method 'showSubmitSuccessModal' is not available.");
+}
+}
+</script>
+
+
+<!-- =========================child Iframe =================== -->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -315,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Step 1: Fetch system emails
           const systemEmailsResponse = await fetch('/forms-processing/api/systems-emails-api.php');
           const systemEmailsData = await systemEmailsResponse.json();
-          const programsEmail = systemEmailsData.programs_email;
+          const programsEmail = systemEmailsData.email_1;
   
           // Step 2: Fetch admin users
           const adminUsersResponse = await fetch('/forms-processing/api/user-main-api.php?is_admin=1');
@@ -574,9 +587,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if the response contains a success status
     if (result.status== "success") {
         sendProjectData();
-        alert("Concept Note submitted successfully!");
+        callParentSubmitSuccessMessage();
+        //alert("Concept Note submitted successfully!");
         //localStorage.clear(); // Clear local storage after successful submission
-       window.location.href = "/forms-processing/concept-note-success-msg.html"; // Redirect to success page or another relevant page
+       //window.location.href = "/forms-processing/concept-note-success-msg.html"; // Redirect to success page or another relevant page
     } else {
         alert("Failed to submit Concept Note. Please try again.");
         console.error("API Error Message:", result.message);
