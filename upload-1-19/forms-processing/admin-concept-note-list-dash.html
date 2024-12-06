@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>MWLIMITS</title>
+    <!-- Custom CSS -->
+    <link href="assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- <style>
+    .btn{
+        width: 120px !important;
+    }
+</style> -->
+</head>
+
+<body>
+    <!--  -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!--  -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!--  -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!--  -->
+    <div id="main-wrapper">
+        <!--  -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!--  -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <!--  -->
+                    <!-- Logo -->
+                    <!--  -->
+                    <a class="navbar-brand" href="admin-dashboard.html">
+                        <!-- Logo icon -->
+                        <b class="logo-icon p-l-10">
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="/forms-processing/assets/images/logo.svg" alt="homepage" class="light-logo" />
+                           
+                        </b>
+                        <!--End Logo icon -->
+                         <!-- Logo text -->
+                        <span class="logo-text">
+                             <!-- dark Logo text -->
+                             <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                            
+                        </span>
+                        <!-- Logo icon -->
+                        <!-- <b class="logo-icon"> -->
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                            
+                        <!-- </b> -->
+                        <!--End Logo icon -->
+                    </a>
+                    <!--  -->
+                    <!-- End Logo -->
+                    <!--  -->
+                    <!--  -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!--  -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                </div>
+                <!--  -->
+                <!-- End Logo -->
+                <!--  -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <!--  -->
+                    <!-- toggle and nav items -->
+                    <!--  -->
+                    <ul class="navbar-nav float-left mr-auto">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                    </ul>
+                    <!--  -->
+                    <!-- Right side toggle and nav items -->
+                    <!--  -->
+                    <ul class="navbar-nav float-right">
+                        <!--  -->
+                        <!-- User profile and search -->
+                        <!--  -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" id="logoutLink" href="javascript:void(0)">
+                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+                                </a>
+                                
+                                <div class="dropdown-divider"></div>
+                                <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
+                            </div>
+                        </li>
+                        <!--  -->
+                        <!-- User profile and search -->
+                        <!--  -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!--  -->
+        <!-- End Topbar header -->
+        <!--  -->
+        <!--  -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!--  -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="p-t-30" style="list-style: none; padding: 0; margin: 0;">
+                        <li class="sidebar-item" style="margin-bottom: 15px; text-align: center;">
+                            <a href="admin-dashboard.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-view-dashboard" style="margin-right: 10px;"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="sidebar-item" style="margin-bottom: 15px; text-align: center;">
+                            <a href="admin-short-concept-note-list-dash.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-chart-pie" style="margin-right: 10px;"></i> Short Concept Notes
+                            </a>
+                        </li>
+                        <li class="sidebar-item" style="margin-bottom: 15px; text-align: center;">
+                            <a href="admin-concept-note-list-dash.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-chart-bar" style="margin-right: 10px;"></i> Concept Notes
+                            </a>
+                        </li>
+                        <li class="sidebar-item" style="margin-bottom: 15px; text-align: center;">
+                            <a href="admin-grant-application-list-dash.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-border-inside" style="margin-right: 10px;"></i> Grant Applications
+                            </a>
+                        </li>
+                        <li class="sidebar-item" style="margin-bottom: 15px; text-align: center;">
+                            <a href="admin-create-user.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-face" style="margin-right: 10px;"></i> Users
+                            </a>
+                        </li>
+                        <li class="sidebar-item" style="text-align: center;">
+                            <a href="admin-service-agreement-list-dash.html" class="btn btn-lg" style="display: inline-flex; align-items: center; justify-content: center; width: 95%; background-color: #00984a; color: white; font-weight: bold; text-decoration: none; padding: 15px; border-radius: 5px;">
+                                <i class="mdi mdi-receipt" style="margin-right: 10px;"></i> Service Agreements
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!--  -->
+        <!--  -->
+        <!-- Page wrapper  -->
+        <!--  -->
+        <div class="page-wrapper">
+            <!--  -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!--  -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title"></h4>
+                        <div class="ml-auto text-right">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!--  -->
+            <!--  -->
+            <!-- Container fluid  -->
+            <!--  -->
+            <div class="container-fluid">
+                <!--  -->
+                <!-- Start Page Content -->
+                <!--  -->
+                 <div class="row" style="display: none;">
+                    <div class="md-4"></div>
+                    <div class="md-4"></div>
+                    <div class="md-4">
+                        <div class="form-group row text-right">
+                            <label for="search-box" class="col-sm-3  control-label col-form-label">Search</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="search-box" placeholder="Search Here">
+                            </div>
+                        </div>
+                    </div>
+
+                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">All Forms Data</h5>
+                                <div class="table-responsive">
+                                    <table id="zero_config" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Entry ID</th>
+                                                <th>Organization Name</th>
+                                                <th>Project Title</th>
+                                                <th>Project Location</th>
+                                                <th>Amount</th>
+                                                <th>Submission Date</th>
+                                                <th>Status</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                                <td>No Records</a></td>
+                                               
+                                            </a>
+                                            </tr>
+                                        
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Entry ID</th>
+                                                <th>Organization Name</th>
+                                                <th>Project Title</th>
+                                                <th>Project Location</th>
+                                                <th>Amount</th>
+                                                <th>Submission Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- BEGIN MODAL -->
+                <div class="modal none-border" id="my-event">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add Event</strong></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Add Category -->
+                <div class="modal fade none-border" id="add-new-event">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add</strong> a category</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">Category Name</label>
+                                            <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">Choose Category Color</label>
+                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                                <option value="success">Success</option>
+                                                <option value="danger">Danger</option>
+                                                <option value="info">Info</option>
+                                                <option value="primary">Primary</option>
+                                                <option value="warning">Warning</option>
+                                                <option value="inverse">Inverse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MODAL -->
+
+                <!--  -->
+                <!-- End PAge Content -->
+                <!--  -->
+                <!--  -->
+                <!-- Right sidebar -->
+                <!--  -->
+                <!-- .right-sidebar -->
+                <!--  -->
+                <!-- End Right sidebar -->
+                <!--  -->
+            </div>
+            <!--  -->
+            <!-- End Container fluid  -->
+            <!--  -->
+            <!--  -->
+            <!-- footer -->
+            <!--  -->
+            <footer class="footer text-center">
+             mwlimits.org    
+            </footer>
+            <!--  -->
+            <!-- End footer -->
+            <!--  -->
+        </div>
+        <!--  -->
+        <!-- End Page wrapper  -->
+        <!--  -->
+    </div>
+    <!--  -->
+    <!-- End Wrapper -->
+    <!--  -->
+    <!--  -->
+    <!-- All Jquery -->
+    <!--  -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="dist/js/jquery.ui.touch-punch-improved.js"></script>
+    <script src="dist/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <!-- this page js -->
+    <script src="assets/libs/moment/min/moment.min.js"></script>
+    <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="dist/js/pages/calendar/cal-init.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+   
+
+    <script>
+        // Function to delete a cookie by name
+        function deleteCookie(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+    
+        // Add event listener to the logout link
+        document.getElementById('logoutLink').addEventListener('click', function() {
+            // Remove the user cookie
+            deleteCookie('user');
+            
+            // Optionally, you can also clear localStorage if you store user info there
+            // localStorage.removeItem('user');
+    
+            // Redirect to login page or home page
+            window.location.href = '/forms-processing/login.html';
+        });
+    </script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    // Function to get URL parameters as an object
+    function getUrlParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let params = {};
+        for (const [key, value] of urlParams.entries()) {
+            params[key] = value;
+        }
+        return params;
+    }
+
+    // Construct the API URL based on URL parameters or use the default
+    let baseApiUrl = "/forms-processing/api/concept-note-datatables-api.php";
+    let urlParams = getUrlParameters();
+
+    // Initialize DataTable
+    $('#zero_config').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: baseApiUrl,
+            type: 'GET',
+            data: function (d) {
+                // Append additional URL parameters to DataTables request
+                Object.assign(d, urlParams);
+            },
+            dataSrc: function (json) {
+                if (Array.isArray(json.data)) {
+                    return json.data;
+                } else {
+                    console.error("Failed to fetch data or invalid response format:", json);
+                    return [];
+                }
+            }
+        },
+        columns: [
+            {
+                data: 'concept_note_id',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: 'organization',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: 'projectTitle',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: 'projectLocation',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: 'totalBudget',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: 'submissionDate',
+                render: function (data, type, row) {
+                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    let statusClass = 'btn-secondary';
+                    let statusText = 'No Status';
+
+                    if (row.pending== "1") {
+                        statusClass = 'btn-primary';
+                        statusText = 'Pending';
+                    } else if (row.overdue== "1") {
+                        statusClass = 'btn-warning';
+                        statusText = 'Overdue';
+                    } else if (row.declined== "1") {
+                        statusClass = 'btn-danger';
+                        statusText = 'Declined';
+                    } else if (row.approved== "1") {
+                        statusClass = 'btn-success';
+                        statusText = 'Approved';
+                    } else if (row.revise== "1") {
+                        statusClass = 'btn-secondary';
+                        statusText = 'Revise';
+                    }
+
+                    return `<a class="btn btn-sm ${statusClass} text-white" style="width:120px !important;" href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${statusText}</a>`;
+                }
+            }
+        ],
+        pageLength: 10,
+        lengthMenu: [10, 25, 50, 100],
+        order: [[0, 'asc']]
+    });
+});
+
+
+
+</script>
+    
+    
+<script src="assets/custom-js/admin-side-nav.js"></script>
+    
+    
+    
+
+</body>
+
+</html>
