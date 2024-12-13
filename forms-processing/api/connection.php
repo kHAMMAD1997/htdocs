@@ -1,7 +1,7 @@
 <?php
 // Database connection parameters
 $host = '173.252.167.60';
-$db = 'hammadkh_two_forms_processing';
+$db = 'hammadkh_form_processing';
 $user = 'hammadkh_form_processing_user';
 $password = 'mwlimits-form-processing';
 
