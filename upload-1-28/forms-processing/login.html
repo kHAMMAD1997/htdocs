@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>MWLIMITS</title>
+    <!-- Custom CSS -->
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!--  -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!--  -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!--  -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!--  -->
+        <!--  -->
+        <!-- Login box.scss -->
+        <!--  -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+            <div class="auth-box bg-dark border-top border-secondary">
+                <div id="loginform">
+                    <div class="text-center p-t-20 p-b-20">
+                        <span class="db"><img src="/forms-processing/assets/images/logo.svg" alt="logo" /></span>
+                    </div>
+                    <!-- Form -->
+                    <form class="form-horizontal m-t-20" id="loginform">
+                        <div class="row p-b-30">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control form-control-lg" placeholder="Email Address" aria-label="Email Address" aria-describedby="basic-addon1" required="">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p id="msg"style="visibility:hidden;font-size:20px;background-color: white; color:red; text-align:center; font-weight:bold;";></p>
+                        </div>
+                        <div class="row border-top border-secondary">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="p-t-20">
+                                        <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lost password?</button>
+                                        <button class="btn btn-success float-right" type="submit">Login</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <div id="recoverform">
+                    <div class="text-center">
+                        <span class="text-white">Enter your e-mail address below and we will send you instructions how to recover a password.</span>
+                    </div>
+                    <div class="row m-t-20">
+                        <!-- Form -->
+                        <form class="col-12" id="recover-form">
+                            <!-- email -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                                </div>
+                                <input type="email" class="form-control form-control-lg" placeholder="Email Address" aria-label="email" aria-describedby="basic-addon1" required>
+                            </div>
+
+                            <!-- pwd -->
+                            <div class="row m-t-20 p-t-20 border-top border-secondary">
+                                <div class="col-12">
+                                    <a class="btn btn-success" href="#" id="to-login" name="action">Back To Login</a>
+                                    <button class="btn btn-info float-right" type="button" id="recover-form-btn" name="action" data-toggle="modal" data-target="#recovery-modal">Recover</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!--  -->
+        <!-- Login box.scss -->
+        <!--  -->
+        <!--  -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!--  -->
+        <!--  -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!--  -->
+        <!--  -->
+        <!-- Right Sidebar -->
+        <!--  -->
+        <!--  -->
+        <!-- Right Sidebar -->
+        <!--  -->
+    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="recovery-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Alert</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p id="recovery-msg"></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" >Close</button>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    <!--  -->
+    <!-- All Required js -->
+    <!--  -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--  -->
+    <!-- This page plugin js -->
+    <!--  -->
+    <script>
+
+    $('[data-toggle="tooltip"]').tooltip();
+    $(".preloader").fadeOut();
+    //  
+    // Login and Recover Password 
+    //  
+    $('#to-recover').on("click", function() {
+        $("#loginform").slideUp();
+        $("#recoverform").fadeIn();
+    });
+    $('#to-login').click(function(){
+        
+        $("#recoverform").hide();
+        $("#loginform").fadeIn();
+    });
+    </script>
+
+
+<script>
+function getUrlParameters() {
+    // Get the current URL
+    const url = window.location.href;
+
+    // Create a URL object
+    const urlObj = new URL(url);
+
+    // Extract the form_id and form_name parameters
+    const formId = urlObj.searchParams.get("form_id");
+    const formName = urlObj.searchParams.get("form_name");
+
+    // Check if both parameters exist
+    if (formId && formName) {
+        return {
+            form_id: formId,
+            form_name: formName
+        };
+    }
+
+    // Return false if any parameter is missing
+    return false;
+}
+
+</script>
+
+
+<script>
+    document.getElementById('loginform').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form data
+        const formData = new FormData();
+        formData.append('email', document.querySelector('input[placeholder="Email Address"]').value);
+        formData.append('password', document.querySelector('input[placeholder="Password"]').value);
+
+        // Send data to login.php via fetch
+        fetch('/forms-processing/api/login.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Log the entire response for debugging
+            console.log('Response Data:', data);
+            
+            const messageElement = document.getElementById('msg');
+            if (data.status== 'success') {
+                // Log the user object
+                console.log('User Data:', data.user);
+
+                // Set user information in a cookie (or localStorage for simplicity)
+                document.cookie = `user=${JSON.stringify(data.user)}; path=/`;
+
+                // Check if the user is an admin and redirect accordingly
+                if (parseInt(data.user.is_admin)== 1) {
+                    const parameters = getUrlParameters();
+                    if (parameters) {
+
+                        switch(parameters.form_name) {
+                        case "short-concept-note":
+                        window.location.href = `/forms-processing/admin-single-short-concept-note-dash.html?concept-note-id=${parameters.form_id}`;
+                            break;
+                        case "concept-note":
+                            // code block
+                            window.location.href = `/forms-processing/admin-single-concept-note-dash.html?concept-note-id=${parameters.form_id}`;
+                            break;
+                        case "grant-application":
+                        // code block
+                        window.location.href = `/forms-processing/admin-single-grant-application-dash.html?grant-application-id=${parameters.form_id}`;
+                        break;
+                        case "concept-narrative-report":
+                            // code block
+                            window.location.href = `/forms-processing/admin-single-concept-narrative-report-dash.html?report-id=${parameters.form_id}`;
+                        break;
+                        case "grant-narrative-report":
+                            // code block
+                            window.location.href = `/forms-processing/admin-single-grant-narrative-report-dash.html?report-id=${parameters.form_id}`;
+                        break;
+                        default:
+                            console.log("=====here===");
+                            window.location.href = '/forms-processing/admin-dashboard.html';
+                        }
+                        
+                     } else {
+                         console.log("Parameters are missing.");
+                         window.location.href = '/forms-processing/admin-dashboard.html'; // Redirect to admin dashboard
+                      }
+                    
+                } else {
+                    window.location.href = '/forms-processing/user-dashboard.html'; // Redirect to user dashboard
+                }
+            } else {
+                // Show error message in the <p> tag
+                messageElement.style.visibility = 'visible'; // Make the <p> tag visible
+                messageElement.textContent = data.message;  // Set the error message text
+            }
+        })
+        .catch(error => {
+            //console.error('Error:', error);
+            const messageElement = document.getElementById('msg');
+            messageElement.style.visibility = 'visible'; // Make the <p> tag visible
+            messageElement.textContent = 'An unexpected error occurred';  // Show generic error message
+        });
+    });
+</script>
+<script>
+   document.getElementById('recover-form-btn').addEventListener('click', async function () {
+    const emailInput = document.querySelector('#recover-form input[type="email"]');
+    const email = emailInput.value.trim();
+    const recoveryModal = document.getElementById('recovery-modal');
+    const recoveryMessage = document.getElementById('recovery-msg');
+    //const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    // Clear the message initially
+    recoveryMessage.textContent = '';
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        recoveryMessage.style.color = 'red';
+        recoveryMessage.textContent = 'Please enter a valid email address.';
+       // modalCloseBtn.textContent = 'Close';
+       // modalCloseBtn.className = 'btn btn-primary';
+        $(recoveryModal).modal('show'); // Show modal for invalid email
+        return;
+    }
+
+    try {
+        // Check if email exists via GET endpoint
+        const response = await fetch(`/forms-processing/api/user-main-api.php?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+        console.log(data);
+        console.log(data.status !== 'success' || !data.data || data.data.length === 0);
+
+        if (data.status !== 'success' || !data.data || data.data.length === 0) {
+            // Email not found
+            recoveryMessage.style.color = 'red';
+            recoveryMessage.textContent = 'Email not found in the system. Please check and try again.';
+           // modalCloseBtn.textContent = 'Close';
+            //modalCloseBtn.className = 'btn btn-primary';
+            $(recoveryModal).modal('show'); // Show modal for email not found
+            return;
+        } else{
+                // Construct payload
+        const user = data.data[0];
+        const payload = {
+            user_id: user.user_id,
+            email: user.email,
+            username: user.username
+        };
+
+        // Send recovery email via POST endpoint
+        const emailResponse = await fetch('/forms-processing/api/password-recovery-emailer.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const emailData = await emailResponse.json();
+
+        if (emailData.status === 'success') {
+            // Success message
+            recoveryMessage.style.color = 'green';
+            recoveryMessage.textContent = 'Password recovery email sent successfully. Please check your inbox for further instructions.';
+            //modalCloseBtn.textContent = 'Okay';
+            //modalCloseBtn.className = 'btn btn-success';
+        } else {
+            // Error message
+            recoveryMessage.style.color = 'red';
+            recoveryMessage.textContent = 'An error occurred while sending the recovery email. Please try again later.';
+           // modalCloseBtn.textContent = 'Close';
+            //modalCloseBtn.className = 'btn btn-primary';
+        }
+        }
+
+    
+
+        // Show modal after POST response
+        $(recoveryModal).modal('show');
+    } catch (error) {
+        // Handle any errors
+        recoveryMessage.style.color = 'red';
+        recoveryMessage.textContent = 'An error occurred. Please try again later.';
+       // modalCloseBtn.textContent = 'Close';
+       // modalCloseBtn.className = 'btn btn-primary';
+        $(recoveryModal).modal('show'); // Show modal for unexpected errors
+        console.error('Error:', error);
+    }
+});
+
+
+</script>
+
+
+</body>
+
+</html>

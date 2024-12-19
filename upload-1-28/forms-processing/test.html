@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .typing-animation {
+  display: inline-block;
+  border-right: 2px solid #000; /* Cursor */
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  animation: typing 3s steps(40, end), blink-caret 5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+
+    </style>
+</head>
+<body>
+
+    <h4 class="typing-animation">Welcome to My Website!</h4>
+
+    
+</body>
+</html>

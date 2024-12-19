@@ -1,0 +1,197 @@
+[19-Nov-2024 17:07:02 UTC] Short Concept Note: 0
+[19-Nov-2024 17:07:02 UTC] Concept Note: 1
+[19-Nov-2024 17:07:02 UTC] Narrative Report: 1
+[19-Nov-2024 17:07:02 UTC] Grant Application: 1
+[19-Nov-2024 17:38:59 UTC] Short Concept Note: 0
+[19-Nov-2024 17:38:59 UTC] Concept Note: 1
+[19-Nov-2024 17:38:59 UTC] Narrative Report: 1
+[19-Nov-2024 17:38:59 UTC] Grant Application: 1
+[19-Nov-2024 17:39:09 UTC] Short Concept Note: 0
+[19-Nov-2024 17:39:09 UTC] Concept Note: 1
+[19-Nov-2024 17:39:09 UTC] Narrative Report: 1
+[19-Nov-2024 17:39:09 UTC] Grant Application: 1
+[19-Nov-2024 17:39:53 UTC] Short Concept Note: 0
+[19-Nov-2024 17:39:53 UTC] Concept Note: 1
+[19-Nov-2024 17:39:53 UTC] Narrative Report: 1
+[19-Nov-2024 17:39:53 UTC] Grant Application: 1
+[19-Nov-2024 17:40:39 UTC] Short Concept Note: 0
+[19-Nov-2024 17:40:39 UTC] Concept Note: 1
+[19-Nov-2024 17:40:39 UTC] Narrative Report: 1
+[19-Nov-2024 17:40:39 UTC] Grant Application: 1
+[19-Nov-2024 17:44:35 UTC] Short Concept Note: 0
+[19-Nov-2024 17:44:35 UTC] Concept Note: 1
+[19-Nov-2024 17:44:35 UTC] Narrative Report: 1
+[19-Nov-2024 17:44:35 UTC] Grant Application: 1
+[19-Nov-2024 17:44:41 UTC] Short Concept Note: 0
+[19-Nov-2024 17:44:41 UTC] Concept Note: 0
+[19-Nov-2024 17:44:41 UTC] Narrative Report: 0
+[19-Nov-2024 17:44:41 UTC] Grant Application: 0
+[19-Nov-2024 17:45:12 UTC] Short Concept Note: 0
+[19-Nov-2024 17:45:12 UTC] Concept Note: 1
+[19-Nov-2024 17:45:12 UTC] Narrative Report: 1
+[19-Nov-2024 17:45:12 UTC] Grant Application: 1
+[19-Nov-2024 17:47:15 UTC] Short Concept Note: 0
+[19-Nov-2024 17:47:15 UTC] Concept Note: 0
+[19-Nov-2024 17:47:15 UTC] Narrative Report: 0
+[19-Nov-2024 17:47:15 UTC] Grant Application: 0
+[19-Nov-2024 17:48:07 UTC] Short Concept Note: 0
+[19-Nov-2024 17:48:07 UTC] Concept Note: 0
+[19-Nov-2024 17:48:07 UTC] Narrative Report: 0
+[19-Nov-2024 17:48:07 UTC] Grant Application: 0
+[19-Nov-2024 17:49:08 UTC] Short Concept Note: 0
+[19-Nov-2024 17:49:08 UTC] Concept Note: 1
+[19-Nov-2024 17:49:08 UTC] Narrative Report: 0
+[19-Nov-2024 17:49:08 UTC] Grant Application: 0
+[20-Nov-2024 17:14:06 UTC] Short Concept Note: 0
+[20-Nov-2024 17:14:06 UTC] Concept Note: 0
+[20-Nov-2024 17:14:06 UTC] Narrative Report: 1
+[20-Nov-2024 17:14:06 UTC] Grant Application: 1
+[21-Nov-2024 07:16:15 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:16:15 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:16:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/PHPMailerAutoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:87
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:17:55 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:17:55 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:17:55 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/PHPMailerAutoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:87
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:18:32 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:18:32 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:18:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/PHPMailerAutoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:87
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 87
+[21-Nov-2024 07:28:52 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer" not found in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 88
+[21-Nov-2024 07:30:25 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer" not found in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 88
+[21-Nov-2024 07:31:25 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 07:31:25 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 07:31:25 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/PHPMailerAutoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:70
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 07:31:29 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 07:31:29 UTC] PHP Warning:  require(PHPMailer/PHPMailerAutoload.php): Failed to open stream: No such file or directory in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 07:31:29 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/PHPMailerAutoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php:70
+Stack trace:
+#0 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/concept-note-approval-emailer.php on line 70
+[21-Nov-2024 17:46:18 UTC] Short Concept Note: 0
+[21-Nov-2024 17:46:18 UTC] Concept Note: 1
+[21-Nov-2024 17:46:18 UTC] Narrative Report: 1
+[21-Nov-2024 17:46:18 UTC] Grant Application: 0
+[21-Nov-2024 17:53:18 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Adham' for key 'username' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:16:26 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:16:32 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:23:29 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:23:34 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:24:29 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:25:13 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:25:37 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'adhambshabsheh@yahoo.com' for key 'email' in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php:117
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php(117): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/user-main-api.php on line 117
+[21-Nov-2024 18:26:23 UTC] Short Concept Note: 0
+[21-Nov-2024 18:26:23 UTC] Concept Note: 1
+[21-Nov-2024 18:26:23 UTC] Narrative Report: 1
+[21-Nov-2024 18:26:23 UTC] Grant Application: 0
+[21-Nov-2024 18:29:07 UTC] Short Concept Note: 0
+[21-Nov-2024 18:29:07 UTC] Concept Note: 1
+[21-Nov-2024 18:29:07 UTC] Narrative Report: 1
+[21-Nov-2024 18:29:07 UTC] Grant Application: 0
+[21-Nov-2024 18:38:23 UTC] Short Concept Note: 0
+[21-Nov-2024 18:38:23 UTC] Concept Note: 1
+[21-Nov-2024 18:38:23 UTC] Narrative Report: 1
+[21-Nov-2024 18:38:23 UTC] Grant Application: 0
+[21-Nov-2024 20:17:26 UTC] Short Concept Note: 0
+[21-Nov-2024 20:17:26 UTC] Concept Note: 1
+[21-Nov-2024 20:17:26 UTC] Narrative Report: 1
+[21-Nov-2024 20:17:26 UTC] Grant Application: 1
+[22-Nov-2024 13:46:21 UTC] PHP Fatal error:  Uncaught TypeError: mail(): Argument #1 ($to) must be of type string, array given in /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php:134
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php(134): mail(Array, 'Finance Verific...', '<!DOCTYPE HTML ...', 'MIME-Version: 1...')
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php on line 134
+[22-Nov-2024 13:52:46 UTC] PHP Fatal error:  Uncaught TypeError: mail(): Argument #1 ($to) must be of type string, array given in /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php:134
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php(134): mail(Array, 'Finance Verific...', '<!DOCTYPE HTML ...', 'MIME-Version: 1...')
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/finance-verification-auto-emailer.php on line 134
+[25-Nov-2024 06:10:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/hammadkh/test.hammad-khan.org/forms-processing/api/short-concept-note-api.php:27
+Stack trace:
+#0 /home/hammadkh/test.hammad-khan.org/forms-processing/api/short-concept-note-api.php(27): PDOStatement->execute()
+#1 {main}
+  thrown in /home/hammadkh/test.hammad-khan.org/forms-processing/api/short-concept-note-api.php on line 27
+[26-Nov-2024 16:50:43 UTC] Short Concept Note: 0
+[26-Nov-2024 16:50:43 UTC] Concept Note: 1
+[26-Nov-2024 16:50:43 UTC] Narrative Report: 1
+[26-Nov-2024 16:50:43 UTC] Grant Application: 1
+[26-Nov-2024 16:50:50 UTC] Short Concept Note: 0
+[26-Nov-2024 16:50:50 UTC] Concept Note: 0
+[26-Nov-2024 16:50:50 UTC] Narrative Report: 0
+[26-Nov-2024 16:50:50 UTC] Grant Application: 1
+[06-Dec-2024 03:28:00 UTC] Short Concept Note: 0
+[06-Dec-2024 03:28:00 UTC] Concept Note: 1
+[06-Dec-2024 03:28:00 UTC] Narrative Report: 1
+[06-Dec-2024 03:28:00 UTC] Grant Application: 0
+[06-Dec-2024 05:29:46 UTC] Short Concept Note: 0
+[06-Dec-2024 05:29:46 UTC] Concept Note: 0
+[06-Dec-2024 05:29:46 UTC] Narrative Report: 0
+[06-Dec-2024 05:29:46 UTC] Grant Application: 0
+[06-Dec-2024 05:30:37 UTC] Short Concept Note: 0
+[06-Dec-2024 05:30:37 UTC] Concept Note: 0
+[06-Dec-2024 05:30:37 UTC] Narrative Report: 0
+[06-Dec-2024 05:30:37 UTC] Grant Application: 0
+[06-Dec-2024 05:30:51 UTC] Short Concept Note: 0
+[06-Dec-2024 05:30:51 UTC] Concept Note: 0
+[06-Dec-2024 05:30:51 UTC] Narrative Report: 0
+[06-Dec-2024 05:30:51 UTC] Grant Application: 0
+[06-Dec-2024 05:31:07 UTC] Short Concept Note: 0
+[06-Dec-2024 05:31:07 UTC] Concept Note: 0
+[06-Dec-2024 05:31:07 UTC] Narrative Report: 0
+[06-Dec-2024 05:31:07 UTC] Grant Application: 0
+[06-Dec-2024 05:34:46 UTC] Short Concept Note: 0
+[06-Dec-2024 05:34:46 UTC] Concept Note: 0
+[06-Dec-2024 05:34:46 UTC] Narrative Report: 0
+[06-Dec-2024 05:34:46 UTC] Grant Application: 0
+[06-Dec-2024 06:29:33 UTC] Short Concept Note: 0
+[06-Dec-2024 06:29:33 UTC] Concept Note: 1
+[06-Dec-2024 06:29:33 UTC] Narrative Report: 1
+[06-Dec-2024 06:29:33 UTC] Grant Application: 1
