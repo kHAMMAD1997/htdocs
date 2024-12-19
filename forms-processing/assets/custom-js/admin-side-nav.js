@@ -1,3 +1,14 @@
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'assets/custom-css/admin-main.css';
+    document.head.appendChild(link);
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const sidebarNav = document.querySelector(".sidebar-nav");
 
@@ -192,4 +203,30 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTitle.classList.replace('text-info', 'text-success');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Create the h4 element
+    const h4Element = document.createElement('h4');
+    h4Element.className = 'typing-animation';
+    h4Element.style.textAlign = 'center';
+    h4Element.style.margin = '0 auto';
+    h4Element.style.marginLeft = '0px';
+    h4Element.style.color = 'white';
+    h4Element.style.fontWeight = '900';
+    h4Element.textContent = 'Mercy Without Limits - Grant Management System';
+
+    // Get the target div
+    const targetDiv = document.getElementById('navbarSupportedContent');
+
+    // Insert the h4 as the second child
+    if (targetDiv) {
+        targetDiv.insertBefore(h4Element, targetDiv.children[1]);
+    }
+});
+
+
+
+
+
+
 

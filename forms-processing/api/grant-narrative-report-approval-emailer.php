@@ -75,8 +75,8 @@ $emailContent = <<<HTML
             </table>
         </div>
     </div>
-    <!-- Footer starts here -->
-        <table width="645" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="border-collapse:collapse;border-spacing:0px;background-color:#ffffff">
+     <!-- Footer starts here -->
+     <table width="645" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="border-collapse:collapse;border-spacing:0px;background-color:#ffffff">
             <tbody>
                 <tr style="height:22.7pt">
                     <td colspan="3" valign="top" style="width:50%;background:#B5CB16;padding:0.15in 5.4pt 0in 5.4pt;height:22.7pt">

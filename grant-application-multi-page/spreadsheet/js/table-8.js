@@ -1,4 +1,4 @@
-let defaultRowCount = 3; // No of rows
+let defaultRowCount = 1; // No of rows
 let defaultColCount = 5; // No of cols
 const SPREADSHEET_DB = "table-8";
 

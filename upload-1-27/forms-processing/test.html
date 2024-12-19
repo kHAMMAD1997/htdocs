@@ -1,0 +1,15 @@
+<script type="module">
+    try {
+        // Fetch the system emails using the API
+        const systemsEmailsResponse = await fetch('/forms-processing/api/systems-emails-api.php'); // Adjust endpoint as necessary
+        const systemsEmails = await systemsEmailsResponse.json();
+
+        // Convert the response object into an array of email addresses
+        const systemEmailsList = Object.values(systemsEmails);
+
+        // Log or use the systemEmailsList array
+        console.log(systemEmailsList);
+    } catch (error) {
+        console.error('Error fetching system emails:', error);
+    }
+</script>
