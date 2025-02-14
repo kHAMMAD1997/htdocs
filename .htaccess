@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Redirect users trying to access forms-processing without authentication
+RewriteCond %{REQUEST_URI} ^/forms-processing/(.*)\.html$ [NC]
+RewriteCond %{REQUEST_URI} !/forms-processing/login.html$ [NC]
+RewriteRule ^(.*)$ index.php [L]

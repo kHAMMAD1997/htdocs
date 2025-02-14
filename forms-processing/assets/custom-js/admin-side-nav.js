@@ -22,6 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             </a>
                         </li>
                         <li class="sidebar-item text-center" style="margin-bottom: 15px;">
+                            <a href="admin-all-forms-page.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
+                                <i class="mdi mdi-blur-linear me-2" style="color: white !important;"></i> All forms 
+                            </a>
+                        </li>
+                        <li class="sidebar-item text-center" style="margin-bottom: 15px;">
                             <a href="admin-short-concept-note-list-dash.html" class="btn btn-info btn-lg w-100" style="background-color: #00984a !important; color: white; font-weight: bold;">
                                 <i class="mdi mdi-chart-pie me-2" style="color: white !important;"></i> Short Concept Notes
                             </a>
@@ -207,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Create the h4 element
     const h4Element = document.createElement('h4');
-    h4Element.className = 'typing-animation';
+   // h4Element.className = 'typing-animation';
     h4Element.style.textAlign = 'center';
     h4Element.style.margin = '0 auto';
     h4Element.style.marginLeft = '0px';

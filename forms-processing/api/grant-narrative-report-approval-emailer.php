@@ -107,7 +107,7 @@ $emailContent = <<<HTML
                 <tr style="height:22.7pt">
                     <td colspan="4" valign="top" style="padding:20px;height:22.7pt;text-align:center;">
                         <img border="0" width="204" height="65" src="https://mwlimits.org/wp-content/uploads/2024/11/thanks-img-new.jpg" alt="Thank you image">
-                        <p style="font-size:10.0pt;font-family:'Roboto', sans-serif;">© 2024 Mercy Without Limits. All rights reserved.</p>
+                        <p style="font-size:10.0pt;font-family:'Roboto', sans-serif;">© 2025 Mercy Without Limits. All rights reserved.</p>
                     </td>
                 </tr>
             </tbody>
