@@ -223,7 +223,7 @@
 <!-- =========================child Iframe =================== -->
 <script>
   function callParentSubmitSuccessMessage() {
-if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function') {
+if (window.parent && typeof window.parent.showSubmitSuccessModal == 'function') {
     window.parent.showSubmitSuccessModal();
 } else {
     console.error("The parent method 'showSubmitSuccessModal' is not available.");
@@ -237,6 +237,7 @@ if (window.parent && typeof window.parent.showSubmitSuccessModal === 'function')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('userForm');
+  console.log('form',form);
 
   // For each input field, listen for the blur event
   form.querySelectorAll('input, select').forEach(field => {
@@ -649,8 +650,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 //alert("Narrative report submitted successfully!");
                 //window.location.href = "/forms-processing/grant-narrative-success-msg.html";
                 //console.log("Submission success:", result);
-                processFormSubmission(result.data.report_id)
-                callParentSubmitSuccessMessage();
+                const form = document.getElementById('userForm');
+                if (form.checkValidity()) {
+                        processFormSubmission(result.data.report_id);
+                        callParentSubmitSuccessMessage();
+                      } else {
+                        console.log("Invalid");
+                      }
             } else {
                 alert("Failed to submit grant application. Please try again.");
                 console.error("API Error Message:", result.message);

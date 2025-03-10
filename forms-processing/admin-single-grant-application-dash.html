@@ -189,6 +189,21 @@
                             <div class="col-md-2"></div>
                             
                         </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-4">
+                                <span style="font-weight: bold;"><p id="status-text">Status: Loading...</p><p id="modified-text">Last modified by Loading...</p></span>
+
+                            </div>
+                            
+                            <div class="col-md-4">  
+                               
+                            
+                            </div>
+                            <div class="col-md-4">
+                              
+
+                            </div>
+                        </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <!-- Left-aligned buttons -->
@@ -198,9 +213,34 @@
                                 <a href="#" class="btn btn-danger btn-md" id="decline-btn">Decline</a>
                             </div>
                         
-                            <!-- Right-aligned button -->
-                            <div>
-                                <a href="#" class="btn btn-info btn-md" data-toggle="modal" data-target="#finance-modal">Finance</a>
+                             <!-- Right-aligned button -->
+                             <div>
+                              
+                                <a id="view-finance-detail-btn"  class="btn btn-info btn-md text-white" >View Finance Breakdown</a>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        document.getElementById("view-finance-detail-btn").addEventListener("click", function(event) {
+                                            event.preventDefault(); // Prevent default action
+                                            
+                                            // Function to get URL parameter by name
+                                            function getUrlParameter(name) {
+                                                const urlParams = new URLSearchParams(window.location.search);
+                                                return urlParams.get(name);
+                                            }
+                                    
+                                            // Get concept-note-id from URL
+                                            const grantApplicationID = getUrlParameter("grant-application-id");
+                                    
+                                            // Check if the parameter exists before redirecting
+                                            if (grantApplicationID) {
+                                                window.location.href = `admin-single-grant-application-finance-dash.html?grant-application-id=${grantApplicationID}`;
+                                            } else {
+                                                alert("Concept Note ID is missing in the URL!");
+                                            }
+                                        });
+                                    });
+                                    </script>
+                                <a id="create-finance-detail-btn" href="#" class="btn btn-info btn-md" data-toggle="modal" data-target="#finance-modal">Finance</a>
                                 <a href="#" class="btn btn-info btn-md" id="narrative-btn">View Narrative Report</a>
                             </div>
                         </div>
@@ -397,7 +437,113 @@
                                         </div>
                                     </div>
                                     <!-- End Updated Section -->
-            
+
+                                    <div class="col-md-6 p-l-5">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="files[]" multiple required>
+                                            <label class="custom-file-label" for="validatedCustomFile">Choose files...</label>
+                                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                        </div>
+                                    
+                                        <!-- Display Selected Files Below -->
+                                        <ul id="fileList" class="list-group mt-2"></ul>
+                                    </div>
+
+
+                                    <!--  -->
+
+                                    <script>
+                                        document.getElementById('validatedCustomFile').addEventListener('change', function(event) {
+                                            let fileList = document.getElementById("fileList");
+                                            fileList.innerHTML = ""; // Clear previous list
+                                        
+                                            let files = event.target.files;
+                                            let dataTransfer = new DataTransfer(); // Used to update input files
+                                        
+                                            // Iterate through selected files
+                                            for (let i = 0; i < files.length; i++) {
+                                                let file = files[i];
+                                                dataTransfer.items.add(file); // Add file to DataTransfer for updating input
+                                        
+                                                // Create list item for file
+                                                let listItem = document.createElement("li");
+                                                listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+                                        
+                                                listItem.innerHTML = `
+                                                    ${file.name}
+                                                    <button type="button" class="btn btn-sm btn-danger remove-file" data-index="${i}">X</button>
+                                                `;
+                                        
+                                                fileList.appendChild(listItem);
+                                            }
+                                        
+                                            // Update input files
+                                            document.getElementById('validatedCustomFile').files = dataTransfer.files;
+                                        
+                                            // Handle remove file button
+                                            document.querySelectorAll(".remove-file").forEach(button => {
+                                                button.addEventListener("click", function() {
+                                                    let indexToRemove = this.getAttribute("data-index");
+                                                    let updatedTransfer = new DataTransfer();
+                                        
+                                                    // Remove selected file
+                                                    for (let j = 0; j < dataTransfer.files.length; j++) {
+                                                        if (j != indexToRemove) {
+                                                            updatedTransfer.items.add(dataTransfer.files[j]);
+                                                        }
+                                                    }
+                                        
+                                                    document.getElementById('validatedCustomFile').files = updatedTransfer.files;
+                                                    this.parentElement.remove(); // Remove from UI
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                    
+                                    <script>
+                                        function uploadFiles() {
+                                            let fileInput = document.getElementById('validatedCustomFile');
+                                            let files = fileInput.files;
+                                            
+                                            if (files.length === 0) {
+                                                console.log("No file attached");
+                                                return; // Prevent submission if no files
+                                            }
+                                        
+                                            // Retrieve grant_application_id from LocalStorage
+                                            let grant_application_id = localStorage.getItem("grant_application_id");
+                                            if (!grant_application_id) {
+                                                console.log("No grant_application_id found in LocalStorage");
+                                               // alert("Error: Grant Application ID is missing.");
+                                                return;
+                                            }
+                                        
+                                            let formData = new FormData();
+                                            formData.append('grant_application_id', grant_application_id); // Use retrieved ID
+                                        
+                                            for (let i = 0; i < files.length; i++) {
+                                                formData.append('files[]', files[i]);
+                                            }
+                                        
+                                            // Send to server using Fetch API
+                                            fetch('/forms-processing/api/grant-application-finance-attachment-api.php', {
+                                                method: 'POST',
+                                                body: formData
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                console.log("Upload successful:", data);
+                                                //alert("Files uploaded successfully!");
+                                            })
+                                            .catch(error => {
+                                                console.error("Upload failed:", error);
+                                            });
+                                        }
+                                        
+                                        // Example usage: Call this function when the button is clicked
+                                        document.getElementById('budget-submit-btn').addEventListener('click', uploadFiles);
+                                    </script>
+                                    
                                     <div class="clear">
                                         <button type="submit" id="budget-submit-btn"class="btn-info btn-sm">submit</button>
                                     </div>
@@ -651,6 +797,21 @@ if (form_id) {
     console.error('Error: form_id not found in localStorage.');
 }
 
+    console.log("----starting file upload---");
+    const attachmentResults =  uploadFiles();
+    if(attachmentResults){
+        console.log("Sent-attachments");
+    }
+    else{
+        console.log("error");
+    }
+
+    console.log("----End file upload---");
+
+    const data = getUserAndGrantApplication();
+    saveFinanceMetadata(data.user_id, data.grant_application_id);
+
+
     // Log the payload
     console.log(payload);
     const emailPayload = JSON.stringify(payload);
@@ -699,7 +860,7 @@ if (form_id) {
                                                     <label class="custom-control-label" for="inconsistentData"><b>Inconsistent Data</b> – The data or metrics presented in the report conflict with previous reports or expectations.</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mr-sm-2" style="width: 400px;">
-                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="Other – Reason">
+                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="">
                                                     <label class="custom-control-label" for="otherReasonTwo"><b>Other</b> – Type reason</label>
                                                 </div>
                                                 <div id="text-area-div-two" style="margin-top: 10px; display: none;">
@@ -712,12 +873,28 @@ if (form_id) {
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button style="display: none !important;" id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
                                 <button id ="revise-close" type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var textarea = document.getElementById("otherReasontextboxTwo");
+                        var saveButton = document.getElementById("revise-save");
+                
+                        textarea.addEventListener("input", function () {
+                            var text = textarea.value.trim();
+                
+                            if (text.length > 0) {
+                                saveButton.style.display = "block";
+                            } else {
+                                saveButton.style.display = "none";
+                            }
+                        });
+                    });
+                </script>
 
                 <!-- Modal Decline -->
                 <div class="modal fade none-border" id="decline-modal">
@@ -850,6 +1027,80 @@ if (form_id) {
     <script src="assets/libs/moment/min/moment.min.js"></script>
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
+
+    <script>
+        async function fetchMetadata(grant_application_id) {
+            const response = await fetch(`/forms-processing/api/grant-application-metadata-api.php?grant_application_id=${grant_application_id}`);
+            const data = await response.json();
+            return data.length > 0 ? data[0] : null;
+        }
+        
+        async function saveApproveMetadata(user_id, grant_application_id) {
+            await saveMetadata(user_id, grant_application_id, "approve");
+        }
+        
+        async function saveReviseMetadata(user_id, grant_application_id) {
+            await saveMetadata(user_id, grant_application_id, "revise");
+        }
+        
+        async function saveDeclinedMetadata(user_id, grant_application_id) {
+            await saveMetadata(user_id, grant_application_id, "declined");
+        }
+        
+        async function saveFinanceMetadata(user_id, grant_application_id) {
+            await saveMetadata(user_id, grant_application_id, "finance");
+        }
+        
+        async function saveMetadata(user_id, grant_application_id, column) {
+            try {
+                const metadata = await fetchMetadata(grant_application_id);
+        
+                if (metadata) {
+                    // Metadata exists, update using PATCH
+                    const response = await fetch('/forms-processing/api/grant-application-metadata-api.php', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            metadata_id: metadata.metadata_id,
+                            [column]: user_id
+                        })
+                    });
+        
+                    const result = await response.json();
+                    console.log(`PATCH ${column}:`, result);
+                } else {
+                    // Metadata does not exist, create using POST
+                    const response = await fetch('/forms-processing/api/grant-application-metadata-api.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            grant_application_id: grant_application_id,
+                            [column]: user_id
+                        })
+                    });
+        
+                    const result = await response.json();
+                    console.log(`POST ${column}:`, result);
+                }
+            } catch (error) {
+                console.error(`Error saving ${column} metadata:`, error);
+            }
+        }
+    </script>
+    <script>
+        function getUserAndGrantApplication() {
+            const user = JSON.parse(decodeURIComponent(document.cookie.split('; ').find(row => row.startsWith('user='))?.split('=')[1] || '{}'));
+            const user_id = user.user_id;
+            const grant_application_id = localStorage.getItem("grant_application_id");
+    
+            return { user_id, grant_application_id };
+        }
+    </script>
+    
     
 
     <script>
@@ -1300,6 +1551,8 @@ if (this.checked) {
                 if (result.status== "success") {
                     sendApprovalEmail()
                    // toastr.success('Success!', 'Grant Application Approved Successfully!');
+                   const data = getUserAndGrantApplication();
+                   saveApproveMetadata(data.user_id, data.grant_application_id);
                    showApprovedSuccessModal();
 
                 } else {
@@ -1434,6 +1687,9 @@ if (this.checked) {
                     if (postResult.status== "success") {
                         sendReviseEmail();
                         //toastr.success('Success!', 'Grant Application Revised Successfully!');
+                        const data = getUserAndGrantApplication();
+                        saveReviseMetadata(data.user_id, data.grant_application_id);
+
                         showReviseSuccessModal();
                     } else {
                         alert("Failed to add revise comment. Please try again.");
@@ -1576,6 +1832,9 @@ if (this.checked) {
                     if (postResult.status== "success") {
                         sendDeclineEmail();
                         //toastr.success('Success!', 'Grant Application Declined Successfully!');
+                        const data = getUserAndGrantApplication();
+                        saveDeclinedMetadata(data.user_id, data.grant_application_id);
+
                         showDeclineSuccessModal();
                     } else {
                         alert("Failed to add decline comment. Please try again.");
@@ -1612,6 +1871,118 @@ if (this.checked) {
         window.location.href = `admin-grant-narrative-report-list-dash.html?grant-application-id=${id}`;
     };
 </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to get URL parameter by name
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+  
+      // Get the grant-application-id from the URL
+      const grantApplicationId = getUrlParameter('grant-application-id');
+  
+      if (!grantApplicationId) {
+        console.warn("Grant Application ID not found in URL.");
+        return;
+      }
+  
+      // Select the buttons
+      const viewFinanceBtn = document.getElementById("view-finance-detail-btn");
+      const createFinanceBtn = document.getElementById("create-finance-detail-btn");
+  
+      // API Endpoint
+      const apiUrl = `/forms-processing/api/grant-application-finance-details-api.php?form_id=${grantApplicationId}`;
+  
+      // Fetch data from the API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            // If data exists, hide create-finance-detail-btn
+            createFinanceBtn.style.setProperty("display", "none", "important");
+          } else {
+            // If no data, hide view-finance-detail-btn
+            viewFinanceBtn.style.setProperty("display", "none", "important");
+          }
+        })
+        .catch(error => console.error("API request failed:", error));
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+    console.log("------------++---------------");
+
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Obtain grant_application_id from URL
+    let grantApplicationId = getUrlParameter("grant-application-id");
+    console.log(grantApplicationId, "here");
+    if (!grantApplicationId) return;
+
+    let applicationData = null; // Declare applicationData outside so it's accessible later
+
+    try {
+        // Fetch grant-application-api data
+        let response = await fetch(`/forms-processing/api/grant-application-api.php?grant_application_id=${grantApplicationId}`);
+        let jsonData = await response.json();
+
+        if (jsonData.status == "success" && jsonData.data.length > 0) {
+            applicationData = jsonData.data[0]; // Assign to declared variable
+            let { pending, approved, overdue, revise, declined } = applicationData;
+
+            let statusTextElement = document.getElementById("status-text");
+            if (statusTextElement && (pending == "1" || approved == "1" || overdue == "1" || revise == "1" || declined == "1")) {
+                let status =
+                    pending == "1"
+                        ? "Pending"
+                        : approved == "1"
+                        ? "Approved"
+                        : overdue == "1"
+                        ? "Overdue"
+                        : revise == "1"
+                        ? "Revise"
+                        : "Declined";
+                statusTextElement.textContent = `Status: ${status}`;
+            }
+        }
+
+        // Fetch metadata API
+        let metadataResponse = await fetch(`/forms-processing/api/grant-application-metadata-api.php?grant_application_id=${grantApplicationId}`);
+        let metadata = await metadataResponse.json();
+
+        let modifiedTextElement = document.getElementById("modified-text");
+        if (metadata.length == 0) {
+            if (modifiedTextElement) modifiedTextElement.style.display = "none";
+        } else if (applicationData) { // Ensure applicationData is not null before using it
+            let statusField = ["approve", "revise", "declined"].find(field => applicationData[field] == "1");
+            if (statusField && metadata[0][statusField]) {
+                let userId = metadata[0][statusField];
+
+                // Fetch user data
+                let userResponse = await fetch(`/forms-processing/api/users-api.php?user_id=${userId}`);
+                let userData = await userResponse.json();
+                if (userData.status == "success" && userData.data.length > 0) {
+                    let username = userData.data[0].username;
+                    if (modifiedTextElement) {
+                        modifiedTextElement.textContent = `Last modified by ${username}`;
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Error fetching the data:", error);
+    }
+});
+
+</script>
+
 
 </body>
 

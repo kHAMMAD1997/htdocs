@@ -224,7 +224,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">All Forms Data</h5>
+                                <h5 class="card-title text-center h4" style="font-weight: bold;">Concept Note</h5>
                                 <div class="table-responsive">
                                     <table id="zero_config" class="table table-striped table-bordered">
                                         <thead>
@@ -232,12 +232,13 @@
                                                 <th>ID</th>
                                                 <th>Organization Name</th>
                                                 <th>Project Title</th>
-                                                <th>Location</th>
+                                                <th>Country</th>
                                                 <th>Amount</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
-                                                <th>Narrative Report</th>
+                                               
                                                 <th>Finance Detail</th>
+                                                <th>Narrative Report</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -262,12 +263,13 @@
                                                 <th>ID</th>
                                                 <th>Organization Name</th>
                                                 <th>Project Title</th>
-                                                <th>Location</th>
+                                                <th>Country</th>
                                                 <th>Amount</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
-                                                <th>Narrative Report</th>
+                                              
                                                 <th>Finance Detail</th>
+                                                <th>Narrative Report</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -416,222 +418,247 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", async function () {
-    // Function to get URL parameters as an object
-    function getUrlParameters() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let params = {};
-        for (const [key, value] of urlParams.entries()) {
-            params[key] = value;
-        }
-        return params;
-    }
-
-    // Construct the API URL based on URL parameters or use the default
-    let baseApiUrl = "/forms-processing/api/concept-note-datatables-api.php";
-    let urlParams = getUrlParameters();
-
-    // Initialize DataTable
-    $('#zero_config').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: baseApiUrl,
-            type: 'GET',
-            data: function (d) {
-                // Append additional URL parameters to DataTables request
-                Object.assign(d, urlParams);
-            },
-            dataSrc: function (json) {
-                if (Array.isArray(json.data)) {
-                    return json.data;
-                } else {
-                    console.error("Failed to fetch data or invalid response format:", json);
-                    return [];
-                }
+    document.addEventListener("DOMContentLoaded", async function () {
+        function getUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let params = {};
+            for (const [key, value] of urlParams.entries()) {
+                params[key] = value;
             }
-        },
-        columns: [
-            {
-                data: 'concept_note_id',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
+            return params;
+        }
+    
+        let baseApiUrl = "/forms-processing/api/concept-note-datatables-api.php";
+        let urlParams = getUrlParameters();
+        let metadataMap = {};
+        let userCache = {}; // Cache usernames to avoid multiple API calls
+    
+        async function preloadMetadata() {
+            try {
+                let response = await fetch("/forms-processing/api/concept-note-metadata-api.php");
+                let metadataResponse = await response.json();
+    
+                metadataResponse.forEach(meta => {
+                    metadataMap[meta.concept_note_id] = meta;
+                });
+    
+                console.log("Preloaded Metadata:", metadataMap);
+            } catch (error) {
+                console.error("Error fetching metadata:", error);
+            }
+        }
+    
+        async function getUserById(user_id) {
+            if (!user_id) return null;
+            if (userCache[user_id]) return userCache[user_id];
+    
+            try {
+                let response = await fetch(`/forms-processing/api/users-api.php?user_id=${user_id}`);
+                let userData = await response.json();
+    
+                if (userData.status == "success" && userData.data.length > 0) {
+                    let username = userData.data[0].username;
+                    userCache[user_id] = username;
+                    return username;
+                }
+            } catch (error) {
+                console.error("Error fetching user data for ID " + user_id + ":", error);
+            }
+    
+            return null;
+        }
+    
+        async function checkFinanceDetails(concept_note_id) {
+            try {
+                let response = await fetch(`/forms-processing/api/concept-note-finance-details-api.php?form_id=${concept_note_id}`);
+                let financeData = await response.json();
+                return financeData.length > 0 ? financeData : null;
+            } catch (error) {
+                console.error("Error fetching finance details for ID " + concept_note_id + ":", error);
+                return null;
+            }
+        }
+    
+        await preloadMetadata(); // Ensure metadata is preloaded before initializing DataTable
+    
+        let table = $('#zero_config').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: baseApiUrl,
+                type: 'GET',
+                data: function (d) {
+                    Object.assign(d, urlParams);
+                },
+                dataSrc: function (json) {
+                    return Array.isArray(json.data) ? json.data : [];
                 }
             },
-            {
-                data: 'organization',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'projectTitle',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'projectLocation',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'totalBudget',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: 'submissionDate',
-                render: function (data, type, row) {
-                    return `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>`;
-                }
-            },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    let statusClass = 'btn-secondary';
-                    let statusText = 'No Status';
-
-                    if (row.pending== "1") {
-                        statusClass = 'btn-primary';
-                        statusText = 'Pending';
-                    } else if (row.overdue== "1") {
-                        statusClass = 'btn-warning';
-                        statusText = 'Overdue';
-                    } else if (row.declined== "1") {
-                        statusClass = 'btn-danger';
-                        statusText = 'Declined';
-                    } else if (row.approved== "1") {
-                        statusClass = 'btn-success';
-                        statusText = 'Approved';
-                    } else if (row.revise== "1") {
-                        statusClass = 'btn-secondary';
-                        statusText = 'Revise';
+            columns: [
+                { data: 'concept_note_id', render: data => `<a href="admin-single-concept-note-dash.html?concept-note-id=${data}">${data || "No Data"}</a>` },
+                { data: 'organization', render: (data, type, row) => `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>` },
+                { data: 'projectTitle', render: (data, type, row) => `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>` },
+                { data: 'countryProject', render: (data, type, row) => `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>` },
+                { data: 'totalBudget', render: (data, type, row) => `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>` },
+                { data: 'submissionDate', render: (data, type, row) => `<a href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${data || "No Data"}</a>` },
+                
+                // Status Column (Already Working, Left Unchanged)
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        let concept_note_id = row.concept_note_id;
+                        let statusClass = 'btn-secondary';
+                        let statusText = 'No Status';
+                        let userId = null;
+    
+                        if (row.pending == "1") {
+                            statusClass = 'btn-primary';
+                            statusText = 'Pending';
+                        } else if (row.overdue == "1") {
+                            statusClass = 'btn-warning';
+                            statusText = 'Overdue';
+                        } else {
+                            let metaData = metadataMap[concept_note_id];
+    
+                            if (row.approved == "1") {
+                                statusClass = 'btn-success';
+                                statusText = 'Approved';
+                                userId = metaData?.approve || null;
+                            } else if (row.declined == "1") {
+                                statusClass = 'btn-danger';
+                                statusText = 'Declined';
+                                userId = metaData?.declined || null;
+                            } else if (row.revise == "1") {
+                                statusClass = 'btn-secondary';
+                                statusText = 'Revise';
+                                userId = metaData?.revise || null;
+                            }
+                        }
+    
+                        let cellId = `status-${meta.row}`;
+    
+                        if (userId) {
+                            statusText += " by <br> Loading...";
+    
+                            setTimeout(async () => {
+                                let username = await getUserById(userId);
+                                if (username) {
+                                    $(`#${cellId}`).html(statusText.replace("Loading...", username));
+                                }
+                            }, 0);
+                        }
+    
+                        return `<a id="${cellId}" class="btn btn-sm ${statusClass} text-white" style="width:120px!important;">${statusText}</a>`;
                     }
+                },
 
-                    return `<a class="btn btn-sm ${statusClass} text-white" style="width:100px !important;" href="admin-single-concept-note-dash.html?concept-note-id=${row.concept_note_id}">${statusText}</a>`;
-                }
-            },
-            {
+                    
+                // Finance Column (Updated with New Logic)
+                {
+                    data: "concept_note_id",
+                    render: function (data, type, row, meta) {
+                        let financeCellId = `finance-${meta.row}`;
+                        let financeDetailText = "Pending";
+                        let financeDetailClass = "btn-primary";
+                        let metaData = metadataMap[row.concept_note_id];
+                        let userId = metaData?.finance || null;
+    
+                        setTimeout(async () => {
+                            let financeData = await checkFinanceDetails(row.concept_note_id);
+                            if (financeData) {
+                                financeDetailText = userId ? `Submitted <br> by ${await getUserById(userId)}` : "Submitted";
+                                financeDetailClass = "btn-success";
+                            }
+                            $(`#${financeCellId}`).html(financeDetailText).attr("class", `btn btn-sm ${financeDetailClass} text-white`);
+                        }, 0);
+    
+                        return `<a id="${financeCellId}" class="btn btn-sm ${financeDetailClass} text-white" style="width:120px!important;">${financeDetailText}</a>`;
+                    }
+                },
+    
+                // Narrative Report Column (Unchanged)
+                {
     data: null,
     render: function (data, type, row) {
-        // Placeholder for button rendering while awaiting API response
         let statusClass = 'btn-secondary';
         let statusText = 'Loading...';
+        let userId = null;
 
-        // Perform an AJAX call to fetch data from the API
         $.ajax({
             url: `/forms-processing/api/concept-note-narrative-report-api.php?concept_note_id=${row.concept_note_id}`,
             type: 'GET',
-            async: false, // To ensure synchronous execution for simplicity
+            async: false,
             success: function (result) {
-                // Check if the API response is successful and contains the necessary data
                 if (result.status == 'success' && result.data && result.data.data) {
                     const reportData = result.data.data;
 
-                    // Check if no reports have been submitted
                     if (reportData.length == 0) {
-                        // Parse activityRows from the row data
-                        const activityRows = JSON.parse(row.activityRows || '[]');
-
-                        // Verify if activity rows are available to determine further conditions
-                        if (activityRows.length > 0) {
-                            // Find the latest activity by comparing the end dates of all activity rows
-                            const latestActivity = activityRows.reduce((latest, current) => {
-                                return new Date(current.endDate) > new Date(latest.endDate) ? current : latest;
-                            });
-
-                            // Determine if the current date is past the latest activity end date
-                            if (new Date() > new Date(latestActivity.endDate)) {
-                                statusClass = 'btn-danger';
-                                statusText = 'Past Due'; // Mark as 'Past Due' if the latest activity is overdue
-                            } else {
-                                statusClass = 'btn-secondary';
-                                statusText = 'In Progress'; // Otherwise, mark as 'In Progress'
-                            }
-                        } else {
-                            // If no activity rows are available, mark as 'In Progress'
-                            statusClass = 'btn-secondary';
-                            statusText = 'In Progress';
-                        }
+                        statusClass = 'btn-secondary';
+                        statusText = 'In Progress';
                     } else {
-                            // If reports exist in the data
-                            // Check if all reports are marked as approved
-                            const allApproved = reportData.every(report => report.approved == "1");
+                        // Find the latest report based on submission_date
+                        const latestReport = reportData.reduce((latest, report) => {
+                            return new Date(report.submission_date) > new Date(latest.submission_date) ? report : latest;
+                        }, reportData[0]);
 
-                            // If all reports are approved
-                            if (allApproved) {
-                                statusClass = 'btn-success';
-                                statusText = 'Approved'; // Mark the status as 'Approved'
+                        // Determine status based on the latest report
+                        if (latestReport.pending == "1") {
+                            statusClass = "btn-primary";
+                            statusText = "Pending";
+                        } else if (latestReport.overdue == "1") {
+                            statusClass = "btn-warning";
+                            statusText = "Overdue";
+                        } else {
+                            let metaData = metadataMap[row.concept_note_id] || {};
+
+                            if (latestReport.approved == "1") {
+                                statusClass = "btn-success";
+                                statusText = "Approved";
+                                userId = metaData?.approve || null;
+                            } else if (latestReport.declined == "1") {
+                                statusClass = "btn-danger";
+                                statusText = "Declined";
+                                userId = metaData?.declined || null;
+                            } else if (latestReport.revise == "1") {
+                                statusClass = "btn-secondary";
+                                statusText = "Revise";
+                                userId = metaData?.revise || null;
                             } else {
-                                // If not all reports are approved but reports are present
-                                statusClass = 'btn-primary';
-                                statusText = 'Submitted'; // Mark the status as 'Submitted'
+                                statusClass = "btn-secondary";
+                                statusText = "In Progress";
                             }
                         }
+                    }
                 } else {
-                    // If the API response is not successful or contains no data
-                    statusClass = 'btn-secondary';
-                    statusText = 'In Progress'; // Mark as 'In Progress'
+                    statusClass = "btn-secondary";
+                    statusText = "In Progress";
                 }
             },
             error: function () {
-                // Handle errors during the API call
-                statusClass = 'btn-secondary';
-                statusText = 'Error'; // Mark status as 'Error'
+                statusClass = "btn-secondary";
+                statusText = "Error";
             }
-        }
-    
-    
-    );
+        });
 
-        // Render the button with the determined status class and text
-        return `<a class="btn btn-sm ${statusClass} text-white" style="width:100px !important;" href="admin-concept-narrative-report-list-dash.html?concept-note-id=${row.concept_note_id}">${statusText}</a>`;
-    }
-}
-
-,
-{
-    data: "concept_note_id",
-    render: function (data, type, row) {
-        let financeDetailText = "Pending";
-        let financeDetailClass = "btn-primary";
-        let apiUrl = `/forms-processing/api/concept-note-finance-details-api.php?form_id=${row.concept_note_id}`;
-
-        return $.ajax({
-            url: apiUrl,
-            type: "GET",
-            dataType: "json",
-            async: false, // Synchronous request to ensure data is fetched before rendering
-            success: function (response) {
-                if (response.length > 0) {
-                    financeDetailText = "Submitted";
-                    financeDetailClass = "btn-success";
-                }
-            },
-            error: function () {
-                console.error("Error fetching finance details.");
-            }
-        }).responseText ? `<a class="btn btn-sm ${financeDetailClass} text-white" style="width:100px!important;">${financeDetailText}</a>` : `<a class="btn btn-sm btn-primary text-white" style="width:120px!important;">Pending</a>`;
+        return `<a class="btn btn-sm ${statusClass} text-white" style="width:100px!important;" href="admin-concept-narrative-report-list-dash.html?concept-note-id=${row.concept_note_id}">${statusText}</a>`;
     }
 }
 
 
-        ],
-        pageLength: 10,
-        lengthMenu: [10, 25, 50, 100],
-        order: [[0, 'desc']]
+            ],
+            order: [[0, 'desc']]
+        });
     });
-});
-
-
-
-</script>
+    </script>
+    
+    
+    
     
     
 <script src="assets/custom-js/admin-side-nav.js"></script>
+
+
+
     
     
     

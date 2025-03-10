@@ -249,90 +249,285 @@
             <!--  -->
             <!-- Container fluid  -->
             <!--  -->
-            <div class="container-fluid">
+          
                 <!--  -->
                 <!-- Start Page Content -->
                 <!--  -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3">
-                    <a href="admin-short-concept-note-list-dash.html">
-                    <div class="card card-hover">
-                        <div class="box bg-info text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
-                            <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                            <h6 class="text-white">Short Concept Notes</h6>
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Cards Row (Spans Full Width) -->
+                        <div class="col-md-3">
+                            <a href="admin-short-concept-note-list-dash.html">
+                                <div class="card card-hover">
+                                    <div class="box bg-info text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
+                                        <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
+                                        <h6 class="text-white">Short Concept Notes</h6>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                </a>
                 
-                </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3">
-                        <a href="admin-concept-note-list-dash.html">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
-                                <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                                <h6 class="text-white">Concept Notes</h6>
-                            </div>
+                        <div class="col-md-3">
+                            <a href="admin-concept-note-list-dash.html">
+                                <div class="card card-hover">
+                                    <div class="box bg-success text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
+                                        <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
+                                        <h6 class="text-white">Concept Notes</h6>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    </div>
-
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3">
-                        <a href="admin-grant-application-list-dash.html">
-                        <div class="card card-hover">
-                            <div class="box bg-primary text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;"">
-                                <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                                <h6 class="text-white">Grant Applications</h6>
-                            </div>
+                
+                        <div class="col-md-3">
+                            <a href="admin-grant-application-list-dash.html">
+                                <div class="card card-hover">
+                                    <div class="box bg-primary text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
+                                        <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                                        <h6 class="text-white">Grant Applications</h6>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3">
-                        <a href="admin-service-agreement-list-dash.html">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
-                                <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                                <h6 class="text-white">Service Agreements</h6>
-                            </div>
+                
+                        <div class="col-md-3">
+                            <a href="admin-service-agreement-list-dash.html">
+                                <div class="card card-hover">
+                                    <div class="box bg-cyan text-center" style="background-color: #36a9e1 !important; color: white; font-weight: bold;">
+                                        <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
+                                        <h6 class="text-white">Service Agreements</h6>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
                     </div>
-                </div>
-<!--====================================================================================================  -->
-                <div class="row card">
-
-
-
-
-
-                    <div class="container vh-100 d-flex justify-content-center align-items-center">
+                
+                    <!-- Pie Charts Row -->
+                    <div class="container mt-4 d-flex justify-content-center align-items-center">
                         <div class="row w-100">
                             <!-- Left Chart -->
                             <div class="col-md-4 d-flex flex-column align-items-center bordered-chart">
                                 <h5>Short Concept Note</h5>
                                 <canvas id="short-concept-note-pie"></canvas>
-                               
                             </div>
                 
                             <!-- Center Chart -->
                             <div class="col-md-4 d-flex flex-column align-items-center bordered-chart">
                                 <h5>Concept Note</h5>
                                 <canvas id="concept-note-pie"></canvas>
-                                
                             </div>
                 
                             <!-- Right Chart -->
                             <div class="col-md-4 d-flex flex-column align-items-center bordered-chart">
                                 <h5>Grant Application</h5>
                                 <canvas id="grant-application-pie"></canvas>
-                                
                             </div>
                         </div>
                     </div>
+
+                    <div class="row mt-5 d-flex justify-content-center">
+                        <div class="col-md-10 chart-container">
+                            <h5 class="text-center">Total Budget per Month (Approved Forms)</h5>
+                            <div id="preloader" class="text-center">
+                                <span class="spinner-border text-primary" role="status"></span>
+                                <p>Fetching data...</p>
+                            </div>
+                            <canvas id="lineGraphOne" style="display: none; width: 100%;"></canvas>
+                        </div>
+                    </div>
                 
+                    <!-- Graphs Row with 60px Spacing -->
+                    <div class="row mt-5 d-flex justify-content-center">
+                        <div class="col-md-5 chart-container">
+                            <h5 class="text-center">Short Concept Note</h5>
+                            <div id="preloader-shortConceptNoteChart" class="text-center">
+                                <span class="spinner-border text-primary" role="status"></span>
+                                <p>Fetching data...</p>
+                            </div>
+                            <canvas id="shortConceptNoteChart" style="display: none; width: 100%;"></canvas>
+                        </div>
+                
+                        
+                
+                        <div class="col-md-5 chart-container">
+                            <h5 class="text-center">Concept Note</h5>
+                            <div id="preloader-conceptNoteChart" class="text-center">
+                                <span class="spinner-border text-primary" role="status"></span>
+                                <p>Fetching data...</p>
+                            </div>
+                            <canvas id="conceptNoteChart" style="display: none; width: 100%;"></canvas>
+                        </div>
+                    </div>
+                
+                    <style>
+                        .chart-container-one {
+                            height: 600px; /* Fixed height for the bar chart */
+                        }
+                    
+                        .pie-chart-container-one {
+                            height: 70%; /* Each pie chart takes half of the right section */
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    
+                        .pie-chart-container-one canvas {
+                            max-height: 100% !important; /* Ensure pie charts fit within the container */
+                            width: auto !important;
+                        }
+                    </style>
+                    
+                    <div class="row mt-5 d-flex justify-content-center">
+                        <!-- Bar Chart -->
+                        <div class="col-md-6 chart-container-one d-flex flex-column align-items-center">
+                            <h5 class="text-center">Grant Application</h5>
+                            <div id="preloader-grantApplicationChart" class="text-center">
+                                <span class="spinner-border text-primary" role="status"></span>
+                                <p>Fetching data...</p>
+                            </div>
+                            <canvas id="grantApplicationChart" style="display: none; width: 100%; height: 100%;"></canvas>
+                        </div>
+                    
+                        <!-- Right Column: Stacked Pie Charts -->
+                        <div class="col-md-6 d-flex flex-column" style="height: 400px;">
+                            <!-- Concept Note Narrative Report -->
+                            <div class="pie-chart-container-one">
+                                <div class="text-center">
+                                    <h5>Concept Note Narrative Report</h5>
+                                    <canvas id="concept-note-narrative-pie"></canvas>
+                                </div>
+                            </div>
+                    
+                            <!-- Grant Application Narrative Report -->
+                            <div class="pie-chart-container-one" style="margin-top: 20px;">
+                                <div class="text-center">
+                                    <h5>Grant Application Narrative Report</h5>
+                                    <canvas id="grant-application-narrative-pie"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    
+                
+                <style>
+                    .gap-graph {
+                        width: 10px !important; /* Fixed spacing between graphs */
+                    }
+                </style>
+
+
+<script>
+    // Function to fetch total count from API
+    async function fetchTotalRecords(apiUrl) {
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log(`API Response for ${apiUrl}:`, data); // Debugging
+
+            return data.status == "success" && data.data ? data.data.totalRecords : 0;
+        } catch (error) {
+            console.error(`Error fetching total records from ${apiUrl}:`, error);
+            return 0;
+        }
+    }
+
+    // Function to fetch detailed data and render pie chart
+    async function fetchDataAndRenderChart(narrativeApiUrl, totalApiUrl, chartId) {
+        try {
+            const [totalSubmitted, totalNarrativeSubmitted] = await Promise.all([
+                fetchTotalRecords(totalApiUrl),
+                fetchTotalRecords(narrativeApiUrl)
+            ]);
+
+            const response = await fetch(narrativeApiUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log(`API Response for ${chartId}:`, data); // Debugging
+
+            if (data.status == "success" && data.data && data.data.data) {
+                // Extract counts for each state
+                const approvedCount = data.data.data.filter(item => item.approved == "1").length;
+                const pendingCount = data.data.data.filter(item => item.pending == "1").length;
+                const declinedCount = data.data.data.filter(item => item.declined == "1").length;
+                const revisedCount = data.data.data.filter(item => item.revise == "1").length;
+                const overdueCount = data.data.data.filter(item => item.overdue == "1").length;
+
+                // Compute "In Progress" count
+                const inProgressCount = totalSubmitted - totalNarrativeSubmitted;
+
+                const ctx = document.getElementById(chartId).getContext('2d');
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Approved', 'Pending', 'Declined', 'Revised', 'Overdue', 'In Progress'],
+                        datasets: [{
+                            data: [approvedCount, pendingCount, declinedCount, revisedCount, overdueCount, inProgressCount],
+                            backgroundColor: [
+                                'rgba(103, 235, 52, 0.7)', // Approved (Green)
+                                'rgba(255, 206, 86, 0.7)', // Pending (Yellow)
+                                'rgba(255, 99, 132, 0.7)', // Declined (Red)
+                                'rgba(54, 162, 235, 0.7)', // Revised (Blue)
+                                'rgba(153, 102, 255, 0.7)', // Overdue (Purple)
+                                'rgba(76, 52, 235, 0.7)'  // In Progress (Orange)
+                            ],
+                            borderColor: [
+                                'rgba(103, 235, 52, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(76, 52, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'left'
+                            },
+                            title: {
+                                display: true,
+                                text: chartId.replace(/-/g, ' ') // Format title dynamically
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error(`Invalid data format for ${chartId}`, data);
+            }
+        } catch (error) {
+            console.error(`Error fetching data for ${chartId}:`, error);
+        }
+    }
+
+    // Fetch and render Concept Note pie chart
+    fetchDataAndRenderChart(
+        "/forms-processing/api/concept-note-narrative-report-dashboard-analytics-api.php?limit=all",
+        "/forms-processing/api/concept-note-dashboard-analytics-api.php?limit=all",
+        "concept-note-narrative-pie"
+    );
+
+    // Fetch and render Grant Application pie chart
+    fetchDataAndRenderChart(
+        "/forms-processing/api/grant-application-narrative-report-dashboard-analytics-api.php?limit=all",
+        "/forms-processing/api/grant-application-dashboard-analytics-api.php?limit=all",
+        "grant-application-narrative-pie"
+    );
+</script>
+
+<!-------------------------------------  -->
+                <div class="row" style="background-color: #F8FFF8 !important;">
                     <script>
                         // Function to fetch data and render chart
                         async function fetchDataAndRenderChart(apiUrl, chartId) {
@@ -345,7 +540,7 @@
                 
                                 const data = await response.json();
                 
-                                if (data.status === "success" && data.data) {
+                                if (data.status == "success" && data.data) {
                                     const { pending_count, approved_count, overdue_count, declined_count, revise_count } = data.data;
                 
                                     const ctx = document.getElementById(chartId).getContext('2d');
@@ -406,31 +601,16 @@
 
 
                 </div>
-<!--====================================================================================================  -->
 
-<div class="container d-flex justify-content-center align-items-center flex-column vh-100">
-    <div class="row w-100 justify-content-center">
-        <!-- Stacked Charts (Full Width 8 Columns) -->
-        <div class="col-md-12 chart-container">
-            <h5 class="text-center">Short Concept Note</h5>
-            <canvas id="shortConceptNoteChart"></canvas>
-        </div>
 
-        <div class="col-md-12 chart-container">
-            <h5 class="text-center">Concept Note</h5>
-            <canvas id="conceptNoteChart"></canvas>
-        </div>
-
-        <div class="col-md-12 chart-container">
-            <h5 class="text-center">Grant Application</h5>
-            <canvas id="grantApplicationChart"></canvas>
-        </div>
-    </div>
-</div>
 
 <script>
     async function fetchDataAndRenderChart(apiUrl, chartId, title) {
         try {
+            // Show preloader and hide chart initially
+            document.getElementById(`preloader-${chartId}`).style.display = "block";
+            document.getElementById(chartId).style.display = "none";
+
             // Fetch API data
             const response = await fetch(apiUrl);
             const jsonData = await response.json();
@@ -443,14 +623,14 @@
             const projects = jsonData.data.data;
 
             // Filter only "approved" projects
-            const approvedProjects = projects.filter(project => project.approved === "1");
+            const approvedProjects = projects.filter(project => project.approved == "1");
 
             // Create datasets dynamically for each project location
-            const locations = [...new Set(approvedProjects.map(project => project.projectLocation))]; // Unique locations
+            const locations = [...new Set(approvedProjects.map(project => project.countryProject))]; // Unique locations
             const datasets = locations.map(location => {
                 // Find all projects in this location and sum their budgets
                 const totalBudget = approvedProjects
-                    .filter(project => project.projectLocation === location)
+                    .filter(project => project.countryProject == location)
                     .reduce((sum, project) => sum + parseFloat(project.totalBudget || 0), 0);
 
                 // Generate a random color for each location
@@ -465,6 +645,10 @@
                 };
             });
 
+            // Hide preloader and show chart
+            document.getElementById(`preloader-${chartId}`).style.display = "none";
+            document.getElementById(chartId).style.display = "block";
+
             // Chart.js Instance
             const ctx = document.getElementById(chartId).getContext('2d');
             new Chart(ctx, {
@@ -483,7 +667,7 @@
                     plugins: {
                         legend: {
                             display: true,
-                            position: 'top',
+                            position: 'left',
                             labels: {
                                 generateLabels: function(chart) {
                                     return chart.data.datasets.map((dataset, index) => ({
@@ -513,10 +697,16 @@
 
         } catch (error) {
             console.error(`Error fetching or processing data from ${apiUrl}:`, error);
+            document.getElementById(`preloader-${chartId}`).innerHTML = "Error fetching data. Please try again.";
         }
     }
+
     async function fetchDataAndRenderGrantChart(apiUrl, chartId, title) {
         try {
+            // Show preloader and hide chart initially
+            document.getElementById(`preloader-${chartId}`).style.display = "block";
+            document.getElementById(chartId).style.display = "none";
+
             // Fetch API data
             const response = await fetch(apiUrl);
             const jsonData = await response.json();
@@ -529,14 +719,14 @@
             const projects = jsonData.data.data;
 
             // Filter only "approved" projects
-            const approvedProjects = projects.filter(project => project.approved === "1");
+            const approvedProjects = projects.filter(project => project.approved == "1");
 
             // Create datasets dynamically for each project location
             const locations = [...new Set(approvedProjects.map(project => project.projectLocation))]; // Unique locations
             const datasets = locations.map(location => {
                 // Find all projects in this location and sum their budgets
                 const totalBudget = approvedProjects
-                    .filter(project => project.projectLocation === location)
+                    .filter(project => project.projectLocation == location)
                     .reduce((sum, project) => sum + parseFloat(project.total_budget || 0), 0);
 
                 // Generate a random color for each location
@@ -551,6 +741,10 @@
                 };
             });
 
+            // Hide preloader and show chart
+            document.getElementById(`preloader-${chartId}`).style.display = "none";
+            document.getElementById(chartId).style.display = "block";
+
             // Chart.js Instance
             const ctx = document.getElementById(chartId).getContext('2d');
             new Chart(ctx, {
@@ -569,7 +763,7 @@
                     plugins: {
                         legend: {
                             display: true,
-                            position: 'top',
+                            position: 'left',
                             labels: {
                                 generateLabels: function(chart) {
                                     return chart.data.datasets.map((dataset, index) => ({
@@ -599,15 +793,15 @@
 
         } catch (error) {
             console.error(`Error fetching or processing data from ${apiUrl}:`, error);
+            document.getElementById(`preloader-${chartId}`).innerHTML = "Error fetching data. Please try again.";
         }
     }
 
-
-    // Fetch data for each chart
     fetchDataAndRenderChart("/forms-processing/api/short-concept-note-dashboard-analytics-api.php", "shortConceptNoteChart", "Short Concept Note");
     fetchDataAndRenderChart("/forms-processing/api/concept-note-dashboard-analytics-api.php", "conceptNoteChart", "Concept Note");
     fetchDataAndRenderGrantChart("/forms-processing/api/grant-application-dashboard-analytics-api.php", "grantApplicationChart", "Grant Application");
 </script>
+
               
                 <!-- END MODAL -->
 
@@ -622,6 +816,153 @@
                 <!-- End Right sidebar -->
                 <!--  -->
             </div>
+
+            
+
+            
+            <script>
+                async function fetchDataAndRenderLineChart() {
+                    try {
+                        // Show preloader and hide chart initially
+                        document.getElementById("preloader").style.display = "block";
+                        document.getElementById("lineGraphOne").style.display = "none";
+            
+                        // API Endpoints
+                        const apiEndpoints = {
+                            "Short Concept Note": "/forms-processing/api/short-concept-note-dashboard-analytics-api.php",
+                            "Concept Note": "/forms-processing/api/concept-note-dashboard-analytics-api.php",
+                            "Grant Application": "/forms-processing/api/grant-application-dashboard-analytics-api.php"
+                        };
+            
+                        // Store data for each form type
+                        const formData = {};
+            
+                        // Process each API and extract necessary data
+                        for (const [formType, apiUrl] of Object.entries(apiEndpoints)) {
+                            const response = await fetch(apiUrl);
+                            const jsonData = await response.json();
+            
+                            if (jsonData.status !== "success" || !jsonData.data || !jsonData.data.data) {
+                                throw new Error(`Invalid data from API: ${apiUrl}`);
+                            }
+            
+                            // Extract approved projects
+                            const approvedProjects = jsonData.data.data.filter(project => project.approved == "1");
+            
+                            // Process data to group by `YYYY-Month Name`
+                            const monthlyData = {};
+                            approvedProjects.forEach(project => {
+                                let startDate;
+                                if (formType == "Grant Application") {
+                                    startDate = new Date(project.projectStartDate);
+                                } else {
+                                    startDate = new Date(project.submissionDate);
+                                }
+            
+                                const yearMonth = startDate.getFullYear() + '-' + startDate.toLocaleString('default', { month: 'long' });
+            
+                                // Handle total budget key differences
+                                let budget = parseFloat(project.totalBudget || 0);
+                                if (formType == "Grant Application") {
+                                    budget = parseFloat(project.total_budget || 0);
+                                }
+            
+                                if (!monthlyData[yearMonth]) {
+                                    monthlyData[yearMonth] = 0;
+                                }
+                                monthlyData[yearMonth] += budget;
+                            });
+            
+                            formData[formType] = monthlyData;
+                        }
+            
+                        // Get all unique year-months from all datasets
+                        const allMonths = [...new Set(Object.values(formData).flatMap(Object.keys))].sort((a, b) => {
+                            const [yearA, monthA] = a.split('-');
+                            const [yearB, monthB] = b.split('-');
+                            return new Date(`${monthA} 01, ${yearA}`) - new Date(`${monthB} 01, ${yearB}`);
+                        });
+            
+                        // Colors for each line
+                        const colors = {
+                            "Short Concept Note": "rgba(255, 99, 132, 1)",  // Red
+                            "Concept Note": "rgba(54, 162, 235, 1)",       // Blue
+                            "Grant Application": "rgba(75, 192, 192, 1)"   // Green
+                        };
+            
+                        // Generate datasets
+                        const datasets = Object.entries(formData).map(([formType, data]) => ({
+                            label: formType,
+                            data: allMonths.map(month => data[month] || 0),
+                            borderColor: colors[formType],
+                            backgroundColor: colors[formType].replace('1', '0.2'),
+                            tension: 0.4,
+                            fill: false
+                        }));
+            
+                        // Hide preloader and show chart once data is ready
+                        document.getElementById("preloader").style.display = "none";
+                        document.getElementById("lineGraphOne").style.display = "block";
+            
+                        // Create Chart.js Instance
+                        const ctx = document.getElementById('lineGraphOne').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: allMonths,
+                                datasets: datasets
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: "Total Budget ($)"
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                        position: 'left',
+                                        labels: {
+                                            generateLabels: function(chart) {
+                                                return chart.data.datasets.map((dataset, index) => ({
+                                                    text: dataset.label,
+                                                    strokeStyle: dataset.borderColor,
+                                                    hidden: !chart.isDatasetVisible(index),
+                                                    datasetIndex: index
+                                                }));
+                                            }
+                                        },
+                                        onClick: function(event, legendItem, legend) {
+                                            const chart = legend.chart;
+                                            const datasetIndex = legendItem.datasetIndex;
+                                            chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
+                                            chart.update();
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "Total Budget per Month"
+                                    }
+                                }
+                            }
+                        });
+            
+                    } catch (error) {
+                        console.error("Error fetching or processing data:", error);
+                        document.getElementById("preloader").innerHTML = "Error fetching data. Please try again.";
+                    }
+                }
+            
+                // Load data and render the line chart
+                fetchDataAndRenderLineChart();
+            </script>
+            
+        
             <!--  -->
             <!-- End Container fluid  -->
             <!--  -->
@@ -691,7 +1032,7 @@
 
 
 
-<!-- ========================================================================== -->
+<!----------------------------------------------------------------------------->
 
 
 

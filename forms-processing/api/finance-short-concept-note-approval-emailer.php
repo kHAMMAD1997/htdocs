@@ -1,7 +1,19 @@
 <?php
 include 'email-system-credentials.php'; // Include email credentials
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 
 header("Content-Type: application/json");
+
+
+// Set error logging
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error-log-two.log');
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -61,7 +73,7 @@ foreach ($budgetData as $budgetItem) {
 }
 
 // Generate the email subject
-$subject = "Funding Verification Required – $projectTitle – Approved";
+$subject = "Funding Verification Required $projectTitle Approved";
 
 // Prepare the email content
 $emailContent = <<<HTML
@@ -94,7 +106,7 @@ $emailContent = <<<HTML
                                                 <p>We are pleased to inform you that the concept note application for <strong>$projectTitle</strong> has been approved and is ready for funding. Please review and confirm the amount to be issued, per the approved funding breakdown.</p>
                                                 <p><strong>Project Details:</strong></p>
                                                 <ul>
-                                                    <li>Applicant’s Name: <strong>$contactName</strong></li>
+                                                    <li>Applicant Name: <strong>$contactName</strong></li>
                                                     <li>Organization: <strong>$organization</strong></li>
                                                     <li>Contact Title: <strong>$contactTitle</strong></li>
                                                     <li>Contact Email: <a href="mailto:$contactEmail">$contactEmail</a></li>
@@ -165,24 +177,88 @@ $emailContent = <<<HTML
 </html>
 HTML;
 
-// Email headers as a properly formatted string
-$headers = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: " . EMAIL_USERNAME . "\r\n";
-$headers .= "Reply-To: " . EMAIL_USERNAME . "\r\n";
 
-// Send the email to all recipients
-$allSent = true;
-foreach ($recipientEmails as $email) {
-    if (!mail($email, $subject, $emailContent, $headers)) {
-        $allSent = false;
-        break;
-    }
+// Construct the dynamic API URL
+$apiUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/forms-processing/api/short-concept-note-finance-attachment-api.php?concept_note_id={$conceptNoteId}";
+sleep(5);
+// Initialize cURL session
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $apiUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+// Execute cURL request
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+// Check for cURL errors
+if (curl_errno($ch)) {
+    echo json_encode(["status" => "error", "message" => "cURL Error: " . curl_error($ch)]);
+    exit;
 }
 
-if (!$allSent) {
-    echo json_encode(["status" => "error", "message" => "Failed to send email to all recipients. Please try again"]);
-} else {
-    echo json_encode(["status" => "success", "message" => "Email sent successfully to all recipients"]);
+// Close cURL session
+curl_close($ch);
+
+// Validate API response
+if ($httpCode !== 200 || empty($response)) {
+    echo json_encode(["status" => "error", "message" => "Failed to fetch attachments from API. HTTP Code: $httpCode"]);
+    exit;
+}
+
+// Decode JSON response
+$fileData = json_decode($response, true);
+
+if (!isset($fileData['files']) || !is_array($fileData['files'])) {
+    echo json_encode(["status" => "error", "message" => "Invalid API response structure"]);
+    exit;
+}
+
+
+$mail = new PHPMailer(true);
+
+try {
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host = EMAIL_OUTGOING_SERVER; // SMTP server
+    $mail->SMTPAuth = true;
+    $mail->Username = EMAIL_USERNAME; // SMTP username
+    $mail->Password = EMAIL_PASSWORD; // SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Encryption
+    $mail->Port = EMAIL_SMTP_PORT; // SMTP port
+    $mail->setFrom(EMAIL_USERNAME, 'Mercy Without Limits');
+    $mail->addReplyTo(EMAIL_USERNAME, 'Mercy Without Limits');
+    $mail->isHTML(true);
+    $mail->Subject = $subject;
+    $mail->Body = $emailContent;
+
+    // Attach files
+    $fileBasePath = "/forms-processing/api";
+    foreach ($fileData['files'] as $file) {
+        $filePath = $_SERVER['DOCUMENT_ROOT'] . $fileBasePath . $file['file_path'];
+        if (file_exists($filePath)) {
+            $mail->addAttachment($filePath);
+        }
+    }
+
+    // Send email to each recipient
+    $allSent = true;
+    foreach ($recipientEmails as $email) {
+        $mail->clearAddresses(); // Clear previous recipient(s)
+        $mail->addAddress($email);
+
+        if (!$mail->send()) {
+            $allSent = false;
+            break; // Stop on first failure
+        }
+    }
+
+    if (!$allSent) {
+        echo json_encode(["status" => "error", "message" => "Failed to send email to all recipients."]);
+    } else {
+        echo json_encode(["status" => "success", "message" => "Email sent successfully to all recipients."]);
+    }
+} catch (Exception $e) {
+    echo json_encode(["status" => "error", "message" => "Mailer Error: {$mail->ErrorInfo}"]);
 }
 ?>

@@ -369,7 +369,7 @@
                                                     <label class="custom-control-label" for="inconsistentData"><b>Inconsistent Data</b> – The data or metrics presented in the report conflict with previous reports or expectations.</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mr-sm-2" style="width:400px;">
-                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="-Other – Reason">
+                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="">
                                                     <label class="custom-control-label" for="otherReasonTwo"><b>Other</b> – Type reason</label>
                                                 </div>
                                                 <div id="text-area-div-two" style="margin-top: 10px; display: none;">
@@ -382,12 +382,28 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button style="display: none !important;" id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
                                 <button id ="revise-close" type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var textarea = document.getElementById("otherReasontextboxTwo");
+                        var saveButton = document.getElementById("revise-save");
+                
+                        textarea.addEventListener("input", function () {
+                            var text = textarea.value.trim();
+                
+                            if (text.length > 0) {
+                                saveButton.style.display = "block";
+                            } else {
+                                saveButton.style.display = "none";
+                            }
+                        });
+                    });
+                </script>
 
                 <!-- Modal Decline -->
                 <div class="modal fade none-border" id="decline-modal">

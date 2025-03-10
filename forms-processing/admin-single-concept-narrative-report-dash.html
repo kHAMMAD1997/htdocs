@@ -189,6 +189,99 @@
                             
                         </div>
 
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-4">
+                                <span style="font-weight: bold;"><p id="status-text">Status: Loading...</p>
+                                    <!-- <p id="modified-text">Last modified by Loading...</p> -->
+                                </span>
+        
+                            </div>
+                            
+                            <div class="col-md-4">  
+                               
+                            
+                            </div>
+                            <div class="col-md-4">
+                              
+        
+                            </div>
+                      </div>
+                      <script>
+                        document.addEventListener("DOMContentLoaded", async function () {
+                            console.log("------------++---------------");
+                        
+                            // Function to get URL parameter by name
+                            function getUrlParameter(name) {
+                                const urlParams = new URLSearchParams(window.location.search);
+                                return urlParams.get(name);
+                            }
+                        
+                            // Obtain report_id from URL
+                            let reportId = getUrlParameter("report-id");
+                           
+                            if (!reportId) return;
+                        
+                            let noteData = null; // Declare noteData outside so it's accessible later
+                        
+                            try {
+                                // Fetch concept-narrative-report-api data
+                                let response = await fetch(`/forms-processing/api/concept-note-narrative-report-api.php?report_id=${reportId}`);
+                                let jsonData = await response.json();
+                             
+                        
+                                if (jsonData.status == "success" && jsonData.data.data.length > 0) {
+                                    noteData = jsonData.data.data[0]; // Assign to declared variable
+                                    let { pending, approved, overdue, revise, declined } = noteData;
+                        
+                                    let statusTextElement = document.getElementById("status-text");
+                                    if (statusTextElement && (pending == "1" || approved == "1" || overdue == "1" || revise == "1" || declined == "1")) {
+                                        let status =
+                                            pending == "1"
+                                                ? "Pending"
+                                                : approved == "1"
+                                                ? "Approved"
+                                                : overdue == "1"
+                                                ? "Overdue"
+                                                : revise == "1"
+                                                ? "Revise"
+                                                : "Declined";
+                                        statusTextElement.textContent = `Status: ${status}`;
+                                    }
+                                }
+                        
+                                // Fetch metadata API
+                                let metadataResponse = await fetch(`/forms-processing/api/concept-note-narrative-report-metadata-api.php?report_id=${reportId}`);
+                                let metadata = await metadataResponse.json();
+                        
+                                let modifiedTextElement = document.getElementById("modified-text");
+                                if (metadata.length == 0) {
+                                    if (modifiedTextElement) modifiedTextElement.style.display = "none";
+                                } else if (noteData) { // Ensure noteData is not null before using it
+                                    console.log(metadata,"The metadata here");
+                                    let statusField = ["approve", "revise", "declined"].find(field => noteData[field] == "1");
+                                    console.log(statusField,"The --metadata here----");
+                                    if (statusField && metadata[0][statusField]) {
+                                        let userId = metadata[0][statusField];
+                                       
+                        
+                                        // Fetch user data
+                                        let userResponse = await fetch(`/forms-processing/api/users-api.php?user_id=${userId}`);
+                                        let userData = await userResponse.json();
+                                        if (userData.status == "success" && userData.data.length > 0) {
+                                            let username = userData.data[0].username;
+                                            if (modifiedTextElement) {
+                                                modifiedTextElement.textContent = `Last modified by ${username}`;
+                                            }
+                                        }
+                                    }
+                                }
+                            } catch (error) {
+                                console.error("Error fetching the data:", error);
+                            }
+                        });
+                        </script>
+                        
+
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <!-- Left-aligned buttons -->
                             <div>
@@ -367,7 +460,7 @@
                                                     <label class="custom-control-label" for="inconsistentData"><b>Inconsistent Data</b> – The data or metrics presented in the report conflict with previous reports or expectations.</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mr-sm-2"style="width: 400px;">
-                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="-Other – Reason">
+                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="">
                                                     <label class="custom-control-label" for="otherReasonTwo"><b>Other</b> – Type reason</label>
                                                 </div>
                                                 <div id="text-area-div-two" style="margin-top: 10px; display: none;">
@@ -380,12 +473,28 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button style="display: none !important;" id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
                                 <button id ="revise-close" type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var textarea = document.getElementById("otherReasontextboxTwo");
+                        var saveButton = document.getElementById("revise-save");
+                
+                        textarea.addEventListener("input", function () {
+                            var text = textarea.value.trim();
+                
+                            if (text.length > 0) {
+                                saveButton.style.display = "block";
+                            } else {
+                                saveButton.style.display = "none";
+                            }
+                        });
+                    });
+                </script>
 
                 <!-- Modal Decline -->
                 <div class="modal fade none-border" id="decline-modal">
@@ -519,7 +628,70 @@
     <script src="assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="dist/js/pages/calendar/cal-init.js"></script>
     <script src="assets/custom-js/admin-side-nav.js"></script>
-    
+    <script>
+   async function fetchMetadata(report_id) {
+    const response = await fetch(`/forms-processing/api/concept-note-narrative-report-metadata-api.php?report_id=${report_id}`);
+    const data = await response.json();
+    return data.length > 0 ? data[0] : null;
+}
+
+async function saveApproveMetadata(user_id, report_id) {
+    await saveMetadata(user_id, report_id, "approve");
+}
+
+async function saveReviseMetadata(user_id, report_id) {
+    await saveMetadata(user_id, report_id, "revise");
+}
+
+async function saveDeclinedMetadata(user_id, report_id) {
+    await saveMetadata(user_id, report_id, "declined");
+}
+
+async function saveFinanceMetadata(user_id, report_id) {
+    await saveMetadata(user_id, report_id, "finance");
+}
+
+async function saveMetadata(user_id, report_id, column) {
+    try {
+        const metadata = await fetchMetadata(report_id);
+
+        if (metadata) {
+            // Metadata exists, update using PATCH
+            const response = await fetch('/forms-processing/api/concept-note-narrative-report-metadata-api.php', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    metadata_id: metadata.metadata_id,
+                    [column]: user_id
+                })
+            });
+
+            const result = await response.json();
+            console.log(`PATCH ${column}:`, result);
+        } else {
+            // Metadata does not exist, create using POST
+            const response = await fetch('/forms-processing/api/concept-note-narrative-report-metadata-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    report_id: report_id,
+                    [column]: user_id
+                })
+            });
+
+            const result = await response.json();
+            console.log(`POST ${column}:`, result);
+        }
+    } catch (error) {
+        console.error(`Error saving ${column} metadata:`, error);
+    }
+}
+
+    </script>
 
     <script>
         // Function to delete a cookie by name
@@ -1117,6 +1289,49 @@ if (this.checked) {
                 if (result.status== "success") {
                     sendApprovalEmail();
                     //toastr.success('Success!', 'Narrative Report Approved Successfully!');
+                    //--------------------------------------------------
+
+
+// Function to get a cookie by name and parse JSON
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
+
+// Retrieve and parse user_id from the 'user' cookie
+const userCookie = getCookie('user');
+let user_id = null;
+
+if (userCookie) {
+    try {
+        const userObj = JSON.parse(userCookie);
+        user_id = userObj.user_id; // Extract user_id
+    } catch (error) {
+        console.error("Error parsing user cookie:", error);
+    }
+}
+
+// Retrieve report_id from localStorage
+const report_id = localStorage.getItem('report_id');
+
+// Call the function if both values are available
+if (user_id && report_id) {
+    saveApproveMetadata(user_id, report_id);
+    console.log(user_id,"This is the saved user id");
+   
+} else {
+    console.error("Missing user_id or report_id.");
+}
+
+
+
+                    //----------------------------------------------------
+
+
+
+
+
+
                     showApprovedSuccessModal();
                 } else {
                     console.error("Failed to update narrative report:", result.message);
@@ -1250,6 +1465,40 @@ if (this.checked) {
                     if (postResult.status== "success") {
                         sendReviseEmail();
                         //toastr.success('Success!', 'Narrative Report Revised Successfully!');
+//------------------------------
+
+// Function to get a cookie by name and parse JSON
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
+
+// Retrieve and parse user_id from the 'user' cookie
+const userCookie = getCookie('user');
+let user_id = null;
+
+if (userCookie) {
+    try {
+        const userObj = JSON.parse(userCookie);
+        user_id = userObj.user_id; // Extract user_id
+    } catch (error) {
+        console.error("Error parsing user cookie:", error);
+    }
+}
+
+// Retrieve report_id from localStorage
+const report_id = localStorage.getItem('report_id');
+
+// Call the function if both values are available
+if (user_id && report_id) {
+    saveReviseMetadata(user_id, report_id);
+} else {
+    console.error("Missing user_id or report_id.");
+}
+
+
+//---------------------------------
+
                         showReviseSuccessModal();
                     } else {
                         alert("Failed to add revise comment. Please try again.");
@@ -1391,6 +1640,47 @@ if (this.checked) {
                     if (postResult.status== "success") {
                         sendDeclineEmail();
                         ///toastr.success('Success!', 'Narrative Report Declined Successfully!');
+
+//--------------------------------------------------
+
+// Function to get a cookie by name and parse JSON
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
+
+// Retrieve and parse user_id from the 'user' cookie
+const userCookie = getCookie('user');
+let user_id = null;
+
+if (userCookie) {
+    try {
+        const userObj = JSON.parse(userCookie);
+        user_id = userObj.user_id; // Extract user_id
+    } catch (error) {
+        console.error("Error parsing user cookie:", error);
+    }
+}
+
+// Retrieve report_id from localStorage
+const report_id = localStorage.getItem('report_id');
+
+// Call the function if both values are available
+if (user_id && report_id) {
+    saveDeclinedMetadata(user_id, report_id);
+} else {
+    console.error("Missing user_id or report_id.");
+}
+
+
+//----------------------------------------------------
+
+
+
+
+
+
+                       
                         showDeclineSuccessModal();
                     } else {
                         alert("Failed to add decline comment. Please try again.");

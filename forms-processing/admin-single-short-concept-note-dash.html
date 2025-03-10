@@ -184,11 +184,25 @@
                         <div class="row">
 
                             <div class="col-md-2"></div>
-
+                            
                             <div class="col-md-2"></div>
                             
                         </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-md-4">
+                                <span style="font-weight: bold;"><p id="status-text">Status: Loading...</p><p id="modified-text">Last modified by Loading...</p></span>
 
+                            </div>
+                            
+                            <div class="col-md-4">  
+                               
+                            
+                            </div>
+                            <div class="col-md-4">
+                              
+
+                            </div>
+                        </div>
                         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <!-- Left-aligned buttons -->
                             <div>
@@ -199,9 +213,34 @@
                         
                             <!-- Right-aligned button -->
                             <div>
-                                <a href="#" class="btn btn-info btn-md" data-toggle="modal" data-target="#finance-modal">Finance</a>
+                                <a id="view-finance-detail-btn"  class="btn btn-info btn-md text-white" >View Finance Breakdown</a>
+                                <a id="create-finance-detail-btn" href="#" class="btn btn-info btn-md" data-toggle="modal" data-target="#finance-modal">Finance</a>
                                 <!--  <a href="#" class="btn btn-info btn-sm" id="narrative-btn">View Narrative Report</a>  -->
                             </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    document.getElementById("view-finance-detail-btn").addEventListener("click", function(event) {
+                                        event.preventDefault(); // Prevent default action
+                                        
+                                        // Function to get URL parameter by name
+                                        function getUrlParameter(name) {
+                                            const urlParams = new URLSearchParams(window.location.search);
+                                            return urlParams.get(name);
+                                        }
+                                
+                                        // Get concept-note-id from URL
+                                        const conceptNoteId = getUrlParameter("concept-note-id");
+                                
+                                        // Check if the parameter exists before redirecting
+                                        if (conceptNoteId) {
+                                            window.location.href = `admin-single-short-concept-note-finance-dash.html?concept-note-id=${conceptNoteId}`;
+                                        } else {
+                                            alert("Concept Note ID is missing in the URL!");
+                                        }
+                                    });
+                                });
+                                </script>
+                                
                         </div>
 
 
@@ -413,11 +452,119 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="col-md-6 p-l-5">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="validatedCustomFile" name="files[]" multiple required>
+                                                <label class="custom-file-label" for="validatedCustomFile">Choose files...</label>
+                                                <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                            </div>
+                                        
+                                            <!-- Display Selected Files Below -->
+                                            <ul id="fileList" class="list-group mt-2"></ul>
+                                        </div>
+                                        
+                                        <script>
+                                            document.getElementById('validatedCustomFile').addEventListener('change', function(event) {
+                                                let fileList = document.getElementById("fileList");
+                                                fileList.innerHTML = ""; // Clear previous list
+                                            
+                                                let files = event.target.files;
+                                                let dataTransfer = new DataTransfer(); // Used to update input files
+                                            
+                                                // Iterate through selected files
+                                                for (let i = 0; i < files.length; i++) {
+                                                    let file = files[i];
+                                                    dataTransfer.items.add(file); // Add file to DataTransfer for updating input
+                                            
+                                                    // Create list item for file
+                                                    let listItem = document.createElement("li");
+                                                    listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+                                            
+                                                    listItem.innerHTML = `
+                                                        ${file.name}
+                                                        <button type="button" class="btn btn-sm btn-danger remove-file" data-index="${i}">X</button>
+                                                    `;
+                                            
+                                                    fileList.appendChild(listItem);
+                                                }
+                                            
+                                                // Update input files
+                                                document.getElementById('validatedCustomFile').files = dataTransfer.files;
+                                            
+                                                // Handle remove file button
+                                                document.querySelectorAll(".remove-file").forEach(button => {
+                                                    button.addEventListener("click", function() {
+                                                        let indexToRemove = this.getAttribute("data-index");
+                                                        let updatedTransfer = new DataTransfer();
+                                            
+                                                        // Remove selected file
+                                                        for (let j = 0; j < dataTransfer.files.length; j++) {
+                                                            if (j != indexToRemove) {
+                                                                updatedTransfer.items.add(dataTransfer.files[j]);
+                                                            }
+                                                        }
+                                            
+                                                        document.getElementById('validatedCustomFile').files = updatedTransfer.files;
+                                                        this.parentElement.remove(); // Remove from UI
+                                                    });
+                                                });
+                                            });
+                                            </script>
+                                            
+                                            <script>
+                                                function uploadFiles() {
+                                                    let fileInput = document.getElementById('validatedCustomFile');
+                                                    let files = fileInput.files;
+                                                    
+                                                    if (files.length === 0) {
+                                                        console.log("No file attached");
+                                                        return; // Prevent submission if no files
+                                                    }
+                                                
+                                                    // Retrieve concept_note_id from LocalStorage
+                                                    let concept_note_id = localStorage.getItem("concept_note_id");
+                                                    if (!concept_note_id) {
+                                                        console.log("No concept_note_id found in LocalStorage");
+                                                       // alert("Error: Concept Note ID is missing.");
+                                                        return;
+                                                    }
+                                                
+                                                    let formData = new FormData();
+                                                    formData.append('concept_note_id', concept_note_id); // Use retrieved ID
+                                                
+                                                    for (let i = 0; i < files.length; i++) {
+                                                        formData.append('files[]', files[i]);
+                                                    }
+                                                
+                                                    // Send to server using Fetch API
+                                                    fetch('/forms-processing/api/short-concept-note-finance-attachment-api.php', {
+                                                        method: 'POST',
+                                                        body: formData
+                                                    })
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        console.log("Upload successful:", data);
+                                                        //alert("Files uploaded successfully!");
+                                                    })
+                                                    .catch(error => {
+                                                        console.error("Upload failed:", error);
+                                                    });
+                                                }
+                                                
+                                                // Example usage: Call this function when the button is clicked
+                                                document.getElementById('budget-submit-btn').addEventListener('click', uploadFiles);
+                                                </script>
+                                                
+                                                
+                                        
+                                        
+        
                                     </div>
                                     <!-- End Updated Section -->
-            
+
+                                   
                                     <div class="clear">
-                                        <button type="submit" id="budget-submit-btn"class="btn-info btn-sm">submit</button>
+                                        <button type="submit" id="budget-submit-btn"class="btn-info btn-sm" style="margin-top: 30px !important;">submit</button>
                                     </div>
                                 </div>
                                 
@@ -660,6 +807,7 @@ if (form_id) {
     .then(response => response.json())
     .then(data => {
         console.log('Success-save-finance:', data);
+       
     })
     .catch(error => {
         console.error('Error-finance:', error);
@@ -667,6 +815,17 @@ if (form_id) {
 } else {
     console.error('Error: form_id not found in localStorage.');
 }
+
+    console.log("----starting file upload---");
+    const attachmentResults =  uploadFiles();
+    if(attachmentResults){
+        console.log("Sent-attachments");
+    }
+    else{
+        console.log("error");
+    }
+
+    console.log("----End file upload---");
 
     // Log the payload
     console.log(payload);
@@ -677,11 +836,19 @@ if (form_id) {
     const result = await processEmailsAndSendWithPreloader(); // <===========>
     if (result) {
         toastr.success("Emails processed and payload sent successfully.", "");
+        const data = getUserAndConceptNote();
+        saveFinanceMetadata(data.user_id, data.concept_note_id);
         closeFinanceModal();
     } else {
         toastr.error("Failed to process emails or send payload.", "");
        
     }
+
+
+  
+
+
+
 });
 </script>
 
@@ -717,7 +884,7 @@ if (form_id) {
                                                     <label class="custom-control-label" for="inconsistentData"><b>Inconsistent Data</b> – The data or metrics presented in the report conflict with previous reports or expectations.</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mr-sm-2" style="width:400px;">
-                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value="Other – Reason">
+                                                    <input type="checkbox" class="custom-control-input" id="otherReasonTwo" value=" ">
                                                     <label class="custom-control-label" for="otherReasonTwo"><b>Other</b> – Type reason</label>
                                                 </div>
                                                 <div id="text-area-div-two" style="margin-top: 10px; display: none;">
@@ -730,13 +897,29 @@ if (form_id) {
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button id="revise-save" type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal" style="display: none !important;">Save</button>
                                 <button id ="revise-close" type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var textarea = document.getElementById("otherReasontextboxTwo");
+                        var saveButton = document.getElementById("revise-save");
+                
+                        textarea.addEventListener("input", function () {
+                            var text = textarea.value.trim();
+                
+                            if (text.length > 0) {
+                                saveButton.style.display = "block";
+                            } else {
+                                saveButton.style.display = "none";
+                            }
+                        });
+                    });
+                </script>
+                
                 <!-- Modal Decline -->
                 <div class="modal fade none-border" id="decline-modal">
                     <div class="modal-dialog">
@@ -889,6 +1072,79 @@ if (form_id) {
             window.location.href = '/forms-processing/login.html';
         });
     </script>
+    <script>
+        async function fetchMetadata(concept_note_id) {
+            const response = await fetch(`/forms-processing/api/short-concept-note-metadata-api.php?concept_note_id=${concept_note_id}`);
+            const data = await response.json();
+            return data.length > 0 ? data[0] : null;
+        }
+        
+        async function saveApproveMetadata(user_id, concept_note_id) {
+            await saveMetadata(user_id, concept_note_id, "approve");
+        }
+        
+        async function saveReviseMetadata(user_id, concept_note_id) {
+            await saveMetadata(user_id, concept_note_id, "revise");
+        }
+        
+        async function saveDeclinedMetadata(user_id, concept_note_id) {
+            await saveMetadata(user_id, concept_note_id, "declined");
+        }
+        
+        async function saveFinanceMetadata(user_id, concept_note_id) {
+            await saveMetadata(user_id, concept_note_id, "finance");
+        }
+        
+        async function saveMetadata(user_id, concept_note_id, column) {
+            try {
+                const metadata = await fetchMetadata(concept_note_id);
+        
+                if (metadata) {
+                    // Metadata exists, update using PATCH
+                    const response = await fetch('/forms-processing/api/short-concept-note-metadata-api.php', {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            metadata_id: metadata.metadata_id,
+                            [column]: user_id
+                        })
+                    });
+        
+                    const result = await response.json();
+                    console.log(`PATCH ${column}:`, result);
+                } else {
+                    // Metadata does not exist, create using POST
+                    const response = await fetch('/forms-processing/api/short-concept-note-metadata-api.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            concept_note_id: concept_note_id,
+                            [column]: user_id
+                        })
+                    });
+        
+                    const result = await response.json();
+                    console.log(`POST ${column}:`, result);
+                }
+            } catch (error) {
+                console.error(`Error saving ${column} metadata:`, error);
+            }
+        }
+        </script>
+        <script>
+            function getUserAndConceptNote() {
+                    const user = JSON.parse(decodeURIComponent(document.cookie.split('; ').find(row => row.startsWith('user='))?.split('=')[1] || '{}'));
+                    const user_id = user.user_id;
+                    const concept_note_id = localStorage.getItem("concept_note_id");
+
+                    return { user_id, concept_note_id };
+               }
+        </script>
+        
     <script>
         async function sendApprovalEmail() {
         try {
@@ -1366,7 +1622,7 @@ if (this.checked) {
 
     if (this.checked) {
         textAreaDiv.style.display = 'block'; // Remove display: none
-        textArea.value = '-' + this.value;   // Set the value of the textarea
+        textArea.value = this.value;   // Set the value of the textarea
     } else {
         textAreaDiv.style.display = 'none';  // Hide the text area div when unchecked
         textArea.value = '';                 // Clear the value of the textarea
@@ -1385,7 +1641,7 @@ if (this.checked) {
         const conceptNoteId = localStorage.getItem("concept_note_id");
         if (!conceptNoteId) {
             console.error("Concept note ID not found in local storage.");
-            alert("Concept note ID not found. Please check and try again.");
+           // alert("Concept note ID not found. Please check and try again.");
             return;
         }
 
@@ -1425,6 +1681,8 @@ if (this.checked) {
             const result = await response.json();
             if (result.status== "success") {
                 sendApprovalEmail();
+                const data = getUserAndConceptNote();
+                saveApproveMetadata(data.user_id, data.concept_note_id);
                 //toastr.success('Success!', 'Concept Note Approved Successfully!');
                 showApprovedSuccessModal();
             } else {
@@ -1465,7 +1723,7 @@ if (this.checked) {
         const conceptNoteId = localStorage.getItem("concept_note_id");
         if (!conceptNoteId) {
             console.error("Concept note ID not found in local storage.");
-            alert("Concept note ID not found. Please check and try again.");
+            //alert("Concept note ID not found. Please check and try again.");
             return;
         }
         $(modal).modal('show'); // Show the modal
@@ -1477,7 +1735,7 @@ if (this.checked) {
         const userId = getUserIdFromCookie();
         if (!conceptNoteId || !userId) {
             console.error("Concept note ID or user ID not found.");
-            alert("Required data missing. Please check and try again.");
+           // alert("Required data missing. Please check and try again.");
             return;
         }
 
@@ -1557,6 +1815,9 @@ if (this.checked) {
                 const postResult = await postResponse.json();
                 if (postResult.status== "success") {
                     sendReviseEmail();
+
+                    const data = getUserAndConceptNote();
+                    saveReviseMetadata(data.user_id, data.concept_note_id);
                     //toastr.success('Success!', 'Concept Note Revised Successfully!');
                     showReviseSuccessModal();
                 } else {
@@ -1698,6 +1959,8 @@ if (this.checked) {
                     const postResult = await postResponse.json();
                     if (postResult.status== "success") {
                         sendDeclineEmail();
+                        const data = getUserAndConceptNote();
+                        saveDeclinedMetadata(data.user_id, data.concept_note_id);
                         //toastr.success('Success!', 'Concept Note Declined Successfully!');
                         showDeclineSuccessModal();
                     } else {
@@ -1720,6 +1983,119 @@ if (this.checked) {
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to get URL parameter by name
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+  
+      // Get the concept-note-id from the URL
+      const conceptNoteId = getUrlParameter('concept-note-id');
+  
+      if (!conceptNoteId) {
+        console.warn("Concept Note ID not found in URL.");
+        return;
+      }
+  
+      // Select the buttons
+      const viewFinanceBtn = document.getElementById("view-finance-detail-btn");
+      const createFinanceBtn = document.getElementById("create-finance-detail-btn");
+  
+      // API Endpoint
+      const apiUrl = `/forms-processing/api/short-concept-note-finance-details-api.php?form_id=${conceptNoteId}`;
+  
+      // Fetch data from the API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            // If data exists, hide create-finance-detail-btn
+            createFinanceBtn.style.setProperty("display", "none", "important");
+          } else {
+            // If no data, hide view-finance-detail-btn
+            viewFinanceBtn.style.setProperty("display", "none", "important");
+          }
+        })
+        .catch(error => console.error("API request failed:", error));
+    });
+  </script>
+
+  <script>
+
+document.addEventListener("DOMContentLoaded", async function () {
+    console.log("------------++---------------");
+
+    // Function to get URL parameter by name
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Obtain concept_note_id from URL
+    let conceptNoteId = getUrlParameter("concept-note-id");
+    console.log(conceptNoteId, "here");
+    if (!conceptNoteId) return;
+
+    let noteData = null; // Declare noteData outside so it's accessible later
+
+    try {
+        // Fetch short-concept-note-api data
+        let response = await fetch(`/forms-processing/api/short-concept-note-api.php?concept_note_id=${conceptNoteId}`);
+        let jsonData = await response.json();
+
+        if (jsonData.status == "success" && jsonData.data.length > 0) {
+            noteData = jsonData.data[0]; // Assign to declared variable
+            let { pending, approved, overdue, revise, declined } = noteData;
+
+            let statusTextElement = document.getElementById("status-text");
+            if (statusTextElement && (pending == "1" || approved == "1" || overdue == "1" || revise == "1" || declined == "1")) {
+                let status =
+                    pending == "1"
+                        ? "Pending"
+                        : approved == "1"
+                        ? "Approved"
+                        : overdue == "1"
+                        ? "Overdue"
+                        : revise == "1"
+                        ? "Revise"
+                        : "Declined";
+                statusTextElement.textContent = `Status: ${status}`;
+            }
+        }
+
+        // Fetch metadata API
+        let metadataResponse = await fetch(`/forms-processing/api/short-concept-note-metadata-api.php?concept_note_id=${conceptNoteId}`);
+        let metadata = await metadataResponse.json();
+
+        let modifiedTextElement = document.getElementById("modified-text");
+        if (metadata.length == 0) {
+            if (modifiedTextElement) modifiedTextElement.style.display = "none";
+        } else if (noteData) { // Ensure noteData is not null before using it
+            let statusField = ["approve", "revise", "declined"].find(field => noteData[field] == "1");
+            if (statusField && metadata[0][statusField]) {
+                let userId = metadata[0][statusField];
+
+                // Fetch user data
+                let userResponse = await fetch(`/forms-processing/api/users-api.php?user_id=${userId}`);
+                let userData = await userResponse.json();
+                if (userData.status == "success" && userData.data.length > 0) {
+                    let username = userData.data[0].username;
+                    if (modifiedTextElement) {
+                        modifiedTextElement.textContent = `Last modified by ${username}`;
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Error fetching the data:", error);
+    }
+});
+
+
+  </script>
+  
 
 </body>
 
